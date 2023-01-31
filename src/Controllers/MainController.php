@@ -4,7 +4,8 @@ namespace Eshop\Controllers;
 
 class MainController
 {
-	public function mainAction(){
+	public function mainAction(): string
+	{
 		return "main page";
 	}
 }

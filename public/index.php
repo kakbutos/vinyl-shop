@@ -1,2 +1,6 @@
 <?php
-echo '<h1>Hello world</h1>';
+
+require_once '../boot.php';
+
+$app = new Eshop\Application();
+$app->run();

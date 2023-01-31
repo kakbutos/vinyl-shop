@@ -4,7 +4,8 @@ namespace Eshop\Controllers;
 
 class ProductController
 {
-	public function detailsAction(string $id){
+	public function detailsAction(string $id): string
+	{
 		return "product page $id";
 	}
 }
