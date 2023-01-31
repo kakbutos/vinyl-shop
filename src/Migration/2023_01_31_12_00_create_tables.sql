@@ -56,5 +56,6 @@ CREATE TABLE `order`
 	CUSTOMER_EMAIL varchar(200) not null,
 	CUSTOMER_PHONE varchar(20) not null,
 	COMMENT text,
-	STATUS VARCHAR(100) not null
+	STATUS VARCHAR(100) not null,
+	PRIMARY KEY (ID)
 );
