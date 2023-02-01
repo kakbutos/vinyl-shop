@@ -11,10 +11,10 @@ class Config {
 
 		if ($config === null)
 		{
-			$masterConfig = require_once __DIR__ . '/config.php';
-			if (file_exists(__DIR__ . '/config.local.php'))
+			$masterConfig = require_once ROOT . 'config/config.php';
+			if (file_exists(ROOT . 'config/config.local.php'))
 			{
-				$localConfig = require __DIR__ . '/config.local.php';
+				$localConfig = require ROOT . 'config/config.local.php';
 			}
 			else
 			{
