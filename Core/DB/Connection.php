@@ -17,7 +17,7 @@ class Connection
 	 */
 	private function __construct()
 	{
-		$config = new \Eshop\Config\Config;
+		$config = new \Eshop\Core\Config\Config();
 		$this->createConnection(
 			$config::option('DB_HOST'),
 			$config::option('DB_USER'),
