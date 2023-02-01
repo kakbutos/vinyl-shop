@@ -19,10 +19,10 @@ class Connection
 	{
 		$config = new \Eshop\Config\Config;
 		$this->createConnection(
-			$config->option('DB_HOST'),
-			$config->option('DB_USER'),
-			$config->option('DB_PASSWORD'),
-			$config->option('DB_NAME')
+			$config::option('DB_HOST'),
+			$config::option('DB_USER'),
+			$config::option('DB_PASSWORD'),
+			$config::option('DB_NAME')
 		);
 	}
 
