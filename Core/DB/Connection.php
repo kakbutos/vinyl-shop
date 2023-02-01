@@ -2,18 +2,37 @@
 
 namespace Eshop\Core\DB;
 
-use Exception;
+use Exception, mysqli;
 
 class Connection
 {
+	private static $instance = null;
 	/**
-	 * @var false | \mysqli
+	 * @var false | mysqli
 	 */
 	private $connection;
 
+	/**
+	 * @throws Exception
+	 */
 	private function __construct()
 	{
-		$this->createConnection($dbHost, $dbUser, $dbPassword, $dbName);
+		$config = new \Eshop\Config\Config;
+		$this->createConnection(
+			$config->option('DB_HOST'),
+			$config->option('DB_USER'),
+			$config->option('DB_PASSWORD'),
+			$config->option('DB_NAME')
+		);
+	}
+
+	public static function getInstance(): self
+	{
+		if (self::$instance === null)
+		{
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 
 	/**
