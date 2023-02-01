@@ -1,6 +1,6 @@
 <?php
 
-namespace Eshop\Config;
+namespace Eshop\Core\Config;
 
 use Exception;
 
@@ -11,7 +11,7 @@ class Config {
 
 		if ($config === null)
 		{
-			$masterConfig = require_once ROOT . '/config/config.php';
+			$masterConfig = require ROOT . '/config/config.php';
 			if (file_exists(ROOT . '/config/config.local.php'))
 			{
 				$localConfig = require ROOT . '/config/config.local.php';
