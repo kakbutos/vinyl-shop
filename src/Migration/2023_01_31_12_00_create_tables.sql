@@ -30,7 +30,7 @@ CREATE TABLE user
 
 CREATE TABLE status
 (
-	ID VARCHAR(4),
+	ID VARCHAR(3),
 	NAME varchar(100) not null,
 	DESCRIPTION varchar(300),
 	PRIMARY KEY (ID)
@@ -41,8 +41,8 @@ CREATE TABLE product
 	ID int not null auto_increment,
 	NAME varchar(200) not null,
 	TRACKS text not null,
-	VINYL_STATUS_ID VARCHAR(30) not null,
-	COVER_STATUS VARCHAR(30) not null,
+	VINYL_STATUS_ID VARCHAR(50) not null,
+	COVER_STATUS VARCHAR(50) not null,
 	PRICE DOUBLE not null,
 	SORT_ORDER INT,
 	RELEASE_DATE YEAR not null,
