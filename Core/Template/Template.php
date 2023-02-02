@@ -1,5 +1,7 @@
 <?php
 
+namespace Eshop\Core\Template;
+
 class Template
 {
 	/**
