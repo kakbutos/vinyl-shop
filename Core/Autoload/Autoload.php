@@ -1,6 +1,6 @@
 <?php
 
-namespace Eshop\Autoload;
+namespace Eshop\Core\Autoload;
 
 /**
  * An example of a general-purpose implementation that includes the optional
