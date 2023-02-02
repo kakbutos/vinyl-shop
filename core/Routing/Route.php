@@ -1,6 +1,6 @@
 <?php
 
-namespace Eshop\core\Routing;
+namespace Eshop\Core\Routing;
 
 class Route
 {

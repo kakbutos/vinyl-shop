@@ -1,12 +1,18 @@
 <?php
 
-namespace Eshop\Template;
-
 class Template
 {
+	/**
+	 * Локация шаблона
+	 *
+	 * @var string
+	 */
 	public $folder;
 
-	function _construct($folder = null)
+	/*
+	 * Определить при создании папку с шаблонами
+	 */
+	function __construct($folder = null)
 	{
 		if ($folder)
 		{
@@ -14,11 +20,18 @@ class Template
 		}
 	}
 
+	/*
+	 * Позволяет в случае чего поменять папку для шаблонов
+	 */
 	function set_folder($folder)
 	{
 		$this->folder = rtrim($folder, '/');
 	}
 
+	/*
+	 * принимает в $suggestions необходимый нам шаблон
+	 * и нужные для него данные в качестве второго параметра.
+	 */
 	function render($suggestions, $variables = [])
 	{
 		$template = $this->find_template($suggestions);
@@ -30,6 +43,12 @@ class Template
 		return $output;
 	}
 
+	/*
+	 * Функция для поиска шаблона
+	 *
+	 * @param $suggestions
+	 * @return bool|string
+	 */
 	function find_template($suggestions)
 	{
 		if (!in_array($suggestions))
@@ -50,6 +69,10 @@ class Template
 		return $found;
 	}
 
+	/*
+	 * Закидываем все в буффер и по окончанию
+	 * возвращаем контент, который надо отобразить
+	 */
 	function render_template($template, $variables)
 	{
 		ob_start();
