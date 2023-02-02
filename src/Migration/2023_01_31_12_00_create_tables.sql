@@ -33,7 +33,7 @@ CREATE TABLE status
 (
 	ID VARCHAR(4),
 	NAME varchar(100) not null,
-	DESCRIPTION varchar(100),
+	DESCRIPTION varchar(300),
 	PRIMARY KEY (ID)
 );
 
