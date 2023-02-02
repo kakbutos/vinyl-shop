@@ -25,7 +25,6 @@ CREATE TABLE user
 	ID int not null auto_increment,
 	EMAIL varchar(100) not null,
 	PASSWORD varchar(100) not null,
-	LOGIN varchar(100) not null,
 	PRIMARY KEY (ID)
 );
 
