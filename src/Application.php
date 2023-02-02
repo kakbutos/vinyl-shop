@@ -2,12 +2,18 @@
 
 namespace Eshop;
 
+use Eshop\Core\Config\Config;
+use Eshop\Core\DB\Migrator;
 use Eshop\core\Routing\Router;
 
 class Application
 {
-	public function run()
+	public function run(): void
 	{
+		if (Config::option('MIGRATOR_MODE') === 'dev')
+		{
+			Migrator::migrate();
+		}
 		$route = Router::findRoute($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
 		if ($route)
