@@ -8,9 +8,9 @@ class MainController
 {
 	public function mainAction(): void
 	{
-		$render = new Template('/src/Views');
-		$render->render('layout', [
-			'1' => 'asd',
+		$render = new Template('../src/Views');
+		print $render->render('layout', [
+			'header' => $render->render('/components/header', []),
 			]);
 	}
 }

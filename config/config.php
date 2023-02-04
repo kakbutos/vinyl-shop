@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'MIGRATOR_MODE' => 'dev',
+	'MIGRATOR_MODE' => '',
 	'DB_HOST' => '',
 	'DB_USER' => '',
 	'DB_PASSWORD' => '',
