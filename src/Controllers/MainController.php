@@ -2,10 +2,13 @@
 
 namespace Eshop\Controllers;
 
+use Eshop\Core\Template\Template;
+
 class MainController
 {
-	public function mainAction(): string
+	public function mainAction()
 	{
-		return "main page";
+		$render = new Template('src/Views/');
+		$render->render('layout');
 	}
 }
