@@ -53,7 +53,7 @@ class Template
 	 */
 	function find_template($suggestions)
 	{
-		if (!in_array($suggestions))
+		if (!is_array($suggestions))
 		{
 			$suggestions = [$suggestions];
 		}
@@ -61,7 +61,8 @@ class Template
 		$found = false;
 		foreach ($suggestions as $suggestion)
 		{
-			$file = "{$this->folder}/{$suggestions}.php";
+			$file = "{$this->folder}/{$suggestion}.php";
+			var_dump($file);
 			if (file_exists($file))
 			{
 				$found = $file;
