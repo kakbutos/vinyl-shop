@@ -53,7 +53,7 @@ class Template
 	 */
 	function find_template($suggestions)
 	{
-		if (!in_array($suggestions))
+		if (!is_array($suggestions))
 		{
 			$suggestions = [$suggestions];
 		}
