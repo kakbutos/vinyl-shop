@@ -1,6 +1,6 @@
 <?php
 
-namespace Eshop\models;
+namespace Eshop\src\Models;
 
 use Exception;
 

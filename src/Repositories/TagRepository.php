@@ -1,9 +1,9 @@
 <?php
 
-namespace Eshop\Repository;
+namespace Eshop\src\Repositories;
 
 use Eshop\Core\DB\Connection;
-use Eshop\models\Tag;
+use Eshop\src\Models\Tag;
 use Exception;
 
 class TagRepository
