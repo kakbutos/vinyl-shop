@@ -6,7 +6,7 @@
 
 	<a class="product-card" href="">
 		<div class="product-card-image-container">
-			<img src="/img/va-euphoria-season-2-an-hbo-original-series-soundtrack.png" alt="">
+			<img src="/assets/img/va-euphoria-season-2-an-hbo-original-series-soundtrack.png" alt="">
 		</div>
 		<div class="product-card-info">
 			<div class="product-card-name-container">
@@ -23,7 +23,7 @@
 
 	<a class="product-card" href="">
 		<div class="product-card-image-container">
-			<img src="/img/va-moloko-plus!.jpg" alt="">
+			<img src="/assets/img/va-moloko-plus!.jpg" alt="">
 		</div>
 		<div class="product-card-info">
 			<div class="product-card-name-container">
@@ -40,7 +40,7 @@
 
 	<a class="product-card" href="">
 		<div class="product-card-image-container">
-			<img src="/img/va-black-music.jpg" alt="">
+			<img src="/assets/img/va-black-music.jpg" alt="">
 		</div>
 		<div class="product-card-info">
 			<div class="product-card-name-container">
@@ -57,7 +57,7 @@
 
 	<a class="product-card" href="">
 		<div class="product-card-image-container">
-			<img src="/img/va-raj-kapoor-60th.-birthday-commemorative-album.jpg" alt="">
+			<img src="/assets/img/va-raj-kapoor-60th.-birthday-commemorative-album.jpg" alt="">
 		</div>
 		<div class="product-card-info">
 			<div class="product-card-name-container">
@@ -74,7 +74,7 @@
 
 	<a class="product-card" href="">
 		<div class="product-card-image-container">
-			<img src="/img/va-raj-kapoor-60th.-birthday-commemorative-album.jpg" alt="">
+			<img src="/assets/img/va-raj-kapoor-60th.-birthday-commemorative-album.jpg" alt="">
 		</div>
 		<div class="product-card-info">
 			<div class="product-card-name-container">
@@ -91,7 +91,7 @@
 
 	<a class="product-card" href="">
 		<div class="product-card-image-container">
-			<img src="/img/va-moloko-plus!.jpg" alt="">
+			<img src="/assets/img/va-moloko-plus!.jpg" alt="">
 		</div>
 		<div class="product-card-info">
 			<div class="product-card-name-container">
