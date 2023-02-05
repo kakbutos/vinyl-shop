@@ -34,12 +34,16 @@ class Template
 	 * принимает в $suggestions необходимый нам шаблон
 	 * и нужные для него данные в качестве второго параметра.
 	 */
-	function render( $suggestions, $variables = array() ){
-		$template = $this->find_template( $suggestions );
+	function render($suggestions, $variables = [])
+	{
+		$template = $this->find_template($suggestions);
 		$output = '';
-		if ( $template ){
-			$output = $this->render_template( $template, $variables );
+
+		if ($template)
+		{
+			$output = $this->render_template($template, $variables);
 		}
+
 		return $output;
 	}
 
@@ -49,19 +53,25 @@ class Template
 	 * @param $suggestions
 	 * @return bool|string
 	 */
-	function find_template( $suggestions ){
-		if ( !is_array( $suggestions ) ) {
-			$suggestions = array( $suggestions );
+	function find_template($suggestions)
+	{
+		if (!is_array($suggestions))
+		{
+			$suggestions = [$suggestions];
 		}
-		$suggestions = array_reverse( $suggestions );
+		$suggestions = array_reverse($suggestions);
 		$found = false;
-		foreach( $suggestions as $suggestion ){
+
+		foreach ($suggestions as $suggestion)
+		{
 			$file = "{$this->folder}/{$suggestion}.php";
-			if ( file_exists( $file ) ){
+			if (file_exists($file))
+			{
 				$found = $file;
 				break;
 			}
 		}
+
 		return $found;
 	}
 
@@ -69,11 +79,15 @@ class Template
 	 * Закидываем все в буффер и по окончанию
 	 * возвращаем контент, который надо отобразить
 	 */
-	function render_template( /*$template, $variables*/ ){
+	function render_template( /*$template, $variables*/)
+	{
 		ob_start();
-		foreach ( func_get_args()[1] as $key => $value) {
+
+		foreach (func_get_args()[1] as $key => $value)
+		{
 			${$key} = $value;
 		}
+
 		include func_get_args()[0];
 		return ob_get_clean();
 	}
