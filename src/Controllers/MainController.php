@@ -11,6 +11,9 @@ class MainController
 		$render = new Template('../src/Views');
 		print $render->render('layout', [
 			'header' => $render->render('/components/header', []),
+			'sidebar' => $render->render('/components/sidebar', []),
+			'pagination' => $render->render('/components/pagination', []),
+			'mainPage' => $render->render('/public/main', []),
 			]);
 	}
 }
