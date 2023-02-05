@@ -37,11 +37,13 @@ class Template
 	function render($suggestions, $variables = [])
 	{
 		$template = $this->find_template($suggestions);
-		$output = "";
+		$output = '';
+
 		if ($template)
 		{
 			$output = $this->render_template($template, $variables);
 		}
+
 		return $output;
 	}
 
@@ -59,15 +61,17 @@ class Template
 		}
 		$suggestions = array_reverse($suggestions);
 		$found = false;
+
 		foreach ($suggestions as $suggestion)
 		{
-			$file = "{$this->folder}/{$suggestions}.php";
+			$file = "{$this->folder}/{$suggestion}.php";
 			if (file_exists($file))
 			{
 				$found = $file;
 				break;
 			}
 		}
+
 		return $found;
 	}
 
@@ -75,13 +79,15 @@ class Template
 	 * Закидываем все в буффер и по окончанию
 	 * возвращаем контент, который надо отобразить
 	 */
-	function render_template($template, $variables)
+	function render_template( /*$template, $variables*/)
 	{
 		ob_start();
+
 		foreach (func_get_args()[1] as $key => $value)
 		{
 			${$key} = $value;
 		}
+
 		include func_get_args()[0];
 		return ob_get_clean();
 	}
