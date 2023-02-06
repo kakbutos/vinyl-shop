@@ -13,11 +13,9 @@ class Tag
 	 * @throws Exception
 	 */
 	public function __construct (
-		string $title,
-		?string $id = null
+		string $title
 	)
 	{
-		$this->id = $id ?? uniqid('', false);
 		$this->setTitle($title);
 	}
 
