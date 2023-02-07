@@ -3,7 +3,7 @@
  * @var string $header
  * @var string $sidebar
  * @var string $pagination
- * @var string $mainPage
+ * @var string $content
  */
 ?>
 <!DOCTYPE html>
@@ -24,12 +24,7 @@
 			<?=$sidebar?>
 
 			<div class="content">
-
-				<?=$mainPage?>
-
-				<div class="centrator">
-					<?=$pagination?>
-				</div>
+				<?=$content?>
 			</div>
 		</div>
 	</div>

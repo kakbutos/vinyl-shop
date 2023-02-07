@@ -2,6 +2,10 @@
 
 use Eshop\core\Routing\Router;
 
-Router::get('/', [new Eshop\Controllers\MainController(), 'mainAction']);
+Router::get('/', [new Eshop\Controllers\MainController(), 'catalog']);
 
-Router::get('/product/:id/', [new Eshop\Controllers\ProductController(), 'detailsAction']);
+Router::get('/product/:id/', [new Eshop\Controllers\ProductController(), 'detail']);
+
+Router::get('/tag/:id/', [new Eshop\Controllers\MainController(), 'catalogByTag']);
+
+Router::get('/find', [new Eshop\Controllers\MainController(), 'catalogBySearch']);
