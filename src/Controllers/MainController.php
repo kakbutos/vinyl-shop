@@ -13,11 +13,12 @@ class MainController
 	{
 		$items = MainService::getProductList();
 		$images = MainService::getImageList();
+		$tags = MainService::getTagsList();
 
 		$render = new Template('../src/Views');
 		print $render->render('layout', [
 			'header' => $render->render('/components/header', []),
-			'sidebar' => $render->render('/components/sidebar', []),
+			'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
 			'pagination' => $render->render('/components/pagination', []),
 			'mainPage' => $render->render('/public/main', ['items' => $items, 'images' => $images]),
 			]);
