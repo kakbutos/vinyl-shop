@@ -1,18 +1,13 @@
 <?php
-
+/**
+ * @var array $tags
+ */
 ?>
 
 <div class="side-bar">
-	<a href="" class="category-button">
-		Категория 1
-	</a>
-	<a href="" class="category-button">
-		Категория 2
-	</a>
-	<a href="" class="category-button">
-		Категория 3
-	</a>
-	<a href="" class="category-button">
-		Lorem ipsum dolor sit
-	</a>
+	<?php foreach ($tags as $tag):?>
+		<a href="" class="category-button">
+			<?= $tag->getTitle() ?>
+		</a>
+	<?php endforeach;?>
 </div>
