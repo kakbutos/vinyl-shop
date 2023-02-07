@@ -40,8 +40,7 @@ class Migrator
 		// Проверяем есть ли таблица с миграциями
 		$query = sprintf('show tables from %s like %s', Config::option('DB_NAME'), self::$tableMigrateName);
 		$data = $connection->query($query);
-		$firstMigration = !$data->num_rows;
-		if ($firstMigration)
+		if (!$data)
 		{
 			return $allFiles;
 		}
