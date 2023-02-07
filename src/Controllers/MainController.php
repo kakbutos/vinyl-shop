@@ -3,24 +3,23 @@
 namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
-use Eshop\src\Repositories\TagRepository;
-use Exception;
+use Eshop\src\Repositories\ImageRepository;
+use Eshop\src\Repositories\ProductRepository;
+use Eshop\src\Service\MainService;
 
 class MainController
 {
-	/**
-	 * @throws Exception
-	 */
 	public function mainAction(): void
 	{
-		$tags = (new TagRepository())->getList();
+		$items = MainService::getProductList();
+		$images = MainService::getImageList();
 
 		$render = new Template('../src/Views');
 		print $render->render('layout', [
 			'header' => $render->render('/components/header', []),
-			'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
+			'sidebar' => $render->render('/components/sidebar', []),
 			'pagination' => $render->render('/components/pagination', []),
-			'mainPage' => $render->render('/public/main', []),
+			'mainPage' => $render->render('/public/main', ['items' => $items, 'images' => $images]),
 			]);
 	}
 }
