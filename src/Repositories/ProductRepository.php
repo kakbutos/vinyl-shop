@@ -1,4 +1,5 @@
 <?php
+
 namespace Eshop\src\Repositories;
 
 use Eshop\Core\DB\Connection;
@@ -14,9 +15,11 @@ class ProductRepository
 	public function getList(int $tag = null, string $search = "", int $page = null)
 	{
 		$connection = Connection::getInstance()->getConnection();
+		$code = mysqli_real_escape_string($connection, $search);
 		//todo сократить общие части
 		//просто каталог
-		if ($tag === null && $search === ""){
+		if ($tag === null && $search === "")
+		{
 			$Query = mysqli_query($connection, "
 				SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, i.PATH, a.NAME as ARTIST  FROM product p
 				JOIN artist a on p.ARTIST_ID = a.ID
@@ -26,7 +29,8 @@ class ProductRepository
 			");
 		}
 		//поиск по каталогу
-		elseif ($search != null && $search != ""){
+		elseif ($search != null && $search != "")
+		{
 			$Query = mysqli_query($connection, "
 				SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, i.PATH, a.NAME as ARTIST  FROM product p
 				JOIN artist a on p.ARTIST_ID = a.ID
@@ -37,7 +41,8 @@ class ProductRepository
 			");
 		}
 		//каталог по тегу
-		else{
+		else
+		{
 			$Query = mysqli_query($connection, "
 				SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, i.PATH, a.NAME as ARTIST  FROM product p
 				JOIN artist a on p.ARTIST_ID = a.ID
@@ -47,7 +52,6 @@ class ProductRepository
 				where i.IS_MAIN = 1 and pt.TAG_ID = $tag
 			");
 		}
-
 
 		if (!$Query)
 		{
@@ -75,12 +79,12 @@ class ProductRepository
 		return $productsList;
 	}
 
-	public function getListByTag(int $id){
-
+	public function getListByTag(int $id)
+	{
 	}
 
-	public function getProductById(int $id){
-
+	public function getProductById(int $id)
+	{
 		$connection = Connection::getInstance()->getConnection();
 
 		$Query = mysqli_query($connection, "
@@ -95,7 +99,8 @@ class ProductRepository
 		}
 
 		$imageList = [];
-		while ($row = mysqli_fetch_assoc($Query)){
+		while ($row = mysqli_fetch_assoc($Query))
+		{
 			$imageList[] = new Image(
 				$row['ID'],
 				$row['PATH'],
