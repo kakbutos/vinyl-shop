@@ -3,12 +3,11 @@
 namespace Eshop\src\Models;
 
 use Exception;
-use mysql_xdevapi\SqlStatementResult;
 
 class Order
 {
 	private string $orderId;
-	private string $productId;
+	private array $productId;
 	private \DateTime $createdAt;
 	private string $customerName;
 	private string $customerEmail;
@@ -20,10 +19,12 @@ class Order
 	 * @throws Exception
 	 */
 	public function __construct(
-		string $productId,
+		array $productId,
 		string $customerName,
 		string $customerEmail,
 		string $customerPhone,
+		?string $comment,
+		string $status = 'CREATE',
 		?\DateTime $createdAt = null
 	)
 	{
@@ -32,6 +33,8 @@ class Order
 		$this->setCustomerName($customerName);
 		$this->setCustomerEmail($customerEmail);
 		$this->setCustomerPhone($customerPhone);
+		$this->setComment($comment);
+		$this->setStatus($status);
 	}
 
 	/**
@@ -76,7 +79,18 @@ class Order
 		$this->customerPhone = $customerPhone;
 	}
 
-	public function getProductId(): string
+	public function setComment($comment): void
+	{
+		$comment = trim($comment);
+		$this->comment = $comment;
+	}
+
+	public function setStatus($status): void
+	{
+		$this->status = $status;
+	}
+
+	public function getProductId(): array
 	{
 		return $this->productId;
 	}
@@ -101,5 +115,13 @@ class Order
 		return $this->customerPhone;
 	}
 
+	public function getComment(): string
+	{
+		return $this->comment;
+	}
 
+	public function getStatus(): string
+	{
+		return $this->status;
+	}
 }
