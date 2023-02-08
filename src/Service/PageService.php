@@ -10,7 +10,7 @@ class PageService
 		{
 			if (strpos($item, 'B1') === 0)
 			{
-				return [array_slice($tracks, 0, $i-1), array_slice($tracks, $i)];
+				return [array_slice($tracks, 0, $i), array_slice($tracks, $i)];
 			}
 		}
 
