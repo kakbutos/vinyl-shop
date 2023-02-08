@@ -4,6 +4,7 @@ namespace Eshop\src\Service;
 
 class PageService
 {
+	// Разделение треков по сторонам пластинки
 	public static function formatTrackForDetailPage(array $tracks):array
 	{
 		foreach ($tracks as $i => $item)
