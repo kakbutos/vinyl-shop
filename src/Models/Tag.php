@@ -13,9 +13,11 @@ class Tag
 	 * @throws Exception
 	 */
 	public function __construct (
+		string $id,
 		string $title
 	)
 	{
+		$this->id = $id;
 		$this->setTitle($title);
 	}
 
