@@ -10,29 +10,8 @@ use Eshop\src\Service\MainService;
 class MainController
 {
 
-	//todo сократить в одну функцию
-	public function catalog(): string
+	public function render_catalog($items, $tags)
 	{
-		$items = MainService::getProductList();
-		$tags = MainService::getTagsList();
-
-		$render = new Template('../src/Views');
-		return $render->render('layout', [
-			'header' => $render->render('/components/header', []),
-			'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
-			'content' => $render->render('/public/main', [
-				'pagination' => $render->render('/components/pagination', []),
-				'items' => $items
-			])
-		]);
-	}
-
-	public function catalogByTag($tag): string
-	{
-		$items = MainService::getProductList($tag);
-
-		$tags = MainService::getTagsList();
-
 		$render = new Template('../src/Views');
 		return $render->render('layout', [
 			'header' => $render->render('/components/header', []),
@@ -42,24 +21,32 @@ class MainController
 				'items' => $items,
 			]),
 		]);
-
 	}
 
-	public function catalogBySearch(): string{
+	public function catalog(): string
+	{
+		$items = MainService::getProductList();
+		$tags = MainService::getTagsList();
+
+		return $this->render_catalog($items, $tags);
+	}
+
+	public function catalogByTag($tag): string
+	{
+		$items = MainService::getProductList($tag);
+		$tags = MainService::getTagsList();
+
+		return $this->render_catalog($items, $tags);
+	}
+
+	public function catalogBySearch(): string
+	{
 		{
 			$search = $_GET['search-string'] ?? "";
 			$items = MainService::getProductList(null, $search);
 			$tags = MainService::getTagsList();
 
-			$render = new Template('../src/Views');
-			return $render->render('layout', [
-				'header' => $render->render('/components/header', []),
-				'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
-				'content' => $render->render('/public/main', [
-					'pagination' => $render->render('/components/pagination', []),
-					'items' => $items,
-				]),
-			]);
+			return $this->render_catalog($items, $tags);
 		}
 	}
 }

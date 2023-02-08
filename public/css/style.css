@@ -257,6 +257,20 @@ body{
 	font-size: 30px;
 	max-width: 50%;
 }
+
+.product-detail-line-property-tracks-list
+{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10px;
+}
+
+.product-detail-line-property-tracks
+{
+	font-size: 20px;
+	margin-left: 20px;
+	margin-bottom: 4px;
+}
 .product-detail-desk-container{
 	width: 100%;
 	margin-top: 15px;
