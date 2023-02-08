@@ -25,7 +25,10 @@ class TagRepository extends Repository
 
 		while ($row = mysqli_fetch_assoc($queryResult))
 		{
-			$tags[] = new Tag($row['NAME'], $row['ID']);
+			$tags[] = new Tag(
+				$row['NAME'],
+				$row['ID']
+			);
 		}
 
 		return $tags;

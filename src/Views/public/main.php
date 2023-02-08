@@ -2,6 +2,7 @@
 /**
  * @var array $items
  * @var array $images
+ * @var string $pagination
  */
 $path = '';
 
@@ -9,13 +10,10 @@ $path = '';
 
 <div class="products-list">
 	<?php foreach ($items as $item):?>
-	<a class="product-card" href="">
+	<a class="product-card" href="/product/<?=$item->getId() ?>/">
 		<div class="product-card-image-container">
-			<?php foreach ($images as $image)
-			{
-				if ($image->getProductId() === $item->getId()){$path = $image->getPath();}
-			} ?>
-			<img src="/assets/img/<?=$path?>" alt="">
+
+			<img src="/assets/img/<?=$item->getImageList()[0]->getPath() ?>" alt="">
 		</div>
 		<div class="product-card-info">
 			<div class="product-card-name-container">
@@ -30,4 +28,7 @@ $path = '';
 		</div>
 	</a>
 	<?php endforeach; ?>
+</div>
+<div class="centrator">
+	<?=$pagination?>
 </div>

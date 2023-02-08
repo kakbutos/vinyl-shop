@@ -2,10 +2,24 @@
 
 namespace Eshop\Controllers;
 
+use Eshop\Core\Template\Template;
+use Eshop\src\Repositories\ImageRepository;
+use Eshop\src\Repositories\ProductRepository;
+use Eshop\src\Service\MainService;
+use Eshop\src\Service\ProductService;
+
 class ProductController
 {
-	public function detailsAction(string $id): string
+	public function detail(string $id): string
 	{
-		return "product page $id";
+		$tags = MainService::getTagsList();
+		$product = ProductService::getProductById($id);
+
+		$render = new Template('../src/Views');
+		return $render->render('layout', [
+			'header' => $render->render('/components/header', []),
+			'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
+			'content' => $render->render('/public/product',['product' => $product]),
+		]);
 	}
 }

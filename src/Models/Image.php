@@ -8,9 +8,9 @@ class Image
 {
 	private int $productId;
 	private string $path;
-	private string $isMain;
+	private bool $isMain;
 
-	public function __construct (int $productId, string $path, string $isMain)
+	public function __construct (int $productId, string $path, bool $isMain)
 	{
 		$this->productId = $productId;
 		$this->path = $path;
@@ -27,7 +27,7 @@ class Image
 		return $this->path;
 	}
 
-	public function getIsMain(): string
+	public function IsMain(): bool
 	{
 		return $this->isMain;
 	}

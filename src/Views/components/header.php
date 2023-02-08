@@ -4,14 +4,14 @@
 
 <div class="header">
 	<div class="logo-container">
-		<a href="" class="logo-link">
+		<a href="/" class="logo-link">
 			<img src="/assets/icon/vinil.png" alt="/">
 			<span>4Vinil</span>
 		</a>
 	</div>
 	<div class="search-container">
-		<form action="findx" class="search-form" >
-			<input type="text" class="search-input" placeholder="найти">
+		<form action="/find" class="search-form" >
+			<input type="text" name="search-string" class="search-input" placeholder="найти">
 		</form>
 	</div>
 	<div class="additional-header-container">
