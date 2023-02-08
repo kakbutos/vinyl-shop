@@ -1,0 +1,19 @@
+<?php
+
+namespace Eshop\src\Service;
+
+class PageService
+{
+	public static function formatTrackForDetailPage(array $tracks):array
+	{
+		foreach ($tracks as $i => $item)
+		{
+			if (strpos($item, 'B1') === 0)
+			{
+				return [array_slice($tracks, 0, $i-1), array_slice($tracks, $i)];
+			}
+		}
+
+		return [];
+	}
+}

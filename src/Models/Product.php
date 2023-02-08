@@ -10,12 +10,16 @@ class Product
 	private string $name;
 	private string $artist;
 	private string $releaseDate;
-	private string $price;
+	private float $price;
 	private array $imageList;
+	private ?string $vinylStatus;
+	private ?string $coverStatus;
+	private ?array $tracks;
 	/**
 	 * @throws Exception
 	 */
-	public function __construct (int $id, string $name, string $artist, string $releaseDate, float $price, array $imageList = [])
+	public function __construct (int $id, string $name, string $artist, string $releaseDate,
+		 float $price, array $imageList = [], ?string $vinylStatus = null, ?string $coverStatus = null, ?array $tracks = null)
 	{
 		$this->id = $id;
 		$this->name = $name;
@@ -23,6 +27,9 @@ class Product
 		$this->releaseDate = $releaseDate;
 		$this->price = $price;
 		$this->imageList = $imageList;
+		$this->vinylStatus = $vinylStatus;
+		$this->coverStatus = $coverStatus;
+		$this->tracks = $tracks;
 	}
 
 	public function getId(): int
@@ -62,7 +69,7 @@ class Product
 		$this->releaseDate = $releaseDate;
 	}
 
-	public function getPrice(): string
+	public function getPrice(): float
 	{
 		return $this->price;
 	}
@@ -78,4 +85,36 @@ class Product
 	public function setImageList($imageList):void{
 		$this->imageList = $imageList;
 	}
+
+	public function getVinylStatus(): string
+	{
+		return $this->vinylStatus;
+	}
+
+	public function setVinylStatus(string $vinylStatus): void
+	{
+		$this->vinylStatus = $vinylStatus;
+	}
+
+	public function getCoverStatus(): string
+	{
+		return $this->coverStatus;
+	}
+
+	public function setCoverStatus(string $coverStatus): void
+	{
+		$this->coverStatus = $coverStatus;
+	}
+
+	public function getTracks(): array
+	{
+		return $this->tracks;
+	}
+
+	public function setTracks(array $tracks): void
+	{
+		$this->tracks = $tracks;
+	}
+
+
 }
