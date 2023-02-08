@@ -1,3 +1,4 @@
+SET NAMES 'utf8' COLLATE 'utf8_general_ci';
 INSERT INTO tag (ID, NAME)
 VALUES (1, 'Классика'),
        (2, 'Рок-н-Ролл'),

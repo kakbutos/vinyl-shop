@@ -25,7 +25,10 @@ class TagRepository extends Repository
 
 		while ($row = mysqli_fetch_assoc($queryResult))
 		{
-			$tags[] = new Tag($row['NAME'], $row['ID']);
+			$tags[] = new Tag(
+				$row['ID'],
+				$row['NAME']
+			);
 		}
 
 		return $tags;
@@ -34,7 +37,7 @@ class TagRepository extends Repository
 	public function getOneById(int $id): Tag
 	{
 		// TODO: Implement getOne() method.
-		return new Tag('');
+		return new Tag('','');
 	}
 
 	public function add($entity): void
