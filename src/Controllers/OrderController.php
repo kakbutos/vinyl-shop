@@ -3,17 +3,19 @@
 namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
+use Eshop\src\Service\MainService;
+use Eshop\src\Service\ProductService;
 
 class OrderController
 {
-	public function orderAction(): void
+	public function order(string $id): string
 	{
+		$product = ProductService::getProductById($id);
+
 		$render = new Template('../src/Views');
-		print $render->render('layout', [
+		return $render->render('/public/order', [
 			'header' => $render->render('/components/header', []),
-			'sidebar' => $render->render('/components/sidebar', []),
-			'pagination' => $render->render('/components/pagination', []),
-			'mainPage' => $render->render('/public/main', []),
+			'product' => $product
 		]);
 	}
 

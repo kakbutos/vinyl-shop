@@ -102,7 +102,7 @@ use \Eshop\src\Service\PageService;
 				<div class="product-detail-buy-price">
 					<?=$product->getPrice()?>
 				</div>
-				<a href="" class="buy-button"> Купить </a>
+				<a href="/order/<?=$product->getId()?>/" class="buy-button"> Купить </a>
 			</div>
 	</div>
 </div>

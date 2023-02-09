@@ -303,7 +303,99 @@ body{
 	font-size: 25px;
 	text-decoration: none;
 }
-.buy-button:hover{
+.buy-button:hover,
+.order-button:hover{
 	background: #fe9524;
 	color: white;
+}
+
+/*----------------------------------*/
+/*Order*/
+
+.order-content {
+	padding: 25px 10px 10px 10px;
+}
+
+form {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.person-info {
+	display: flex;
+	flex-direction: column;
+}
+
+h3 {
+	text-transform: uppercase;
+	margin-bottom: 30px;
+}
+
+label {
+	margin-bottom: 5px;
+}
+
+input#email, #name, #phone, #fullname {
+	margin-bottom: 15px;
+	outline: none;
+	border: 1px solid grey;
+	height: 30px;
+	border-radius: 5px;
+	width: 100%;
+	padding-left: 10px;
+	font-size: 18px;
+}
+
+textarea {
+	outline: none;
+	border: 1px solid grey;
+	border-radius: 5px;
+	width: 100%;
+	font-size: 18px;
+}
+
+.order-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.count-price {
+	display: flex;
+	margin-top: 15px;
+	justify-content: space-between;
+}
+
+.total-price {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 20px;
+	border-bottom: 1px solid grey;
+}
+
+.product-title {
+	border-top: 1px solid gray;
+	padding-top: 20px;
+}
+
+input.order-button {
+	font-variant: all-petite-caps;
+	margin-top: 20px;
+	display: inline-block;
+	border: 1px solid #fe9524;
+	border-radius: 5px;
+	padding: 10px 25px;
+	font-size: 25px;
+	text-decoration: none;
+}
+
+input.product-count {
+	text-align: center;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
