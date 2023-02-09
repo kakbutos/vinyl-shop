@@ -1,4 +1,5 @@
 <?php
+use \Eshop\src\Service\PageService;
 /**
  * @var Product $product
  *
@@ -53,7 +54,48 @@
 				</div>
 			</div>
 
+			<div class="product-detail-line-property-container">
+				<div class="product-detail-line-property-name">
+					Качество винила:
+				</div>
+				<div class="product-detail-line-property">
+					<?=$product->getVinylStatus()?>
+				</div>
+			</div>
 
+			<div class="product-detail-line-property-container">
+				<div class="product-detail-line-property-name">
+					Качество конверта:
+				</div>
+				<div class="product-detail-line-property">
+					<?=$product->getCoverStatus()?>
+				</div>
+			</div>
+
+			<div class="product-detail-line-property-container">
+				<div class="product-detail-line-property-name">
+					Композиции:
+				</div>
+			</div>
+
+			<?php $tracks = PageService::formatTrackForDetailPage($product->getTracks())  ?>
+			<div class="product-detail-line-property-container">
+				<div class="product-detail-line-property-tracks-list">
+					<?php foreach ($tracks[0] as $item): ?>
+						<div class="product-detail-line-property-tracks">
+							<?=$item?>
+						</div>
+					<?php endforeach;?>
+				</div>
+
+				<div class="product-detail-line-property-tracks-list">
+					<?php foreach ($tracks[1] as $item): ?>
+						<div class="product-detail-line-property-tracks">
+							<?=$item?>
+						</div>
+					<?php endforeach;?>
+				</div>
+			</div>
 
 			<div class="product-detail-buy-container">
 				<div class="product-detail-buy-price">

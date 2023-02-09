@@ -56,7 +56,7 @@ class ProductRepository
 				$row['NAME'],
 				$row['ARTIST'],
 				$row['RELEASE_DATE'],
-				$row['PRICE'],
+				(float)$row['PRICE'],
 				$image
 			);
 		}
@@ -70,7 +70,7 @@ class ProductRepository
 		$Query = mysqli_query($connection, "
 			SELECT i.ID, i.PATH, i.IS_MAIN FROM image i
 			join product_image pi on i.ID = pi.IMAGE_ID
-			where pi.PRODUCT_ID = $id
+			where pi.PRODUCT_ID = $id;
 		");
 
 		if (!$Query)
@@ -79,7 +79,8 @@ class ProductRepository
 		}
 
 		$imageList = [];
-		while ($row = mysqli_fetch_assoc($Query)){
+		while ($row = mysqli_fetch_assoc($Query))
+		{
 			$imageList[] = new Image(
 				$row['ID'],
 				$row['PATH'],
@@ -88,8 +89,10 @@ class ProductRepository
 		}
 
 		$Query = mysqli_query($connection, "
-			SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, a.NAME as ARTIST  FROM product p
+			SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, a.NAME as ARTIST, s.ID as VINYL_STATUS, p.COVER_STATUS, p.TRACKS  FROM product p
 			JOIN artist a on p.ARTIST_ID = a.ID
+			JOIN status s on p.VINYL_STATUS_ID = s.ID
+			WHERE p.ID = $id;
 		");
 
 		if (!$Query)
@@ -106,7 +109,10 @@ class ProductRepository
 				$row['ARTIST'],
 				$row['RELEASE_DATE'],
 				$row['PRICE'],
-				$imageList
+				$imageList,
+				$row['VINYL_STATUS'],
+				$row['COVER_STATUS'],
+				explode(';', $row['TRACKS'])
 			);
 		}
 		return $product;
