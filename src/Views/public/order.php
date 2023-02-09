@@ -2,6 +2,7 @@
 /**
  * @var string $header
  * @var Product $product
+ * @var array $orders
  */
 use Eshop\src\Models\Product;
 ?>
@@ -22,7 +23,7 @@ use Eshop\src\Models\Product;
 
 			<div class="order-content">
 
-				<form action="">
+				<form action="/order" method="post">
 					<div class="person-info">
 						<h3>Контактная информация</h3>
 
