@@ -34,10 +34,29 @@ class TagRepository extends Repository
 		return $tags;
 	}
 
-	public function getOneById(int $id): Tag
+	public function getOneById(int $id): array
 	{
-		// TODO: Implement getOne() method.
-		return new Tag('','');
+		$connection = Connection::getInstance()->getConnection();
+		$queryResult = mysqli_query($connection, "
+			SELECT t.ID, t.NAME FROM tag t
+			JOIN product_tag pt on t.ID = pt.TAG_ID
+			WHERE pt.PRODUCT_ID = {$id}
+			LIMIT 10;
+");
+		if (!$queryResult)
+		{
+			throw new Exception(mysqli_error($connection));
+		}
+		$tags = [];
+
+		while ($row = mysqli_fetch_assoc($queryResult))
+		{
+			$tags[] = new Tag(
+				$row['ID'],
+				$row['NAME']
+			);
+		}
+		return $tags;
 	}
 
 	public function add($entity): void
