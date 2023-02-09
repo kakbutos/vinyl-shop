@@ -12,46 +12,30 @@ class ProductRepository
 	/**
 	 * @throws Exception
 	 */
-	public function getList(int $tag = null, string $search = "", int $page = null)
+	public function getList(int $tag = null, string $search = "", array $page = [])
 	{
 		$connection = Connection::getInstance()->getConnection();
-		$code = mysqli_real_escape_string($connection, $search);
-		//todo сократить общие части
-		//просто каталог
-		if ($tag === null && $search === "")
-		{
-			$Query = mysqli_query($connection, "
-				SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, i.PATH, a.NAME as ARTIST  FROM product p
-				JOIN artist a on p.ARTIST_ID = a.ID
-				JOIN product_image pi on p.ID = pi.PRODUCT_ID
-				JOIN image i on i.ID = pi.IMAGE_ID
-				where i.IS_MAIN = 1
-			");
-		}
-		//поиск по каталогу
-		elseif ($search != null && $search != "")
-		{
-			$Query = mysqli_query($connection, "
-				SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, i.PATH, a.NAME as ARTIST  FROM product p
-				JOIN artist a on p.ARTIST_ID = a.ID
-				JOIN product_image pi on p.ID = pi.PRODUCT_ID
-				JOIN image i on i.ID = pi.IMAGE_ID
-				where i.IS_MAIN = 1 
-				  and p.NAME LIKE '%$search%'
-			");
-		}
-		//каталог по тегу
-		else
-		{
-			$Query = mysqli_query($connection, "
-				SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, i.PATH, a.NAME as ARTIST  FROM product p
-				JOIN artist a on p.ARTIST_ID = a.ID
-				JOIN product_image pi on p.ID = pi.PRODUCT_ID
-				JOIN image i on i.ID = pi.IMAGE_ID
-				JOIN product_tag pt on p.ID = pt.PRODUCT_ID                                                                       
-				where i.IS_MAIN = 1 and pt.TAG_ID = $tag
-			");
-		}
+
+		$tag = mysqli_escape_string($connection, $tag);
+		$search = mysqli_escape_string($connection, $search);
+		$start = $page ? mysqli_escape_string($connection, $page['start']) : '';
+		$per_page = $page ? mysqli_escape_string($connection, $page['per_page']) : '';
+
+		$makeWhereQuery = 'where i.IS_MAIN = 1';
+		$makeWhereQuery = $tag ? $makeWhereQuery . " and  pt.TAG_ID = $tag" : $makeWhereQuery;
+		$joinTagTable = $tag ? 'JOIN product_tag pt on p.ID = pt.PRODUCT_ID' : '';
+		$makeWhereQuery = $search ? $makeWhereQuery . " and p.NAME LIKE '%{$search}%'" : $makeWhereQuery;
+		$limitPagination = $page ? "LIMIT {$start}, {$per_page}" : '';
+
+		$Query = mysqli_query($connection, "
+			SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, i.PATH, a.NAME as ARTIST  FROM product p
+			JOIN artist a on p.ARTIST_ID = a.ID
+			JOIN product_image pi on p.ID = pi.PRODUCT_ID
+			JOIN image i on i.ID = pi.IMAGE_ID
+			{$joinTagTable}
+			{$makeWhereQuery}
+			{$limitPagination}
+		");
 
 		if (!$Query)
 		{
@@ -79,12 +63,8 @@ class ProductRepository
 		return $productsList;
 	}
 
-	public function getListByTag(int $id)
-	{
-	}
+	public function getProductById(int $id){
 
-	public function getProductById(int $id)
-	{
 		$connection = Connection::getInstance()->getConnection();
 
 		$Query = mysqli_query($connection, "

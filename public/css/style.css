@@ -124,7 +124,7 @@ body{
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	width: 100%;
-	height: 820px;
+	min-height: 420px;
 	margin-top: -7px;
 }
 .product-card{
@@ -185,7 +185,7 @@ body{
 
 
 .pagination {
-  display: inline-block;
+  display: flex;
   margin-top: 5px;
 }
 .pagination a {
