@@ -1,6 +1,6 @@
 <?php
 
-namespace Eshop\src\Controllers;
+namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
 use Eshop\src\Service\MainService;
@@ -13,10 +13,9 @@ class OrderController
 		$product = ProductService::getProductById($id);
 
 		$render = new Template('../src/Views');
-		return $render->render('layout', [
+		return $render->render('/public/order', [
 			'header' => $render->render('/components/header', []),
-			'sidebar' => $render->render('/components/sidebar', []),
-			'content' => $render->render('/public/order',[]),
+			'product' => $product
 		]);
 	}
 
