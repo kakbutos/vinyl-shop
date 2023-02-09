@@ -3,21 +3,20 @@
 namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
-use Eshop\src\Repositories\ImageRepository;
-use Eshop\src\Repositories\ProductRepository;
 use Eshop\src\Service\MainService;
+use Eshop\src\Service\Pagination;
 
 class MainController
 {
 
-	public function render_catalog($items, $tags)
+	public function render_catalog($items, $tags, $pagination = null)
 	{
 		$render = new Template('../src/Views');
 		return $render->render('layout', [
 			'header' => $render->render('/components/header', []),
 			'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
 			'content' => $render->render('/public/main', [
-				'pagination' => $render->render('/components/pagination', []),
+				'pagination' => $render->render('/components/pagination', ['pagination' => $pagination]),
 				'items' => $items,
 			]),
 		]);
@@ -27,16 +26,20 @@ class MainController
 	{
 		$items = MainService::getProductList();
 		$tags = MainService::getTagsList();
+		$paginationArray = $this->paginationForItems($items);
+		$items = MainService::getProductList(null, "", $paginationArray);
 
-		return $this->render_catalog($items, $tags);
+		return $this->render_catalog($items, $tags, $paginationArray['pagination']);
 	}
 
 	public function catalogByTag($tag): string
 	{
 		$items = MainService::getProductList($tag);
 		$tags = MainService::getTagsList();
+		$paginationArray = $this->paginationForItems($items);
+		$items = MainService::getProductList($tag, "", $paginationArray);
 
-		return $this->render_catalog($items, $tags);
+		return $this->render_catalog($items, $tags, $paginationArray['pagination']);
 	}
 
 	public function catalogBySearch(): string
@@ -45,8 +48,25 @@ class MainController
 			$search = $_GET['search-string'] ?? "";
 			$items = MainService::getProductList(null, $search);
 			$tags = MainService::getTagsList();
+			$paginationArray = $this->paginationForItems($items);
+			$items = MainService::getProductList(null, $search, $paginationArray);
 
-			return $this->render_catalog($items, $tags);
+			return $this->render_catalog($items, $tags, $paginationArray['pagination']);
 		}
+	}
+
+	public function paginationForItems($items): array
+	{
+		$page = $_GET['page'] ?? 1;
+		$per_page = 2;
+		$total = count($items);
+		$pagination = new Pagination((int)$page, $per_page, $total);
+		$start = $pagination->get_start();
+
+		return [
+			'start' => $start,
+			'per_page' => $per_page,
+			'pagination' => $pagination
+		];
 	}
 }

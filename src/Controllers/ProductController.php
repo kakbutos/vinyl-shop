@@ -3,8 +3,6 @@
 namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
-use Eshop\src\Repositories\ImageRepository;
-use Eshop\src\Repositories\ProductRepository;
 use Eshop\src\Service\MainService;
 use Eshop\src\Service\ProductService;
 
