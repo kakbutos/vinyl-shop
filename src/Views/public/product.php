@@ -2,6 +2,7 @@
 use \Eshop\src\Service\PageService;
 /**
  * @var Product $product
+ * @var string $productTags
  *
  */
 	$mainImagePath= '';
@@ -39,10 +40,10 @@ use \Eshop\src\Service\PageService;
 			</div>
 			<div class="product-detail-line-property-container">
 				<div class="product-detail-line-property-name">
-					Жанр:
+					Жанры:
 				</div>
 				<div class="product-detail-line-property">
-					временно нет, взять из тегов
+					<?=$productTags ?>
 				</div>
 			</div>
 			<div class="product-detail-line-property-container">
