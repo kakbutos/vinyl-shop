@@ -10,4 +10,6 @@ Router::get('/tag/:id/', [new Eshop\Controllers\MainController(), 'catalogByTag'
 
 Router::get('/find', [new Eshop\Controllers\MainController(), 'catalogBySearch']);
 
-Router::get('/order/:id/', [new Eshop\Controllers\OrderController(), 'order']);
+Router::get('/order/:id/', [new Eshop\Controllers\OrderController(), 'getOrder']);
+
+Router::post('/order', [new Eshop\Controllers\OrderController(), 'postOrder']);

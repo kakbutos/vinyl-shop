@@ -3,20 +3,32 @@
 namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
+use Eshop\src\Repositories\OrderRepository;
 use Eshop\src\Service\MainService;
+use Eshop\src\Service\OrderService;
 use Eshop\src\Service\ProductService;
 
 class OrderController
 {
-	public function order(string $id): string
+	public function getOrder(string $id): string
 	{
-		$product = ProductService::getProductById($id);
-
 		$render = new Template('../src/Views');
-		return $render->render('/public/order', [
+		$product = ProductService::getProductById($id);
+		$tags = MainService::getTagsList();
+		$orders = (new OrderRepository())->getList();
+
+		return $render->render('layout', [
 			'header' => $render->render('/components/header', []),
-			'product' => $product
+			'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
+			'content' => $render->render('/public/order',['product' => $product,'orders' => $orders]),
 		]);
+	}
+
+	public function postOrder(): string
+	{
+		(new OrderService())->addOrder();
+
+		return (new MainController())->catalog();
 	}
 
 }

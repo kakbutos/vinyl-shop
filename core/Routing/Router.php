@@ -28,6 +28,8 @@ class Router
 	{
 		[$path] = explode('?', $uri);
 
+
+
 		foreach (self::$routes as $route)
 		{
 			if ($route->method !== $method)
