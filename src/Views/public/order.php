@@ -29,14 +29,14 @@ use Eshop\src\Models\Product;
 					<div class="person-info">
 						<h3>Контактная информация</h3>
 
-						<label for="name">ФИО</label>
-						<input type="text" id="name" name="fullname">
+						<label for="name">ФИО<span class="required-field"> *</span></label>
+						<input type="text" required id="name" name="fullname">
 
-						<label for="email">Email</label>
-						<input type="text" id="email" name="email">
+						<label for="email">Email<span class="required-field"> *</span></label>
+						<input type="email" required id="email" name="email">
 
-						<label for="phone">Телефон</label>
-						<input type="text" id="phone" name="phone">
+						<label for="phone">Телефон<span class="required-field"> *</span></label>
+						<input type="text" required id="phone" name="phone">
 
 						<label for="comment">Комментарий</label>
 						<textarea name="comment" rows="5" cols="40"></textarea>
