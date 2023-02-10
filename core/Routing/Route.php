@@ -34,6 +34,8 @@ class Route
 		return $result;
 	}
 
+
+
 	public function getVariables(): array
 	{
 		return $this->variables;

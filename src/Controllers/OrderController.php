@@ -12,14 +12,15 @@ class OrderController
 {
 	public function getOrder(string $id): string
 	{
+		$render = new Template('../src/Views');
 		$product = ProductService::getProductById($id);
+		$tags = MainService::getTagsList();
 		$orders = (new OrderRepository())->getList();
 
-		$render = new Template('../src/Views');
-		return $render->render('/public/order', [
+		return $render->render('layout', [
 			'header' => $render->render('/components/header', []),
-			'product' => $product,
-			'orders' => $orders
+			'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
+			'content' => $render->render('/public/order',['product' => $product,'orders' => $orders]),
 		]);
 	}
 
