@@ -9,7 +9,7 @@ use Eshop\src\Service\Pagination;
 class MainController
 {
 
-	public function render_catalog($items, $tags, $pagination = null)
+	public function render_catalog($items, $tags, $pagination = null): string
 	{
 		$render = new Template('../src/Views');
 		return $render->render('layout', [
