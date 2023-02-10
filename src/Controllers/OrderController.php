@@ -26,14 +26,8 @@ class OrderController
 	public function postOrder(): string
 	{
 		(new OrderService())->addOrder();
-		$render = new Template('../src/Views');
-		return $render->render('layout', [
-			'header' => $render->render('/components/header', []),
-			'sidebar' => $render->render('/components/sidebar', []),
-			'content' => $render->render('/public/main', [
-				'pagination' => $render->render('/components/pagination', [])
-			]),
-		]);
+
+		return (new MainController())->catalog();
 	}
 
 }

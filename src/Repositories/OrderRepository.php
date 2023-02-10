@@ -36,10 +36,13 @@ class OrderRepository extends Repository
 		$customerPhone = mysqli_real_escape_string($connection, $order->getCustomerPhone());
 		$comment = mysqli_real_escape_string($connection, $order->getComment());
 		$status = $order->getStatus();
+		$productId = $order->getProductId();
+		$count = $order->getCount();
+		$price = $order->getPrice();
 
 		$comment = $comment ?: "NULL";
 
-		$query = "INSERT INTO `order` (DATE, CUSTOMER_NAME, CUSTOMER_EMAIL, CUSTOMER_PHONE, COMMENT, STATUS) VALUES (
+		$queryOrder = "INSERT INTO `order` (DATE, CUSTOMER_NAME, CUSTOMER_EMAIL, CUSTOMER_PHONE, COMMENT, STATUS) VALUES (
         '$createdAt',
         '$customerName',
         '$customerEmail',
@@ -48,9 +51,19 @@ class OrderRepository extends Repository
         '$status'
     );";
 
-		$result = mysqli_query($connection, $query);
-		if (!$result)
+		mysqli_begin_transaction($connection);
+
+		try
 		{
+			mysqli_query($connection, $queryOrder);
+			$orderId = mysqli_insert_id($connection);
+			mysqli_query($connection, "INSERT INTO product_order (PRODUCT_ID, ORDER_ID, COUNT, PRICE) VALUES ('$productId', '$orderId', '$count', '$price');");
+			mysqli_commit($connection);
+		}
+
+		catch (\mysqli_sql_exception $exception)
+		{
+			mysqli_rollback($connection);
 			throw new Exception(mysqli_error($connection));
 		}
 	}

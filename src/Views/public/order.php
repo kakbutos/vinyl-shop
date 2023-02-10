@@ -24,6 +24,8 @@ use Eshop\src\Models\Product;
 			<div class="order-content">
 
 				<form action="/order" method="post">
+					<input type="hidden" name="productId" value="<?= $product->getId() ?>">
+					<input type="hidden" name="productPrice" value="<?= $product->getPrice() ?>">
 					<div class="person-info">
 						<h3>Контактная информация</h3>
 
@@ -51,7 +53,7 @@ use Eshop\src\Models\Product;
 							<div class="count-price">
 								<div class="count">
 									<button type="button" onclick="this.nextElementSibling.stepDown()">-</button>
-									<input type="number" min="0" max="99" value="1" readonly class="product-count">
+									<input type="number" min="0" max="99" value="1" readonly class="product-count" name="count">
 									<button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
 								</div>
 
