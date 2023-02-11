@@ -17,7 +17,6 @@ class Migrator
 	{
 		$connection = Connection::getInstance()->getConnection();
 		$files = self::getMigrationFiles($connection);
-
 		//Проверяем есть ли неиспользованные скрипты и выполняем их
 		if (!empty($files))
 		{
@@ -29,40 +28,47 @@ class Migrator
 	}
 
 	// Получаем список файлов для миграций, не включая тех, которые есть в базе данных
+
 	/**
 	 * @throws Exception
 	 */
 	private static function getMigrationFiles($connection): array
 	{
+		$migrateTable = null;
 		$sqlFolder = ROOT . '/src/Migration/';
 		$allFiles = glob($sqlFolder . '*.sql');
 
 		// Проверяем есть ли таблица с миграциями
-		// $query = sprintf('show tables from %s like %s', Config::option('DB_NAME'), self::$tableMigrateName);
-		$query = mysqli_query($connection, "
-			show tables from {Config::option('DB_NAME')} like {self::$tableMigrateName};
-			");
-		if (!$query)
+		$query = sprintf('show tables from `%s` like "%s"',
+			Config::option('DB_NAME'), self::$tableMigrateName);
+		$queryResult = mysqli_query($connection, $query);
+
+		while ($row = mysqli_fetch_assoc($queryResult))
+		{
+			$migrateTable = $row['Tables_in_eshop (' . self::$tableMigrateName . ')'];
+		}
+
+		if (!$migrateTable)
 		{
 			return $allFiles;
 		}
 
 		// Ищем существующие миграции в таблице
 		$versionsFiles = [];
+		$query = sprintf('select `%s` from `%s`',
+			self::$tableMigrateFieldName, self::$tableMigrateName);
+		$queryResult = mysqli_query($connection, $query);
 
-		$query = mysqli_query($connection, "
-			select {self::$tableMigrateFieldName} from {self::$tableMigrateName};
-			");
-
-		while ($row = mysqli_fetch_assoc($query))
+		while ($row = mysqli_fetch_assoc($queryResult))
 		{
-			$versionsFiles[] = $sqlFolder . $row['name'];
+			$versionsFiles[] = $sqlFolder . $row['NAME'];
 		}
 
 		return array_diff($allFiles, $versionsFiles);
 	}
 
 	// Производим миграцию указанного файла
+
 	/**
 	 * @throws Exception
 	 */
