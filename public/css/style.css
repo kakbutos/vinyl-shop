@@ -258,6 +258,50 @@ body{
 	max-width: 50%;
 }
 
+.product-detail-line-property-vinyl{
+	display: flex;
+	position: relative;
+	font-size: 30px;
+	max-width: 50%;
+}
+
+.product-detail-line-property-vinyl:before{
+	content: attr(data-vinyl);
+	position: absolute;
+	bottom: 100%;
+	right: 0;
+	font-size: 18px;
+	color: black;
+	padding: 10px 14px;
+	background-color: #fe9524;
+	width: 350px;
+	border-radius: 8px;
+	transition: inherit;
+	visibility: hidden;
+	z-index: -1;
+	opacity: 0;
+}
+.product-detail-line-property-vinyl:hover{
+	cursor: pointer;
+	transform: scale(0.95);
+
+}
+
+.product-detail-line-property-vinyl:hover:before{
+	background-color: rgb(255, 207, 134);
+	text-align: center;
+	visibility: visible;
+	z-index: 10;
+	opacity: 1;
+	bottom: calc( 100% + 10px);
+}
+
+p.vinyl-info{
+	vertical-align: top;
+	font-size: 14px;
+	color: #fe9524;
+}
+
 .product-detail-line-property-tracks-list
 {
 	display: flex;

@@ -59,8 +59,10 @@ use \Eshop\src\Service\PageService;
 				<div class="product-detail-line-property-name">
 					Качество винила:
 				</div>
-				<div class="product-detail-line-property">
-					<?=$product->getVinylStatus()?>
+				<div class="product-detail-line-property-vinyl"
+					 data-vinyl="<?=$product->getVinylStatusName()?> (<?=$product->getVinylStatus()?>): <?=$product->getVinylStatusDesk()?>">
+
+					<?=$product->getVinylStatus()?><p class="vinyl-info">(?)</p>
 				</div>
 			</div>
 
