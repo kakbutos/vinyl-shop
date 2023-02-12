@@ -15,11 +15,14 @@ class Product
 	private ?string $vinylStatus;
 	private ?string $coverStatus;
 	private ?array $tracks;
+	private  ?string $vinylStatusName;
+	private ?string $vinylStatusDesk;
 	/**
 	 * @throws Exception
 	 */
 	public function __construct (int $id, string $name, string $artist, string $releaseDate,
-		 float $price, array $imageList = [], ?string $vinylStatus = null, ?string $coverStatus = null, ?array $tracks = null)
+		 float $price, array $imageList = [], ?string $vinylStatus = null,
+		?string $coverStatus = null, ?array $tracks = null, ?string $vinylStatusName = null, ?string $vinylStatusDesk = null)
 	{
 		$this->id = $id;
 		$this->name = $name;
@@ -30,6 +33,8 @@ class Product
 		$this->vinylStatus = $vinylStatus;
 		$this->coverStatus = $coverStatus;
 		$this->tracks = $tracks;
+		$this->vinylStatusName = $vinylStatusName;
+		$this->vinylStatusDesk = $vinylStatusDesk;
 	}
 
 	public function getId(): int
@@ -114,6 +119,16 @@ class Product
 	public function setTracks(array $tracks): void
 	{
 		$this->tracks = $tracks;
+	}
+
+	public function getVinylStatusName(): ?string
+	{
+		return $this->vinylStatusName;
+	}
+
+	public function getVinylStatusDesk(): ?string
+	{
+		return $this->vinylStatusDesk;
 	}
 
 

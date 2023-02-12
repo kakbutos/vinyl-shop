@@ -89,7 +89,9 @@ class ProductRepository
 		}
 
 		$Query = mysqli_query($connection, "
-			SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, a.NAME as ARTIST, s.ID as VINYL_STATUS, p.COVER_STATUS, p.TRACKS  FROM product p
+			SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, a.NAME as ARTIST, s.ID as VINYL_STATUS, 
+			       s.NAME as VINYL_NAME, s.DESCRIPTION as VINYL_DESCRIPTION, p.COVER_STATUS, p.TRACKS  
+			FROM product p
 			JOIN artist a on p.ARTIST_ID = a.ID
 			JOIN status s on p.VINYL_STATUS_ID = s.ID
 			WHERE p.ID = $id;
@@ -112,7 +114,9 @@ class ProductRepository
 				$imageList,
 				$row['VINYL_STATUS'],
 				$row['COVER_STATUS'],
-				explode(';', $row['TRACKS'])
+				explode(';', $row['TRACKS']),
+				$row['VINYL_NAME'],
+				$row['VINYL_DESCRIPTION']
 			);
 		}
 		return $product;
