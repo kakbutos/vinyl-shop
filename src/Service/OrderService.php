@@ -13,13 +13,13 @@ class OrderService
 	 */
 	public function addOrder(): void
 	{
-		$productId = (int)$_POST['productId'];
+		$productId = $_POST['productId'];
 		$customerName = $_POST['fullname'];
 		$customerEmail = $_POST['email'];
 		$customerPhone = $_POST['phone'];
 		$comment = $_POST['comment'] ?? null;
-		$count = (int)$_POST['count'];
-		$price = (double)$_POST['productPrice'];
+		$count = $_POST['count'];
+		$price = $_POST['productPrice'];
 
 		$order = new Order($productId, $customerName, $customerEmail, $customerPhone, $count, $price, $comment);
 		try

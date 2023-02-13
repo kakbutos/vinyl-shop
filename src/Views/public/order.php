@@ -1,5 +1,6 @@
 <?php
-use \Eshop\src\Service\PageService;
+
+use Eshop\src\Models\Product;
 
 /**
  * @var Product $product
@@ -22,7 +23,8 @@ use \Eshop\src\Service\PageService;
 			<input type="email" required id="email" name="email">
 
 			<label for="phone">Телефон<span class="required-field"> *</span></label>
-			<input type="text" required id="phone" name="phone">
+			<input type="tel" required id="phone" name="phone" class="phone">
+
 
 			<label for="comment">Комментарий</label>
 			<textarea name="comment" rows="5" cols="40"></textarea>
