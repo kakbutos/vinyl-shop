@@ -63,12 +63,12 @@ function initializeTable (obj_struct, data) {
 	}
 	header.append(`<td class="table-td table-header-td"></td>`);
 
-	
-	for (var i = 0; i < data.length; i++) {	
+
+	for (var i = 0; i < data.length; i++) {
 		addNewObj(obj_struct, data[i], i)
 		count = i;
 	}
-	
+
 }
 
 initializeTable(obj_struct, data);
@@ -91,37 +91,37 @@ function addNewObj(obj_struct, obj) {
 						</div>
 					</td>
 				`);
-			
+
 			switch(type) {
-				case 'id': 
+				case 'id':
 			    {
 			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="number" data-name="" disabled value="${obj[i]}">`);
 			    	break;
-			    	
+
 			    }
-			  	case 'bool': 
+			  	case 'bool':
 			    {
 			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="text" value="${obj[i]}">`);
 			    	break;
-			    	
+
 			    }
-			  	case 'number': 
+			  	case 'number':
 			    {
 			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="number" value="${obj[i]}">`);
 			    	break;
-			    	
+
 			    }
-			  	case 'text': 
+			  	case 'text':
 			    {
 			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="text" value="${obj[i]}">`);
 			    	break;
-			    	
+
 			    }
 
 			  	default:
 			    {
 			    	console.log( 'obj_struct type is undefined');
-			    	
+
 			    }
 			}
 			row.append(elem);
@@ -141,4 +141,13 @@ function addNewObj(obj_struct, obj) {
 $('.add-button').on('click',function(){
 	newObj = [count+1, 'Новый', 'Новый', '', '', 0, 0, false, 'ACTOR'];
 	addNewObj(obj_struct, newObj);
+});
+
+$.ajax({
+	url: '/admin',         /* Куда отправить запрос */
+	method: 'get',             /* Метод запроса (post или get) */
+	dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+	success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+		console.log(data); /* В переменной data содержится ответ от index.php. */
+	}
 });

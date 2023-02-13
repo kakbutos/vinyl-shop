@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link rel="stylesheet" href="reset.css">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/css/reset.css">
+	<link rel="stylesheet" href="/css/admin_style.css">
 </head>
 <body>
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
@@ -32,17 +32,17 @@
 				<col style="auto">
 			</colgroup>
 			<tr class="table-tr table-header-td">
-				
-			</tr>
-			
 
-			
-		</table>	
+			</tr>
+
+
+
+		</table>
 		<div class="add-button-container">
 			<button class="btn add-button">Добавить</button>
 		</div>
-						
+
 	</div>
-	<script src="script.js"></script>
+	<script src="/js/admin_script.js"></script>
 </body>
 </html>
