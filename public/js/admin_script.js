@@ -48,8 +48,7 @@ var obj_struct = [
 ];
 
 var data = [
-	[1, 'Highway To Hell', 'A1 Highway To Hell', 'G+', 'Потёртый', 5580, 1979, true, 'AC/DC'],
-	[2, 'fqwfqwfwq To Hell', 'A2 Hisafasasghway To Hell', 'G-', 'Класный', 5580, 1979, true, 'AC/DC']
+
 ]
 
 
@@ -144,10 +143,10 @@ $('.add-button').on('click',function(){
 });
 
 $.ajax({
-	url: '/admin',         /* Куда отправить запрос */
-	method: 'get',             /* Метод запроса (post или get) */
+	url: 'data.php',         /* Куда отправить запрос */
+	method: 'POST',             /* Метод запроса (post или get) */
 	dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
-	success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
-		console.log(data); /* В переменной data содержится ответ от index.php. */
+	success: function(response){   /* функция которая будет выполнена после успешного запроса.  */
+		addNewObj(obj_struct, response); /* В переменной data содержится ответ от index.php. */
 	}
 });
