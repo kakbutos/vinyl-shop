@@ -14,7 +14,9 @@ class AdminRepository
 	{
 		$connection = Connection::getInstance()->getConnection();
 		$Query = mysqli_query($connection, "
-			SELECT * FROM product
+			SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, a.NAME as ARTIST, p.COVER_STATUS, p.TRACKS
+			FROM product p
+	        JOIN artist a on p.ARTIST_ID = a.ID
 		");
 		if (!$Query)
 		{
@@ -24,21 +26,21 @@ class AdminRepository
 		while ($row = mysqli_fetch_assoc($Query))
 		{
 			$image[0] = new Image(
-				'',
+				0,
 				'',
 				false
 			);
 
 			$productsList[] = new Product(
-				$row['ID'],
+				(int)$row[''],
 				$row['NAME'],
 				$row['ARTIST'],
 				$row['RELEASE_DATE'],
 				(float)$row['PRICE'],
-				[$image],
+				$image,
 				$row['VINYL_STATUS_ID'],
 				$row['COVER_STATUS'],
-				$row['TRACKS'],
+				explode(';', $row['TRACKS']),
 				$row['IS_ACTIVE'],
 
 			);
