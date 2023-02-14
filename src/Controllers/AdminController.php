@@ -22,28 +22,11 @@ class AdminController
 	public function getProductList()
 	{
 		$list = AdminService::getProductList();
-		$table = [
-			new TableField('ID', 'id', 'ID'),
-			new TableField('Название', 'text', 'NAME'),
-			new TableField('Треки', 'text', 'TRACKS'),
-			new TableField('Качество винила', 'text', 'VINIL_STATUS'),
-			new TableField('Качество конверта', 'text', 'COVER_STATUS'),
-			new TableField('Цена', 'number', 'PRICE'),
-			new TableField('Дата релиза', 'number', 'RELEASE_DATE'),
-			new TableField('Активен', 'bool', 'IS_ACTIVE'),
-			new TableField('Исполнитель', 'text', 'ARTIST'),
-		];
-		$data = [[2, 'fqwfqwfwq To Hell', 'A2 Hisafasasghway To Hell',
-				'G-', 'Класный', 5580, 1979, true, 'AC/DC'], [2, 'fqwfqwfwq To Hell', 'A2 Hisafasasghway To Hell',
-				'G-', 'Класный', 5580, 2000, true, 'AC/DC']];
-		// echo '<pre>';
-		// print_r($list);
-		if ($_GET['text'] === 'product')
+
+		if ($_GET['table'] === 'product')
 		{
 			$data = json_encode($list, JSON_THROW_ON_ERROR);
 		}
-
-
 
 		return $data;
 	}

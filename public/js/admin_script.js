@@ -146,7 +146,7 @@ $.ajax({
 	url: '/admin/productList',         /* Куда отправить запрос */
 	method: 'get',             /* Метод запроса (post или get) */
 	dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
-	data: {text: 'product'},     /* Данные передаваемые в массиве */
+	data: {table: 'product'},     /* Данные передаваемые в массиве */
 	success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
 		console.log(data[1]);
 		initializeTable( data[0], data[1]);/* В переменной data содержится ответ от index.php. */
