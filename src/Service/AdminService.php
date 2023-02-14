@@ -10,4 +10,9 @@ class AdminService
 	{
 		return (new AdminRepository())->getProdsByAdmin();
 	}
+
+	public static function getTagList():array
+	{
+		return (new AdminRepository())->getTagsByAdmin();
+	}
 }

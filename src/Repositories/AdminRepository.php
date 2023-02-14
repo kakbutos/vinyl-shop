@@ -12,6 +12,7 @@ class AdminRepository
 {
 	public function getProdsByAdmin():array
 	{
+		$List = [];
 		$connection = Connection::getInstance()->getConnection();
 		$Query = mysqli_query($connection, "
 			SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, a.NAME as ARTIST, p.COVER_STATUS, p.TRACKS, p.IS_ACTIVE, p.VINYL_STATUS_ID
@@ -22,11 +23,11 @@ class AdminRepository
 		{
 			throw new Exception(mysqli_error($connection));
 		}
-		$productsList = [];
+
 		while ($row = mysqli_fetch_assoc($Query))
 		{
 
-			$productsList[] = [
+			$List[] = [
 				(int)$row['ID'],
 				$row['NAME'],
 				$row['ARTIST'],
@@ -51,6 +52,35 @@ class AdminRepository
 			new TableField('Активен', 'bool', 'IS_ACTIVE'),
 		];
 
-		return [(array)$tableField, (array)$productsList];
+		return [(array)$tableField, (array)$List];
+	}
+
+	public function getTagsByAdmin():array
+	{
+		$connection = Connection::getInstance()->getConnection();
+		$Query = mysqli_query($connection, "
+			SELECT t.ID, t.NAME
+			FROM tag t
+		");
+		if (!$Query)
+		{
+			throw new Exception(mysqli_error($connection));
+		}
+		$List = [];
+		while ($row = mysqli_fetch_assoc($Query))
+		{
+
+			$List[] = [
+				(int)$row['ID'],
+				$row['NAME']
+			];
+		}
+
+		$tableField = [
+			new TableField('ID', 'id', 'ID'),
+			new TableField('Название', 'text', 'NAME')
+		];
+
+		return [(array)$tableField, (array)$List];
 	}
 }

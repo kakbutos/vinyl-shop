@@ -21,10 +21,17 @@ class AdminController
 
 	public function getProductList()
 	{
-		$list = AdminService::getProductList();
+		$data = [];
 
 		if ($_GET['table'] === 'product')
 		{
+			$list = AdminService::getProductList();
+			$data = json_encode($list, JSON_THROW_ON_ERROR);
+		}
+
+		if ($_GET['table'] === 'tag')
+		{
+			$list = AdminService::getTagList();
 			$data = json_encode($list, JSON_THROW_ON_ERROR);
 		}
 
