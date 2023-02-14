@@ -5,11 +5,12 @@ namespace Eshop\src\Repositories;
 use Eshop\Core\DB\Connection;
 use Eshop\src\Models\Image;
 use Eshop\src\Models\Product;
+use Eshop\src\Models\TableField;
 use Exception;
 
 class AdminRepository
 {
-	public function getProdsByAdmin()
+	public function getProdsByAdmin():array
 	{
 		$connection = Connection::getInstance()->getConnection();
 		$Query = mysqli_query($connection, "
@@ -34,12 +35,27 @@ class AdminRepository
 				$row['ARTIST'],
 				$row['RELEASE_DATE'],
 				(float)$row['PRICE'],
-				$image,
+				[$image],
 				$row['VINYL_STATUS_ID'],
 				$row['COVER_STATUS'],
 				$row['TRACKS'],
+				$row['IS_ACTIVE'],
+
 			);
 		}
-		return $productsList;
+
+		$tableField = [
+			new TableField('ID', 'id', 'ID'),
+			new TableField('Название', 'text', 'NAME'),
+			new TableField('Исполнитель', 'text', 'ARTIST'),
+			new TableField('Дата релиза', 'number', 'RELEASE_DATE'),
+			new TableField('Цена', 'number', 'PRICE'),
+			new TableField('Качество винила', 'text', 'VINIL_STATUS'),
+			new TableField('Качество конверта', 'text', 'COVER_STATUS'),
+			new TableField('Треки', 'text', 'TRACKS'),
+			new TableField('Активен', 'bool', 'IS_ACTIVE'),
+		];
+
+		return [$productsList, $tableField];
 	}
 }

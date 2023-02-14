@@ -115,6 +115,7 @@ class ProductRepository
 				$row['VINYL_STATUS'],
 				$row['COVER_STATUS'],
 				explode(';', $row['TRACKS']),
+				false,
 				$row['VINYL_NAME'],
 				$row['VINYL_DESCRIPTION']
 			);
