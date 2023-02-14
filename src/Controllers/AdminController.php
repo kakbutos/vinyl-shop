@@ -13,10 +13,9 @@ class AdminController
 	{
 		$render = new Template('../src/Views');
 		$tags = MainService::getTagsList();
-		json_encode($data = ['heh', 'hah', 'hoh']);
 
 		return $render->render('admin', [
-			'data' => $data,
+
 		]);
 	}
 
@@ -41,7 +40,7 @@ class AdminController
 		// print_r($list);
 		if ($_GET['text'] === 'product')
 		{
-			$data = json_encode([$table,$data], JSON_THROW_ON_ERROR);
+			$data = json_encode($list, JSON_THROW_ON_ERROR);
 		}
 
 

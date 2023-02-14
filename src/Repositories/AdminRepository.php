@@ -58,6 +58,6 @@ class AdminRepository
 			new TableField('Активен', 'bool', 'IS_ACTIVE'),
 		];
 
-		return [$productsList, $tableField];
+		return [(array)$tableField, (array)$productsList];
 	}
 }
