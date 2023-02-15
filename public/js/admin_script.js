@@ -50,7 +50,29 @@ var obj_struct = [
 var data = [
 	[1, 'Highway To Hell', 'A1 Highway To Hell', 'G+', 'Потёртый', 5580, 1979, true, 'AC/DC'],
 	[2, 'fqwfqwfwq To Hell', 'A2 Hisafasasghway To Hell', 'G-', 'Класный', 5580, 1979, true, 'AC/DC']
-]
+];
+
+inicialize();
+
+function inicialize()
+{
+	$('.add-button').on('click',function(){
+		newObj = [count+1, 'Новый', 'Новый', '', '', 0, 0, false, 'ACTOR'];
+		addNewObj(obj_struct, newObj);
+	});
+
+	$('.nav-button').on('click',function(){
+		var table = $(this).data('table');
+
+		$('.nav').find('li').removeClass('active');
+		$(this).parent().addClass('active');
+
+		$('.table-header-td').empty();
+		$('.row').remove();
+		getList(table);
+	});
+	getList('product');
+}
 
 
 function initializeTable (obj_struct, data) {
@@ -74,7 +96,7 @@ function initializeTable (obj_struct, data) {
 
 function addNewObj(obj_struct, obj) {
 	let row = $(`
-				<tr class="table-tr row-${count}">
+				<tr class="table-tr row row-${count}">
 
 				</tr>
 			`)
@@ -137,18 +159,19 @@ function addNewObj(obj_struct, obj) {
 		$('.admin-table').append(row);
 		count++;
 }
-$('.add-button').on('click',function(){
-	newObj = [count+1, 'Новый', 'Новый', '', '', 0, 0, false, 'ACTOR'];
-	addNewObj(obj_struct, newObj);
-});
 
-$.ajax({
-	url: '/admin/getList',         /* Куда отправить запрос */
-	method: 'get',             /* Метод запроса (post или get) */
-	dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
-	data: {table: 'product'},     /* Данные передаваемые в массиве */
-	success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
-		console.log(data[1]);
-		initializeTable( data[0], data[1]);/* В переменной data содержится ответ от index.php. */
-	}
-});
+function getList(dataTable)
+{
+	$.ajax({
+		url: '/admin/getList',         /* Куда отправить запрос */
+		method: 'get',             /* Метод запроса (post или get) */
+		dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+		data: {table: dataTable},     /* Данные передаваемые в массиве */
+		success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+			console.log(data);
+			initializeTable( data[0], data[1]);/* В переменной data содержится ответ от index.php. */
+		}
+	});
+}
+
+

@@ -11,26 +11,15 @@
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 	<div class="admin-navigation">
 		<ul class="nav nav-tabs admin-nav">
-			<li class="active"><a href="" data-toggle="tab">Товары</a></li>
-			<li><a href="#" data-toggle="tab">Заказы</a></li>
-			<li><a href="#" data-toggle="tab">Теги</a></li>
+			<li class="active"><a class="nav-button" href="#" data-table="product" data-toggle="tab">Товары</a></li>
+			<li><a class="nav-button" href="#" data-table="order" data-toggle="tab">Заказы</a></li>
+			<li><a class="nav-button" href="#" data-table="tag" data-toggle="tab">Теги</a></li>
 	</ul>
 	</div>
 	<div class="admin-table-container">
 
 		<table class="admin-table">
-			<colgroup>
-				<col style="width:50px">
-				<col style="width:200px">
-				<col style="width:200px">
-				<col style="width:200px">
-				<col style="width:200px">
-				<col style="width:200px">
-				<col style="width:200px">
-				<col style="width:200px">
-				<col style="width:200px">
-				<col style="auto">
-			</colgroup>
+
 			<tr class="table-tr table-header-td">
 
 			</tr>

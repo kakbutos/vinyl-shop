@@ -38,7 +38,7 @@ class AdminController
 		return $data;
 	}
 
-	public function postList()
+	public function setItem()
 	{
 		$data = [];
 

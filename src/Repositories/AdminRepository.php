@@ -79,8 +79,8 @@ class AdminRepository
 		if ($row['ID'] !== 'NULL')
 		{
 			(int)$artistId = $row['ID'];
-			$queryProduct = "INSERT INTO product p 
-			(ID, NAME,) 
+			$queryProduct = "INSERT INTO product
+			(ID, NAME, TRACKS, VINYL_STATUS_ID,COVER_STATUS, RELEASE_DATE, PRICE, RELEASE_DATE, IS_ACTIVE, ARTIST_ID)
 			VALUES (
                 '$prodictId',
                 '$prodictName',
