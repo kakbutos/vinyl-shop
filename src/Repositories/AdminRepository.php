@@ -55,8 +55,45 @@ class AdminRepository
 		return [(array)$tableField, (array)$List];
 	}
 
-	public function addProduct():void
+	public function addProduct($product):void
 	{
+		$connection = Connection::getInstance()->getConnection();
+
+		$prodictId = $product->getId();
+		$prodictName = mysqli_real_escape_string($connection, $product->getName());
+		$prodictArtist = mysqli_real_escape_string($connection, $product->getArtist());
+		$prodictReleaseDate = $product->getReleaseDate()->format('Y-m-d');
+		$prodictPrice = $product->getPrice();
+		$prodictVinylStatus = $product->getVinylStatus();
+		$prodictCoverStatus = mysqli_real_escape_string($connection, $product->getCoverStatus());
+		$prodictTracks = mysqli_real_escape_string($connection, $product->getTracks());
+		$prodictIsActive = $product->getIsActive();
+
+		$queryArtist = mysqli_query($connection,"SELECT a.ID FROM artist a
+			INNER JOIN product p on a.ID = p.ARTIST_ID
+			WHERE {$prodictArtist} = a.NAME;
+");
+		$artistId = null;
+		$row = mysqli_fetch_assoc($queryArtist);
+
+		if ($row['ID'] !== 'NULL')
+		{
+			(int)$artistId = $row['ID'];
+			$queryProduct = "INSERT INTO product p 
+			(ID, NAME,) 
+			VALUES (
+                '$prodictId',
+                '$prodictName',
+                '$artistId',
+                '$prodictReleaseDate',
+                '$prodictPrice',
+                '$prodictVinylStatus',
+                '$prodictCoverStatus',
+                '$prodictTracks',
+                '$prodictIsActive',
+            );";
+		}
+		// TODO: добавить случай, когда исполнителя нет в базе данных.
 
 	}
 
