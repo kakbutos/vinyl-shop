@@ -403,3 +403,41 @@ input[type=number]::-webkit-outer-spin-button {
 span.required-field{
 	color: red;
 }
+
+/*----------------------------------*/
+/*OrderInfo*/
+
+.thanks-for-order {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-content: center;
+	align-items: center;
+}
+
+.alert.danger {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-content: center;
+	margin-top: 70px;
+	font-size: x-large;
+}
+
+.logo-container1 img {
+	height: 130px;
+	margin-top: 70px;
+}
+
+h1.thanks {
+	font-size: 35px;
+	margin-top: 15px;
+}
+
+.thanks-detail{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: gray;
+	margin-top: 25px;
+}

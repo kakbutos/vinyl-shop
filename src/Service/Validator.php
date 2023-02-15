@@ -18,7 +18,7 @@ class Validator
 			'isRequired' => 'Поле "%s" не может быть пустым',
 			'maxLength'  => '"%s" не может быть длиннее %s символов',
 			'isEmail'    => 'Неверный формат email: %s',
-			'isName'     => 'Имя "%s" содержит не допустимые символы',
+			'isName'     => 'Имя "%s" содержит недопустимые символы',
 			'isPhone'    => 'Неверный формат телефона: %s'
 		);
 	}
@@ -104,29 +104,10 @@ class Validator
 	{
 		if ($param)
 		{
-			$textErrors = $this->errors[$param];
-			return $textErrors ?? false;
+			$textError = $this->errors[$param];
+			return $textError ?? false;
 		}
 
 		return $this->errors;
-	}
-}
-
-
-
-$validate = new Validator();
-
-$name = '+7 (900) 348-49-88';
-$validate->set('Имя', $name)->isPhone();
-
-if ($validate->validate())
-{
-	echo 'Все верно';
-}
-else{
-	$errors = $validate->getErrors('Имя');
-	foreach ($errors as $error)
-	{
-		echo $error;
 	}
 }
