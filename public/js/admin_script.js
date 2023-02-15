@@ -143,7 +143,7 @@ $('.add-button').on('click',function(){
 });
 
 $.ajax({
-	url: '/admin/productList',         /* Куда отправить запрос */
+	url: '/admin/getList',         /* Куда отправить запрос */
 	method: 'get',             /* Метод запроса (post или get) */
 	dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
 	data: {table: 'product'},     /* Данные передаваемые в массиве */

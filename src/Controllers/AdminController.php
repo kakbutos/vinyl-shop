@@ -19,7 +19,7 @@ class AdminController
 		]);
 	}
 
-	public function getProductList()
+	public function getList()
 	{
 		$data = [];
 
@@ -34,6 +34,15 @@ class AdminController
 			$list = AdminService::getTagList();
 			$data = json_encode($list, JSON_THROW_ON_ERROR);
 		}
+
+		return $data;
+	}
+
+	public function postList()
+	{
+		$data = [];
+
+		$list = AdminService::addProductList();
 
 		return $data;
 	}

@@ -55,6 +55,11 @@ class AdminRepository
 		return [(array)$tableField, (array)$List];
 	}
 
+	public function addProduct():void
+	{
+
+	}
+
 	public function getTagsByAdmin():array
 	{
 		$connection = Connection::getInstance()->getConnection();

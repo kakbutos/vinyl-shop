@@ -16,4 +16,6 @@ Router::post('/order', [new Eshop\Controllers\OrderController(), 'postOrder']);
 
 Router::get('/admin', [new Eshop\Controllers\AdminController(), 'getAdmin']);
 
-Router::get('/admin/productList', [new Eshop\Controllers\AdminController(), 'getProductList']);
+Router::get('/admin/getList', [new Eshop\Controllers\AdminController(), 'getList']);
+
+Router::post('/admin/postList', [new Eshop\Controllers\AdminController(), 'postList']);
