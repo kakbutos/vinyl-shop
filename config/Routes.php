@@ -19,3 +19,9 @@ Router::get('/admin', [new Eshop\Controllers\AdminController(), 'getAdmin']);
 Router::get('/admin/getList', [new Eshop\Controllers\AdminController(), 'getList']);
 
 Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'setItem']);
+
+Router::get('/login', [new Eshop\Controllers\AdminController(), 'login']);
+
+Router::post('/login', [new Eshop\Controllers\AdminController(), 'auth']);
+
+Router::get('/logout', [new Eshop\Controllers\AdminController(), 'logout']);
