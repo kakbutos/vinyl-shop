@@ -18,6 +18,11 @@ class AdminService
 		return (new AdminRepository())->getTagsByAdmin();
 	}
 
+	public static function getOrderList(): array
+	{
+		return (new AdminRepository())->getOrdersByAdmin();
+	}
+
 	public static function addNewProduct(): array
 	{
 		return (new AdminRepository())->addEmptyProduct();
