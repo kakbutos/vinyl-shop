@@ -59,6 +59,7 @@ function inicialize()
 	$('.add-button').on('click',function(){
 		newObj = [count+1, 'Новый', 'Новый', '', '', 0, 0, false, 'ACTOR'];
 		addNewObj(obj_struct, newObj);
+		getList('newObj');
 	});
 
 	$('.nav-button').on('click',function(){
