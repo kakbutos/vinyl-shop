@@ -18,15 +18,8 @@ class AdminService
 		return (new AdminRepository())->getTagsByAdmin();
 	}
 
-	public static function addEmptyProduct(): void
+	public static function addNewProduct(): array
 	{
-		try
-		{
-			(new AdminRepository())->addEmptyProduct();
-		}
-		catch (Exception $e)
-		{
-			echo $e->getMessage();
-		}
+		return (new AdminRepository())->addEmptyProduct();
 	}
 }

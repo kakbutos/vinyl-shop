@@ -1,69 +1,21 @@
 var count = 0;
-var obj_struct = [
-	{
-		name: 'ID',
-		type: 'id',
-		field: 'ID'
-	},
-	{
-		name: 'Название',
-		type: 'text',
-		field: 'NAME'
-	},
-	{
-		name: 'Треки',
-		type: 'text',
-		field: 'TRACKS'
-	},
-	{
-		name: 'Качество винила',
-		type: 'text',
-		field: 'VINIL_STATUS'
-	},
-	{
-		name: 'Качество конверта',
-		type: 'text',
-		field: 'COVER_STATUS'
-	},
-	{
-		name: 'Цена',
-		type: 'number',
-		field: 'PRICE'
-	},
-	{
-		name: 'Дата релиза',
-		type: 'number',
-		field: 'RELEASE_DATE'
-	},
-	{
-		name: 'Активен',
-		type: 'bool',
-		field: 'IS_ACTIVE'
-	},
-	{
-		name: 'Исполнитель',
-		type: 'text',
-		field: 'ARTIST'
-	},
-];
-
+var obj_struct = [];
+var table = 'product';
 var data = [
 	[1, 'Highway To Hell', 'A1 Highway To Hell', 'G+', 'Потёртый', 5580, 1979, true, 'AC/DC'],
 	[2, 'fqwfqwfwq To Hell', 'A2 Hisafasasghway To Hell', 'G-', 'Класный', 5580, 1979, true, 'AC/DC']
 ];
 
-inicialize();
+initialize();
 
-function inicialize()
+function initialize()
 {
 	$('.add-button').on('click',function(){
-		newObj = [count+1, 'Новый', 'Новый', '', '', 0, 0, false, 'ACTOR'];
-		addNewObj(obj_struct, newObj);
-		getList('newObj');
+		newItem(table);
 	});
 
 	$('.nav-button').on('click',function(){
-		var table = $(this).data('table');
+		table = $(this).data('table');
 
 		$('.nav').find('li').removeClass('active');
 		$(this).parent().addClass('active');
@@ -174,5 +126,19 @@ function getList(dataTable)
 		}
 	});
 }
+
+function newItem(table){
+
+	$.ajax({
+		url: '/admin/newItem',
+		method: 'get',
+		dataType: 'json',
+		data: {table: table},
+		success: function(data){
+			addNewObj(obj_struct, data);
+		}
+	});
+}
+
 
 

@@ -55,25 +55,19 @@ class AdminRepository
 		return [(array)$tableField, (array)$List];
 	}
 
-	public function addEmptyProduct():void
+	public function addEmptyProduct():array
 	{
 		$connection = Connection::getInstance()->getConnection();
 
 		$queryProduct = "INSERT INTO product
 			(NAME, ARTIST_ID, RELEASE_DATE, PRICE, VINYL_STATUS_ID, COVER_STATUS, 
 			 TRACKS, IS_ACTIVE)
-			VALUES (
-                'Отсутствует',
-                9,
-                '2000',
-                0,
-                '-',
-                'Отсутствует',
-                'Отсутствует',
-                FALSE
-            );";
+					VALUES ('Новый продукт',  1, '2000', 0,'VG+','M','Нет',1
+			   );";
 
 		$Query = mysqli_query($connection, $queryProduct);
+		$id = mysqli_insert_id($connection);
+		return [$id,'Новый продукт',1,'2000',0,'VG+','M','Нет',1];
 	}
 
 	public function updateProduct($product):void
@@ -114,7 +108,6 @@ class AdminRepository
                 '$prodictIsActive';
             );";
 		}
-		// TODO: добавить случай, когда исполнителя нет в базе данных.
 	}
 
 	public function deleteProduct($id)

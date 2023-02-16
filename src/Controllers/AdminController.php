@@ -35,12 +35,18 @@ class AdminController
 			$data = json_encode($list, JSON_THROW_ON_ERROR);
 		}
 
-		if ($_GET['table'] === 'newObj')
-		{
-			AdminService::addEmptyProduct();
-		}
-
 		return $data;
+	}
+
+	public function newItem()
+	{
+
+		if ($_GET['table'] === 'product')
+		{
+			$temp = AdminService::addNewProduct();
+			return json_encode($temp , JSON_THROW_ON_ERROR);
+		}
+		return 0;
 	}
 
 	public function setItem()
