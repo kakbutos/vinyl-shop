@@ -7,9 +7,13 @@ use Eshop\src\Repositories\OrderRepository;
 use Eshop\src\Service\MainService;
 use Eshop\src\Service\OrderService;
 use Eshop\src\Service\ProductService;
+use Exception;
 
 class OrderController
 {
+	/**
+	 * @throws Exception
+	 */
 	public function getOrder(string $id): string
 	{
 		$render = new Template('../src/Views');
@@ -24,11 +28,21 @@ class OrderController
 		]);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public function postOrder(): string
 	{
-		(new OrderService())->addOrder();
-
-		return (new MainController())->catalog();
+		$render = new Template('../src/Views');
+		try
+		{
+			(new OrderService())->addOrder();
+			return $render->render('/public/orderInfo');
+		}
+		catch (Exception $e)
+		{
+			return $render->render('/public/orderInfo', ['errors' => $e]);
+		}
 	}
 
 }

@@ -13,22 +13,34 @@ class OrderService
 	 */
 	public function addOrder(): void
 	{
-		$productId = (int)$_POST['productId'];
+		$validate = new Validator();
+
+		$productId = $_POST['productId'];
 		$customerName = $_POST['fullname'];
 		$customerEmail = $_POST['email'];
 		$customerPhone = $_POST['phone'];
 		$comment = $_POST['comment'] ?? null;
-		$count = (int)$_POST['count'];
-		$price = (double)$_POST['productPrice'];
+		$count = $_POST['count'];
+		$price = $_POST['productPrice'];
 
-		$order = new Order($productId, $customerName, $customerEmail, $customerPhone, $count, $price, $comment);
-		try
+		$validate->set('ФИО', $customerName)->isRequired()->maxLength(2)->isName()
+				 ->set('email', $customerEmail)->isRequired()->isEmail()
+				 ->set('телефон', $customerPhone)->isRequired()->isPhone();
+
+		if($validate->validate())
 		{
+			$order = new Order($productId, $customerName, $customerEmail, $customerPhone, $count, $price, $comment);
 			(new OrderRepository())->add($order);
 		}
-		catch (Exception $e)
+		else
 		{
-			echo $e->getMessage();
+			$errors = $validate->getErrors();
+			$stringErrors = [];
+			foreach ($errors as $error)
+			{
+					$stringErrors = implode('<br>', $error);
+			}
+			throw new Exception($stringErrors);
 		}
 	}
 }
