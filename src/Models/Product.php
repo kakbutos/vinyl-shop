@@ -17,12 +17,13 @@ class Product
 	private ?array $tracks;
 	private  ?string $vinylStatusName;
 	private ?string $vinylStatusDesk;
+	private ?bool $isActive;
 	/**
 	 * @throws Exception
 	 */
 	public function __construct (int $id, string $name, string $artist, string $releaseDate,
 		 float $price, array $imageList = [], ?string $vinylStatus = null,
-		?string $coverStatus = null, ?array $tracks = null, ?string $vinylStatusName = null, ?string $vinylStatusDesk = null)
+		?string $coverStatus = null, ?array $tracks = null, ?bool $isActive = null, ?string $vinylStatusName = null, ?string $vinylStatusDesk = null)
 	{
 		$this->id = $id;
 		$this->name = $name;
@@ -33,6 +34,7 @@ class Product
 		$this->vinylStatus = $vinylStatus;
 		$this->coverStatus = $coverStatus;
 		$this->tracks = $tracks;
+		$this->isActive = $isActive;
 		$this->vinylStatusName = $vinylStatusName;
 		$this->vinylStatusDesk = $vinylStatusDesk;
 	}
@@ -129,6 +131,16 @@ class Product
 	public function getVinylStatusDesk(): ?string
 	{
 		return $this->vinylStatusDesk;
+	}
+
+	public function getIsActive(): ?bool
+	{
+		return $this->isActive;
+	}
+
+	public function setIsActive(?bool $isActive): void
+	{
+		$this->isActive = $isActive;
 	}
 
 

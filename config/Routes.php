@@ -13,3 +13,9 @@ Router::get('/find', [new Eshop\Controllers\MainController(), 'catalogBySearch']
 Router::get('/order/:id/', [new Eshop\Controllers\OrderController(), 'getOrder']);
 
 Router::post('/order', [new Eshop\Controllers\OrderController(), 'postOrder']);
+
+Router::get('/admin', [new Eshop\Controllers\AdminController(), 'getAdmin']);
+
+Router::get('/admin/getList', [new Eshop\Controllers\AdminController(), 'getList']);
+
+Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'setItem']);
