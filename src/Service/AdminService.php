@@ -27,4 +27,19 @@ class AdminService
 	{
 		return (new AdminRepository())->addEmptyProduct();
 	}
+
+	public static function updateProduct(
+		$id, $Name, $Artist,
+		$ReleaseDate, $Price, $images, $vinylStatus,
+		$coverStatus, $tracks, $isActive
+	)
+	{
+		$product = new Product(
+			$id,  $Name,  $Artist, $ReleaseDate,
+			$Price, $images, $vinylStatus,
+			$coverStatus, $tracks, $isActive
+		);
+
+		(new AdminRepository())->updateProduct($product);
+	}
 }
