@@ -45,7 +45,7 @@ class Migrator
 
 		while ($row = mysqli_fetch_assoc($queryResult))
 		{
-			$migrateTable = $row['Tables_in_eshop (' . self::$tableMigrateName . ')'];
+			$migrateTable = $row['Tables_in_' . Config::option('DB_NAME') . ' (' . self::$tableMigrateName . ')'];
 		}
 
 		if (!$migrateTable)
