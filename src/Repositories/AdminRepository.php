@@ -110,13 +110,15 @@ class AdminRepository
 		}
 	}
 
-	public function deleteProduct($id)
+	public function deleteProduct($id): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
 
-		$deleteQuery = "DELETE FROM product p
-		WHERE p.ID = {$id};
-";
+		$deleteQuery = mysqli_query($connection,"
+			DELETE FROM product
+			WHERE ID = {$id};
+		");
+		return $deleteQuery;
 	}
 
 

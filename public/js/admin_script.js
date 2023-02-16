@@ -33,6 +33,7 @@ function initializeTable (data) {
 		header.append(elem);
 	}
 	header.append(`<td class="table-td table-header-td"></td>`);
+	header.append(`<td class="table-td table-header-td"></td>`);
 
 
 	for (var i = 0; i < data.length; i++) {
@@ -100,13 +101,33 @@ function addNewObj(obj) {
 			<td class="table-td">
 				<div class="cell-content-div">
 					<div class="cell-button-div">
-						<button class="btn save-button">Сохранить</button>
+						<button class="btn save-button submit-button">Сохранить</button>
 					</div>
 				</div>
 			</td>`
 		);
+		row.append(`
+				<td class="table-td">
+					<div class="cell-content-div">
+						<div class="cell-button-div">
+							<button class="btn delete-button danger-button" onclick = "openSubmitModal(${obj[0]})" >Удалить</button>
+						</div>
+					</div>
+				</td>`
+		);
 		$('.admin-table').append(row);
 
+}
+function newItem(table){
+	$.ajax({
+		url: '/admin/newItem',
+		method: 'get',
+		dataType: 'json',
+		data: {table: table},
+		success: function(data){
+			addNewObj( data);
+		}
+	});
 }
 
 function getList(dataTable)
@@ -123,18 +144,48 @@ function getList(dataTable)
 	});
 }
 
-function newItem(table){
 
-	$.ajax({
-		url: '/admin/newItem',
-		method: 'get',
-		dataType: 'json',
-		data: {table: table},
-		success: function(data){
-			addNewObj( data);
-		}
+function openSubmitModal(id){
+
+	let modal = `
+		<div class="submit-modal">
+			<div class="submit-modal-dialog">
+				<div class="submit-modal-content">
+					<div class="submit-modal-header">
+						<a href="#" title="Close" class="cancel-button">×</a>
+					</div>
+					<div class="submit-modal-body">    
+						<p>Вы уверены, что хотите удалить элемент?</p>
+						<button class="btn save-button submit-button" style="margin-right: 10px">Удалить</button>
+						<button class="btn danger-button cancel-button">Отменить</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	`
+	$('body').append(modal);
+
+	$('.cancel-button').on('click', function(){
+		$('.submit-modal').remove();
+	});
+
+	$('.submit-modal').find('.submit-button').on('click', function(){
+		$.ajax({
+			url: '/admin/deleteItem',
+			method: 'post',
+			dataType: 'json',
+			data: {table: table, id: id},
+			success: function(data){
+				console.log(data);
+				if (data){
+					$(`.row-${id}`).remove();
+					$('.submit-modal').remove();
+				}else{
+					alert('Что-то пошло не так!');
+				}
+			}
+		});
 	});
 }
-
 
 

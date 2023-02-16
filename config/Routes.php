@@ -22,3 +22,5 @@ Router::get('/admin/newItem', [new Eshop\Controllers\AdminController(), 'newItem
 
 Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'setItem']);
 
+Router::post('/admin/deleteItem', [new Eshop\Controllers\AdminController(), 'deleteItem']);
+
