@@ -1,10 +1,6 @@
-var count = 0;
-var obj_struct = [];
+
+var obj_struct = new Array();
 var table = 'product';
-var data = [
-	[1, 'Highway To Hell', 'A1 Highway To Hell', 'G+', 'Потёртый', 5580, 1979, true, 'AC/DC'],
-	[2, 'fqwfqwfwq To Hell', 'A2 Hisafasasghway To Hell', 'G-', 'Класный', 5580, 1979, true, 'AC/DC']
-];
 
 initialize();
 
@@ -28,7 +24,7 @@ function initialize()
 }
 
 
-function initializeTable (obj_struct, data) {
+function initializeTable (data) {
 	let header = $('.table-header-td');
 	for (var i = 0; i < obj_struct.length; i++) {
 		let elem = $(`<td class="table-td table-header-td">
@@ -40,16 +36,16 @@ function initializeTable (obj_struct, data) {
 
 
 	for (var i = 0; i < data.length; i++) {
-		addNewObj(obj_struct, data[i], i)
-		count = i;
+		addNewObj(data[i], i)
+
 	}
 
 }
 
 
-function addNewObj(obj_struct, obj) {
+function addNewObj(obj) {
 	let row = $(`
-				<tr class="table-tr row row-${count}">
+				<tr class="table-tr row row-${obj[0]}">
 
 				</tr>
 			`)
@@ -110,7 +106,7 @@ function addNewObj(obj_struct, obj) {
 			</td>`
 		);
 		$('.admin-table').append(row);
-		count++;
+
 }
 
 function getList(dataTable)
@@ -121,8 +117,8 @@ function getList(dataTable)
 		dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
 		data: {table: dataTable},     /* Данные передаваемые в массиве */
 		success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
-			console.log(data);
-			initializeTable( data[0], data[1]);/* В переменной data содержится ответ от index.php. */
+			obj_struct = data[0];
+			initializeTable( data[1]);/* В переменной data содержится ответ от index.php. */
 		}
 	});
 }
@@ -135,7 +131,7 @@ function newItem(table){
 		dataType: 'json',
 		data: {table: table},
 		success: function(data){
-			addNewObj(obj_struct, data);
+			addNewObj( data);
 		}
 	});
 }
