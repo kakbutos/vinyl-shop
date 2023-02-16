@@ -148,4 +148,41 @@ class AdminRepository
 
 		return [(array)$tableField, (array)$List];
 	}
+
+	public function getOrdersByAdmin():array
+	{
+		$connection = Connection::getInstance()->getConnection();
+		$Query = mysqli_query($connection, "
+			SELECT ID, DATE, CUSTOMER_NAME, CUSTOMER_EMAIL, CUSTOMER_PHONE, COMMENT, STATUS
+			FROM `order`
+		");
+
+		if (!$Query)
+		{
+			throw new Exception(mysqli_error($connection));
+		}
+		$List = [];
+		while ($row = mysqli_fetch_assoc($Query))
+		{
+			$List[] = [
+				(int)$row['ID'],
+				$row['DATE'],
+				$row['CUSTOMER_NAME'],
+				$row['CUSTOMER_EMAIL'],
+				$row['CUSTOMER_PHONE'],
+				$row['COMMENT'],
+				$row['STATUS']
+			];
+		}
+			$tableField = [
+				new TableField('ID', 'id', 'ID'),
+				new TableField('Дата', 'text', 'DATE'),
+				new TableField('Имя покупателя', 'text', 'CUSTOMER_NAME'),
+				new TableField('Почта покупателя', 'text', 'CUSTOMER_EMAIL'),
+				new TableField('Телефон покупателя', 'text', 'CUSTOMER_PHONE'),
+				new TableField('Комментарий', 'text', 'COMMENT'),
+				new TableField('Статус заказа', 'text', 'STATUS')
+			];
+		return [(array)$tableField, (array)$List];
+	}
 }

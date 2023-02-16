@@ -35,6 +35,12 @@ class AdminController
 			$data = json_encode($list, JSON_THROW_ON_ERROR);
 		}
 
+		if ($_GET['table'] === 'order')
+		{
+			$list = AdminService::getOrderList();
+			$data = json_encode($list, JSON_THROW_ON_ERROR);
+		}
+
 		return $data;
 	}
 
