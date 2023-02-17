@@ -14,7 +14,7 @@
 			<li class="active"><a class="nav-button" href="#" data-table="product" data-toggle="tab">Товары</a></li>
 			<li><a class="nav-button" href="#" data-table="order" data-toggle="tab">Заказы</a></li>
 			<li><a class="nav-button" href="#" data-table="tag" data-toggle="tab">Теги</a></li>
-			<li class="logout-btn btn add-button"><a href="/logout">Выйти</a></li>
+			<li class="logout-btn btn"><a href="/logout">Выйти</a></li>
 	</ul>
 	</div>
 	<div class="admin-table-container">

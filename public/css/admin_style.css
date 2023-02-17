@@ -151,7 +151,12 @@ body{
 
 .logout-btn {
 	float: right !important;
+	color: #000;
+	background-color: #ffc107;
+	border-color: #ffc107;
+	border: 1px solid #ffc107;
 }
+
 
 .submit-modal{
 	display: block;
