@@ -113,7 +113,6 @@ class AdminRepository
 			WHERE ID = {$prodictId}
 			;";
 		$test = mysqli_query($connection, $queryProduct);
-		var_dump($test);
 		mysqli_commit($connection);
 	}
 
