@@ -3,6 +3,7 @@
 namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
+use Eshop\src\Models\Product;
 use Eshop\src\Models\TableField;
 use Eshop\src\Service\MainService;
 use Eshop\src\Service\AdminService;
@@ -12,7 +13,11 @@ class AdminController
 	public function getAdmin(): string
 	{
 		$render = new Template('../src/Views');
-		$tags = MainService::getTagsList();
+		AdminService::updateProduct(
+			1,'Тестовый продукт','AC/DC',
+			'2000',999, [],'VG+','Статус',
+			explode(';','Песня 1;Песня 2'), 1
+		);
 
 		return $render->render('admin', [
 

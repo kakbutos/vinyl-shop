@@ -77,37 +77,44 @@ class AdminRepository
 		$prodictId = $product->getId();
 		$prodictName = mysqli_real_escape_string($connection, $product->getName());
 		$prodictArtist = mysqli_real_escape_string($connection, $product->getArtist());
-		$prodictReleaseDate = $product->getReleaseDate()->format('Y-m-d');
+		$prodictReleaseDate = $product->getReleaseDate();
 		$prodictPrice = $product->getPrice();
-		$prodictVinylStatus = $product->getVinylStatus();
+		$prodictVinylStatus = mysqli_real_escape_string($connection, $product->getVinylStatus());
 		$prodictCoverStatus = mysqli_real_escape_string($connection, $product->getCoverStatus());
-		$prodictTracks = mysqli_real_escape_string($connection, $product->getTracks());
+		$prodictTracks = mysqli_real_escape_string($connection, implode(';', $product->getTracks()) );
 		$prodictIsActive = $product->getIsActive();
 
-		$queryArtist = mysqli_query($connection,"SELECT a.ID FROM artist a
+		$queryArtist = "SELECT a.ID FROM artist a
 			INNER JOIN product p on a.ID = p.ARTIST_ID
-			WHERE {$prodictArtist} = a.NAME;
-");
-		$artistId = null;
-		$row = mysqli_fetch_assoc($queryArtist);
+			WHERE a.NAME = '$prodictArtist';
+";
+		$query = mysqli_query($connection, $queryArtist);
 
-		if ($row['ID'] !== 'NULL')
+		$artistId = null;
+		while ($row = mysqli_fetch_assoc($query))
 		{
-			(int)$artistId = $row['ID'];
-			$queryProduct = "INSERT INTO product
-			(ID, NAME, TRACKS, VINYL_STATUS_ID,COVER_STATUS, RELEASE_DATE, PRICE, RELEASE_DATE, IS_ACTIVE, ARTIST_ID)
-			VALUES (
-                '$prodictId',
-                '$prodictName',
-                '$artistId',
-                '$prodictReleaseDate',
-                '$prodictPrice',
-                '$prodictVinylStatus',
-                '$prodictCoverStatus',
-                '$prodictTracks',
-                '$prodictIsActive';
-            );";
+			$artistId = $row['ID'];
 		}
+
+		mysqli_begin_transaction($connection);
+		if ($artistId === null)
+		{
+			$queryArtist = "INSERT INTO artist (NAME) 
+			VALUES ('$prodictArtist');
+            ";
+
+			mysqli_query($connection, $queryArtist);
+			$artistId = mysqli_insert_id($connection);
+		}
+		$queryProduct = "UPDATE product
+			SET NAME = '$prodictName', ARTIST_ID = {$artistId}, RELEASE_DATE = '$prodictReleaseDate',
+			    PRICE = {$prodictPrice}, VINYL_STATUS_ID = '$prodictVinylStatus', 
+			    COVER_STATUS = '$prodictCoverStatus', TRACKS = '$prodictTracks', IS_ACTIVE = {$prodictIsActive}
+			WHERE ID = {$prodictId}
+			;";
+		$test = mysqli_query($connection, $queryProduct);
+		var_dump($test);
+		mysqli_commit($connection);
 	}
 
 	public function deleteProduct($id): bool
