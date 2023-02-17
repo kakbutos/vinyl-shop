@@ -12,7 +12,7 @@ Router::get('/find', [new Eshop\Controllers\MainController(), 'catalogBySearch']
 
 Router::get('/order/:id/', [new Eshop\Controllers\OrderController(), 'getOrder']);
 
-Router::post('/order', [new Eshop\Controllers\OrderController(), 'postOrder']);
+Router::post('/CreateOrder', [new Eshop\Controllers\OrderController(), 'CreateOrder']);
 
 Router::get('/admin', [new Eshop\Controllers\AdminController(), 'getAdmin']);
 
@@ -23,8 +23,6 @@ Router::get('/admin/newItem', [new Eshop\Controllers\AdminController(), 'newItem
 Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'setItem']);
 
 Router::post('/admin/deleteItem', [new Eshop\Controllers\AdminController(), 'deleteItem']);
-
-
 
 Router::get('/login', [new Eshop\Controllers\AdminController(), 'login']);
 
