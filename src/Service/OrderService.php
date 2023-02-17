@@ -11,7 +11,7 @@ class OrderService
 	/**
 	 * @throws Exception
 	 */
-	public function addOrder(): void
+	public static function addOrder(): void
 	{
 		$validate = new Validator();
 

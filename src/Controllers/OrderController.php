@@ -36,7 +36,7 @@ class OrderController
 		$render = new Template('../src/Views');
 		try
 		{
-			(new OrderService())->addOrder();
+			OrderService::addOrder();
 			return $render->render('/public/orderInfo');
 		}
 		catch (Exception $e)
