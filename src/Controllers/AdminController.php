@@ -7,17 +7,61 @@ use Eshop\src\Models\Product;
 use Eshop\src\Models\TableField;
 use Eshop\src\Service\MainService;
 use Eshop\src\Service\AdminService;
+use Eshop\src\Service\UserService;
+use Eshop\src\Lib\AuthHelper;
 
 class AdminController
 {
+	public function auth()
+	{
+		session_start();
+
+		$email = htmlspecialchars($_POST['email']);
+		$password = htmlspecialchars($_POST['password']);
+		$admin = UserService::getUser($email)[0];
+
+		$isCorrectPassword = password_verify($password, $admin->password);
+
+		if ($isCorrectPassword)
+		{
+			$_SESSION['USER'] = $admin->id;
+			header("Location: " . AuthHelper::getUrl() . "/admin");
+		}
+		else
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
+	}
+
+	public function logout(): void
+	{
+		session_start();
+		session_destroy();
+		header("Location: " . AuthHelper::getUrl() . "/login");
+	}
+
+	public function login()
+	{
+		$render = new Template('../src/Views');
+		return $render->render('login', []);
+	}
+
 	public function getAdmin(): string
 	{
+		session_start();
 		$render = new Template('../src/Views');
 		// AdminService::updateProduct(
 		// 	1,'Тестовый продукт','AC/DC',
 		// 	'2000',999, [],'VG+','Статус',
 		// 	explode(';','Песня 1;Песня 2'), 1
 		// );
+
+		if (!$_SESSION['USER'])
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
+
+		$tags = MainService::getTagsList();
 
 		return $render->render('admin', [
 
