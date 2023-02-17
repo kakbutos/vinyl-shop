@@ -10,7 +10,7 @@ use Eshop\src\Models\Product;
 
 <div class="order-content">
 
-	<form action="/order" method="post">
+	<form action="/createOrder" method="post">
 		<input type="hidden" name="productId" value="<?= $product->getId() ?>">
 		<input type="hidden" name="productPrice" value="<?= $product->getPrice() ?>">
 		<div class="person-info">

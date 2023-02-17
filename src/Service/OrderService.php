@@ -11,7 +11,7 @@ class OrderService
 	/**
 	 * @throws Exception
 	 */
-	public function addOrder(): void
+	public static function addOrder(): void
 	{
 		$validate = new Validator();
 
@@ -23,7 +23,7 @@ class OrderService
 		$count = $_POST['count'];
 		$price = $_POST['productPrice'];
 
-		$validate->set('ФИО', $customerName)->isRequired()->maxLength(2)->isName()
+		$validate->set('ФИО', $customerName)->isRequired()->maxLength(100)->isName()
 				 ->set('email', $customerEmail)->isRequired()->isEmail()
 				 ->set('телефон', $customerPhone)->isRequired()->isPhone();
 

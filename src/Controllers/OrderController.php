@@ -31,12 +31,12 @@ class OrderController
 	/**
 	 * @throws Exception
 	 */
-	public function postOrder(): string
+	public function createOrder(): string
 	{
 		$render = new Template('../src/Views');
 		try
 		{
-			(new OrderService())->addOrder();
+			OrderService::addOrder();
 			return $render->render('/public/orderInfo');
 		}
 		catch (Exception $e)
