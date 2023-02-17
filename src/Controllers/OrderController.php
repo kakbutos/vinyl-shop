@@ -31,7 +31,7 @@ class OrderController
 	/**
 	 * @throws Exception
 	 */
-	public function CreateOrder(): string
+	public function createOrder(): string
 	{
 		$render = new Template('../src/Views');
 		try

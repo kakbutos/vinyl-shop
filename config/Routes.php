@@ -12,7 +12,7 @@ Router::get('/find', [new Eshop\Controllers\MainController(), 'catalogBySearch']
 
 Router::get('/order/:id/', [new Eshop\Controllers\OrderController(), 'getOrder']);
 
-Router::post('/CreateOrder', [new Eshop\Controllers\OrderController(), 'CreateOrder']);
+Router::post('/createOrder', [new Eshop\Controllers\OrderController(), 'createOrder']);
 
 Router::get('/admin', [new Eshop\Controllers\AdminController(), 'getAdmin']);
 
