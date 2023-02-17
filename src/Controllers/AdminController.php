@@ -49,8 +49,7 @@ class AdminController
 
 		if ($_GET['table'] === 'product')
 		{
-			$temp = AdminService::addNewProduct();
-			return json_encode($temp , JSON_THROW_ON_ERROR);
+			return json_encode(AdminService::addNewProduct() , JSON_THROW_ON_ERROR);
 		}
 		return 0;
 	}
@@ -58,5 +57,15 @@ class AdminController
 	public function setItem()
 	{
 
+	}
+
+	public function deleteItem(){
+		$table = $_POST['table'];
+		$id = (int)$_POST['id'];
+		if($table === 'product'){
+			$teml = 0;
+			return json_encode(AdminService::deleteProduct($id), JSON_THROW_ON_ERROR);
+		}
+		return 0;
 	}
 }
