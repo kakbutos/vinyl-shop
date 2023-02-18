@@ -32,19 +32,9 @@ class AdminService
 		return (new AdminRepository())->deleteProduct($id);
 	}
 
-	public static function updateProduct(
-		$id, $Name, $Artist,
-		$ReleaseDate, $Price, $images, $vinylStatus,
-		$coverStatus, $tracks, $isActive
-	)
+	public static function updateProduct($product):bool
 	{
-		$product = new Product(
-			$id, $Name, $Artist, $ReleaseDate,
-			$Price, $images, $vinylStatus,
-			$coverStatus, $tracks, $isActive
-		);
-
-		(new AdminRepository())->updateProduct($product);
+		return (new AdminRepository())->updateProduct($product);
 	}
 
 	}

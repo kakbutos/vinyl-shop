@@ -103,9 +103,34 @@ class AdminController
 		return 0;
 	}
 
+	/**
+	 * @throws \Exception
+	 */
 	public function setItem()
 	{
+		if ($_POST['table'] === 'product'){
+			$item = $_POST['obj'];
+			$namedItem = [];
+			for ($i = 0, $iMax = count($item); $i< $iMax; $i++){
+				$namedItem[$item[$i]['field']] = $item[$i]['value'];
+			}
 
+
+			$product = new Product(
+				(int)$namedItem['ID'],
+				$namedItem['NAME'],
+				$namedItem['ARTIST'],
+				$namedItem['RELEASE_DATE'],
+				$namedItem['PRICE'],
+				[],//imageList
+				$namedItem['VINIL_STATUS'],
+				$namedItem['COVER_STATUS'],
+				[$namedItem['TRACKS']],
+				(bool)$namedItem['IS_ACTIVE']
+			);
+			$temp = AdminService::updateProduct($product);
+			var_dump($temp);
+		}
 	}
 
 	public function deleteItem(){

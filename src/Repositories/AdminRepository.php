@@ -70,24 +70,24 @@ class AdminRepository
 		return [$id,'Новый продукт',1,'2000',0,'VG+','M','Нет',1];
 	}
 
-	public function updateProduct($product):void
+	public function updateProduct($product): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
 
-		$prodictId = $product->getId();
-		$prodictName = mysqli_real_escape_string($connection, $product->getName());
-		$prodictArtist = mysqli_real_escape_string($connection, $product->getArtist());
-		$prodictReleaseDate = $product->getReleaseDate();
-		$prodictPrice = $product->getPrice();
-		$prodictVinylStatus = mysqli_real_escape_string($connection, $product->getVinylStatus());
-		$prodictCoverStatus = mysqli_real_escape_string($connection, $product->getCoverStatus());
-		$prodictTracks = mysqli_real_escape_string($connection, implode(';', $product->getTracks()) );
-		$prodictIsActive = $product->getIsActive();
+		$productId = $product->getId();
+		$productName = mysqli_real_escape_string($connection, $product->getName());
+		$productArtist = mysqli_real_escape_string($connection, $product->getArtist());
+		$productReleaseDate = $product->getReleaseDate();
+		$productPrice = $product->getPrice();
+		$productVinylStatus = mysqli_real_escape_string($connection, $product->getVinylStatus());
+		$productCoverStatus = mysqli_real_escape_string($connection, $product->getCoverStatus());
+		$productTracks = mysqli_real_escape_string($connection, implode(';', $product->getTracks()) );
+		$productIsActive = $product->getIsActive();
 
 		$queryArtist = "SELECT a.ID FROM artist a
 			INNER JOIN product p on a.ID = p.ARTIST_ID
-			WHERE a.NAME = '$prodictArtist';
-";
+			WHERE a.NAME = '$productArtist';
+		";
 		$query = mysqli_query($connection, $queryArtist);
 
 		$artistId = null;
@@ -100,20 +100,21 @@ class AdminRepository
 		if ($artistId === null)
 		{
 			$queryArtist = "INSERT INTO artist (NAME) 
-			VALUES ('$prodictArtist');
+			VALUES ('$productArtist');
             ";
 
 			mysqli_query($connection, $queryArtist);
 			$artistId = mysqli_insert_id($connection);
 		}
 		$queryProduct = "UPDATE product
-			SET NAME = '$prodictName', ARTIST_ID = {$artistId}, RELEASE_DATE = '$prodictReleaseDate',
-			    PRICE = {$prodictPrice}, VINYL_STATUS_ID = '$prodictVinylStatus', 
-			    COVER_STATUS = '$prodictCoverStatus', TRACKS = '$prodictTracks', IS_ACTIVE = {$prodictIsActive}
-			WHERE ID = {$prodictId}
+			SET NAME = '$productName', ARTIST_ID = {$artistId}, RELEASE_DATE = '$productReleaseDate',
+			    PRICE = {$productPrice}, VINYL_STATUS_ID = '$productVinylStatus', 
+			    COVER_STATUS = '$productCoverStatus', TRACKS = '$productTracks', IS_ACTIVE = {$productIsActive}
+			WHERE ID = {$productId}
 			;";
 		$test = mysqli_query($connection, $queryProduct);
 		mysqli_commit($connection);
+		return true;
 	}
 
 	public function deleteProduct($id): bool

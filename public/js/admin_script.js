@@ -52,7 +52,7 @@ function addNewObj(obj) {
 			`)
 		for (var i = 0; i < obj.length; i++) {
 			let type = obj_struct[i].type;
-
+			let dataField = obj_struct[i].field;
 			let elem = $(`
 					<td class="table-td">
 						<div class="cell-content-div">
@@ -66,33 +66,31 @@ function addNewObj(obj) {
 			switch(type) {
 				case 'id':
 			    {
-			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="number" data-name="" disabled value="${obj[i]}">`);
+			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="number" data-field="${dataField}" disabled value="${obj[i]}">`);
 			    	break;
 
 			    }
 			  	case 'bool':
 			    {
-			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="text" value="${obj[i]}">`);
+			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="text" data-field="${dataField}" value="${obj[i]}">`);
 			    	break;
 
 			    }
 			  	case 'number':
 			    {
-			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="number" value="${obj[i]}">`);
+			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="number" data-field="${dataField}" value="${obj[i]}">`);
 			    	break;
 
 			    }
 			  	case 'text':
 			    {
-			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="text" value="${obj[i]}">`);
+			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="text" data-field="${dataField}" value="${obj[i]}">`);
 			    	break;
 
 			    }
-
 			  	default:
 			    {
 			    	console.log( 'obj_struct type is undefined');
-
 			    }
 			}
 			row.append(elem);
@@ -101,7 +99,7 @@ function addNewObj(obj) {
 			<td class="table-td">
 				<div class="cell-content-div">
 					<div class="cell-button-div">
-						<button class="btn save-button submit-button">Сохранить</button>
+						<button class="btn save-button submit-button" onclick = "saveItem(${obj[0]})">Сохранить</button>
 					</div>
 				</div>
 			</td>`
@@ -118,6 +116,7 @@ function addNewObj(obj) {
 		$('.admin-table').append(row);
 
 }
+
 function newItem(table){
 	$.ajax({
 		url: '/admin/newItem',
@@ -130,16 +129,39 @@ function newItem(table){
 	});
 }
 
+function saveItem(id){
+	let inputs = $(`.row-${id}`).find('input');
+	var obj = [];
+
+	for (let i = 0; i < inputs.length; i++)
+	{
+		let newField = {};
+		newField.field = $(inputs[i]).data('field');
+		newField.value = $(inputs[i]).val();
+		obj.push(newField);
+	}
+
+	$.ajax({
+		url: '/admin/setItem',
+		method: 'post',
+		dataType: 'json',
+		data: {table: table, obj: obj},
+		success: function(data){
+			var asd = 123;
+		}
+	});
+}
+
 function getList(dataTable)
 {
 	$.ajax({
-		url: '/admin/getList',         /* Куда отправить запрос */
-		method: 'get',             /* Метод запроса (post или get) */
-		dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
-		data: {table: dataTable},     /* Данные передаваемые в массиве */
-		success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+		url: '/admin/getList',
+		method: 'get',
+		dataType: 'json',
+		data: {table: dataTable},
+		success: function(data){
 			obj_struct = data[0];
-			initializeTable( data[1]);/* В переменной data содержится ответ от index.php. */
+			initializeTable( data[1]);
 		}
 	});
 }
