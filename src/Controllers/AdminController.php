@@ -4,7 +4,6 @@ namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
 use Eshop\src\Models\Product;
-use Eshop\src\Models\TableField;
 use Eshop\src\Service\MainService;
 use Eshop\src\Service\AdminService;
 use Eshop\src\Service\UserService;
@@ -50,11 +49,6 @@ class AdminController
 	{
 		session_start();
 		$render = new Template('../src/Views');
-		// AdminService::updateProduct(
-		// 	1,'Тестовый продукт','AC/DC',
-		// 	'2000',999, [],'VG+','Статус',
-		// 	explode(';','Песня 1;Песня 2'), 1
-		// );
 
 		if (!$_SESSION['USER'])
 		{
