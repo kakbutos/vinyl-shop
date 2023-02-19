@@ -2,7 +2,6 @@
 
 namespace Eshop\src\Service;
 
-use Eshop\src\Models\Product;
 use Eshop\src\Repositories\AdminRepository;
 use Exception;
 
@@ -37,4 +36,4 @@ class AdminService
 		return (new AdminRepository())->updateProduct($product);
 	}
 
-	}
+}

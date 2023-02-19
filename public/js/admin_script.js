@@ -131,7 +131,7 @@ function newItem(table){
 
 function saveItem(id){
 	let inputs = $(`.row-${id}`).find('input');
-	var obj = [];
+	let obj = [];
 
 	for (let i = 0; i < inputs.length; i++)
 	{
@@ -147,7 +147,6 @@ function saveItem(id){
 		dataType: 'json',
 		data: {table: table, obj: obj},
 		success: function(data){
-			var asd = 123;
 		}
 	});
 }

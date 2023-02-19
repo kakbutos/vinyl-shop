@@ -114,7 +114,7 @@ class AdminRepository
 			;";
 		$test = mysqli_query($connection, $queryProduct);
 		mysqli_commit($connection);
-		return true;
+		return $test;
 	}
 
 	public function deleteProduct($id): bool

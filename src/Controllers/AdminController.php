@@ -108,20 +108,20 @@ class AdminController
 	 */
 	public function setItem()
 	{
-		if ($_POST['table'] === 'product'){
-			$item = $_POST['obj'];
-			$namedItem = [];
-			for ($i = 0, $iMax = count($item); $i< $iMax; $i++){
-				$namedItem[$item[$i]['field']] = $item[$i]['value'];
-			}
+		$item = $_POST['obj'];
+		$namedItem = [];
+		for ($i = 0, $iMax = count($item); $i< $iMax; $i++){
+			$namedItem[$item[$i]['field']] = $item[$i]['value'];
+		}
 
+		if ($_POST['table'] === 'product'){
 
 			$product = new Product(
 				(int)$namedItem['ID'],
 				$namedItem['NAME'],
 				$namedItem['ARTIST'],
 				$namedItem['RELEASE_DATE'],
-				$namedItem['PRICE'],
+				(float)$namedItem['PRICE'],
 				[],//imageList
 				$namedItem['VINIL_STATUS'],
 				$namedItem['COVER_STATUS'],
