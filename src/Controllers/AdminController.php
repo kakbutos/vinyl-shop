@@ -5,12 +5,13 @@ namespace Eshop\Controllers;
 use Eshop\Core\Template\Template;
 use Eshop\src\Service\MainService;
 use Eshop\src\Service\AdminService;
-use Eshop\src\Lib\AuthHelper;
 
 class AdminController
 {
 	public function getAdmin(): string
 	{
+		if (!userAdminController::isAuthorized()) return '';
+
 		session_start();
 		$render = new Template('../src/Views');
 		// AdminService::updateProduct(
@@ -18,11 +19,6 @@ class AdminController
 		// 	'2000',999, [],'VG+','Статус',
 		// 	explode(';','Песня 1;Песня 2'), 1
 		// );
-
-		if (!$_SESSION['USER'])
-		{
-			header("Location: " . AuthHelper::getUrl() . "/login");
-		}
 
 		$tags = MainService::getTagsList();
 
@@ -33,6 +29,8 @@ class AdminController
 
 	public function getList()
 	{
+		if (!userAdminController::isAuthorized()) return '';
+
 		$data = [];
 
 		if ($_GET['table'] === 'product')
@@ -58,6 +56,7 @@ class AdminController
 
 	public function newItem()
 	{
+		if (!userAdminController::isAuthorized()) return '';
 
 		if ($_GET['table'] === 'product')
 		{
@@ -72,6 +71,8 @@ class AdminController
 	}
 
 	public function deleteItem(){
+		if (!userAdminController::isAuthorized()) return '';
+
 		$table = $_POST['table'];
 		$id = (int)$_POST['id'];
 		if($table === 'product'){

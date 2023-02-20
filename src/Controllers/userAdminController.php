@@ -17,11 +17,16 @@ class userAdminController
 		$csrf_token = htmlspecialchars($_POST['csrf_token']);
 		$admin = UserService::getUser($email)[0];
 
+		if (!isset($admin))
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
+
 		$isCorrectPassword = password_verify($password, $admin->password);
 
 		if ($isCorrectPassword && ($_SESSION['csrf_token'] === $csrf_token))
 		{
-			$_SESSION['USER'] = $admin->id;
+			$_SESSION['USER_EMAIL'] = $admin->email;
 			header("Location: " . AuthHelper::getUrl() . "/admin");
 		}
 		else
@@ -42,5 +47,28 @@ class userAdminController
 	{
 		$render = new Template('../src/Views');
 		return $render->render('login', []);
+	}
+
+	public static function isAuthorized(): bool
+	{
+		session_start();
+		$email = $_SESSION['USER_EMAIL'];
+		if (!isset($email))
+		{
+			return false;
+		}
+
+		$admin = UserService::getUser($email)[0];
+		if (!isset($admin))
+		{
+			return false;
+		}
+
+		if ($admin->email === $email)
+		{
+			return true;
+		}
+
+		return false;
 	}
 }
