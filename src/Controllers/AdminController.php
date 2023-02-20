@@ -117,21 +117,22 @@ class AdminController
 
 		if ($_POST['table'] === 'product'){
 
-			$product = new Product(
-				(int)$namedItem['ID'],
-				$namedItem['NAME'],
-				$namedItem['ARTIST'],
-				$namedItem['RELEASE_DATE'],
-				(float)$namedItem['PRICE'],
-				[],//imageList
-				$namedItem['VINIL_STATUS'],
-				$namedItem['COVER_STATUS'],
-				[$namedItem['TRACKS']],
-				(bool)$namedItem['IS_ACTIVE']
-			);
-			$temp = AdminService::updateProduct($product);
-			var_dump($temp);
+			$product = [
+				'ID' => $namedItem['ID'],
+				'NAME' => $namedItem['NAME'],
+				'ARTIST' => $namedItem['ARTIST'],
+				'RELEASE_DATE' => $namedItem['RELEASE_DATE'],
+				'PRICE' => $namedItem['PRICE'],
+				'IMAGE_LIST' => [],//imageList
+				'VINIL_STATUS' => $namedItem['VINIL_STATUS'],
+				'COVER_STATUS' => $namedItem['COVER_STATUS'],
+				'TRACKS' => [$namedItem['TRACKS']],
+				'IS_ACTIVE' => $namedItem['IS_ACTIVE']
+			];
+			$errors = AdminService::updateProduct($product);
 		}
+
+		return json_encode($errors , JSON_THROW_ON_ERROR);
 	}
 
 	public function deleteItem(){

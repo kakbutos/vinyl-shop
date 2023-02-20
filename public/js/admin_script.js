@@ -147,6 +147,11 @@ function saveItem(id){
 		dataType: 'json',
 		data: {table: table, obj: obj},
 		success: function(data){
+			if (data)
+			{
+				alert(data[0]);
+			}
+			console.log(data);
 		}
 	});
 }
