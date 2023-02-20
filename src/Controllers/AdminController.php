@@ -142,6 +142,10 @@ class AdminController
 			$teml = 0;
 			return json_encode(AdminService::deleteProduct($id), JSON_THROW_ON_ERROR);
 		}
+
+		if ($table === 'tag'){
+			return json_encode(AdminService::deleteTag($id), JSON_THROW_ON_ERROR);
+		}
 		return 0;
 	}
 }

@@ -144,6 +144,17 @@ class AdminRepository
 		return $deleteQuery;
 	}
 
+	public function deleteTag($id): bool
+	{
+		$connection = Connection::getInstance()->getConnection();
+
+		$deleteQuery = mysqli_query($connection, "
+		DELETE FROM tag
+		WHERE ID = {$id};
+		");
+		return $deleteQuery;
+	}
+
 
 	public function getTagsByAdmin():array
 	{

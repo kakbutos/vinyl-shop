@@ -39,6 +39,10 @@ class AdminService
 		return (new AdminRepository())->deleteProduct($id);
 	}
 
+	public static function deleteTag(int $id): bool{
+		return (new AdminRepository())->deleteTag($id);
+	}
+
 	public static function updateProduct($product):array
 	{
 		$validate = new Validator();
