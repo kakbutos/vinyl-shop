@@ -70,6 +70,22 @@ class AdminRepository
 		return [$id,'Новый продукт',1,'2000',0,'VG+','M','Нет',1];
 	}
 
+	public function addEmptyTag(): array
+	{
+		$connection = Connection::getInstance()->getConnection();
+
+		$queryTag = "INSERT INTO tag
+		(NAME) 
+				VALUES ('Новый тег');
+		";
+
+		$Query = mysqli_query($connection, $queryTag);
+		$id = mysqli_insert_id($connection);
+		return [$id, 'Новый тег'];
+	}
+
+
+
 	public function updateProduct($product): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
