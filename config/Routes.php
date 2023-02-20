@@ -24,8 +24,8 @@ Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'setIte
 
 Router::post('/admin/deleteItem', [new Eshop\Controllers\AdminController(), 'deleteItem']);
 
-Router::get('/login', [new Eshop\Controllers\AdminController(), 'login']);
+Router::get('/login', [new Eshop\Controllers\userAdminController(), 'login']);
 
-Router::post('/login', [new Eshop\Controllers\AdminController(), 'auth']);
+Router::post('/login', [new Eshop\Controllers\userAdminController(), 'auth']);
 
-Router::get('/logout', [new Eshop\Controllers\AdminController(), 'logout']);
+Router::get('/logout', [new Eshop\Controllers\userAdminController(), 'logout']);

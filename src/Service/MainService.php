@@ -16,4 +16,9 @@ class MainService
 	{
 		return (new TagRepository())->getList();
 	}
+
+	public static function getCountList(int $tag = null, string $search = "")
+	{
+		return (new ProductRepository())->getCountList($tag, $search);
+	}
 }
