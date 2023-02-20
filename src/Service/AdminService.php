@@ -2,8 +2,10 @@
 
 namespace Eshop\src\Service;
 
+use Eshop\src\Models\Product;
 use Eshop\src\Repositories\AdminRepository;
 use Exception;
+use Eshop\src\Service\Validator;
 
 class AdminService
 {
@@ -31,9 +33,39 @@ class AdminService
 		return (new AdminRepository())->deleteProduct($id);
 	}
 
-	public static function updateProduct($product):bool
+	public static function updateProduct($product):array
 	{
-		return (new AdminRepository())->updateProduct($product);
+		$validate = new Validator();
+
+		$validate->set('ID', $product['ID'])->isRequired()->isNumber()
+			->set('Название', $product['NAME'])->isRequired()->maxLength(200)
+			->set('Исполнитель', $product['ARTIST'])->isRequired()->maxLength(200)
+			->set('Дата релиза', $product['RELEASE_DATE'])->isRequired()->isNumber()
+			->set('Цена', $product['PRICE'])->isNumber()
+			->set('Качество винила', $product['VINIL_STATUS'])->isRequired()->maxLength(4)
+			->set('Качество конверта', $product['COVER_STATUS'])->isRequired()->maxLength(50);
+			// ->set('Треки', $product['TRACKS'])->isRequired()->maxLength(1000);
+
+		if($validate->validate())
+		{
+			$productObj = new Product((int)$product['ID'], $product['NAME'], $product['ARTIST'], $product['RELEASE_DATE'],
+				(float)$product['PRICE'], [], $product['VINIL_STATUS'], $product['COVER_STATUS'],
+				$product['TRACKS'], (bool)$product['IS_ACTIVE']);
+
+			(new AdminRepository())->updateProduct($productObj);
+		}
+		else
+		{
+			$errors = $validate->getErrors();
+			$stringErrors = [];
+			foreach ($errors as $error)
+			{
+				$stringErrors[] = $error;
+			}
+			return $stringErrors;
+		}
+
+		return [];
 	}
 
 }

@@ -70,7 +70,7 @@ class AdminRepository
 		return [$id,'Новый продукт',1,'2000',0,'VG+','M','Нет',1];
 	}
 
-	public function updateProduct($product): bool
+	public function updateProduct($product): void
 	{
 		$connection = Connection::getInstance()->getConnection();
 
@@ -114,7 +114,7 @@ class AdminRepository
 			;";
 		$test = mysqli_query($connection, $queryProduct);
 		mysqli_commit($connection);
-		return $test;
+		// return $test;
 	}
 
 	public function deleteProduct($id): bool
