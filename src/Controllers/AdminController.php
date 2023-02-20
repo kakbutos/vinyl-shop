@@ -132,6 +132,14 @@ class AdminController
 			$errors = AdminService::updateProduct($product);
 		}
 
+		if ($_POST['table'] ==='tag'){
+			$tag = [
+				'ID' => $namedItem['ID'],
+				'NAME' => $namedItem['NAME']
+			];
+			$errors = AdminService::updateTag($tag);
+		}
+
 		return json_encode($errors , JSON_THROW_ON_ERROR);
 	}
 

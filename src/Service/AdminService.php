@@ -3,6 +3,7 @@
 namespace Eshop\src\Service;
 
 use Eshop\src\Models\Product;
+use Eshop\src\Models\Tag;
 use Eshop\src\Repositories\AdminRepository;
 use Exception;
 use Eshop\src\Service\Validator;
@@ -41,6 +42,33 @@ class AdminService
 
 	public static function deleteTag(int $id): bool{
 		return (new AdminRepository())->deleteTag($id);
+	}
+
+	public static function updateTag($tag): array
+	{
+		$validate = new Validator();
+
+		$validate->set('ID', $tag['ID'])->isRequired()->isNumber()
+			->set('Название', $tag['NAME'])->isRequired()->maxLength(200);
+
+		if($validate->validate())
+		{
+			$tagObj = new Tag((int)$tag['ID'], $tag['NAME']);
+
+			(new AdminRepository())->updateTag($tagObj);
+		}
+		else
+		{
+			$errors = $validate->getErrors();
+			$stringErrors = [];
+			foreach ($errors as $error)
+			{
+				$stringErrors[] = $error;
+			}
+			return $stringErrors;
+		}
+
+		return [];
 	}
 
 	public static function updateProduct($product):array
