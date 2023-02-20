@@ -123,4 +123,31 @@ class ProductRepository
 		return $product;
 	}
 
+	public function getCountList(int $tag = null, string $search = "")
+	{
+		$connection = Connection::getInstance()->getConnection();
+
+		$tag = mysqli_escape_string($connection, $tag);
+		$search = mysqli_escape_string($connection, $search);
+
+		$joinTagTable = $tag ? 'JOIN product_tag pt on p.ID = pt.PRODUCT_ID' : '';
+		$makeWhereQuery = $tag ? "pt.TAG_ID = $tag" : '';
+		$makeWhereQuery = $search ? $makeWhereQuery . "p.NAME LIKE '%{$search}%'" : $makeWhereQuery;
+		$makeWhereQuery = ($makeWhereQuery !== '') ? "where " . $makeWhereQuery : '';
+
+		$Query = mysqli_query($connection, "
+			SELECT COUNT(p.ID) as `COUNT` FROM product p
+			{$joinTagTable}
+			{$makeWhereQuery}
+		");
+
+		if (!$Query)
+		{
+			throw new Exception(mysqli_error($connection));
+		}
+
+		$count = mysqli_fetch_assoc($Query);
+
+		return $count['COUNT'];
+	}
 }

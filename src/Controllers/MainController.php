@@ -24,9 +24,9 @@ class MainController
 
 	public function catalog(): string
 	{
-		$items = MainService::getProductList();
+		$countList = MainService::getCountList();
 		$tags = MainService::getTagsList();
-		$paginationArray = $this->paginationForItems($items);
+		$paginationArray = $this->paginationForItems($countList);
 		$items = MainService::getProductList(null, "", $paginationArray);
 
 		return $this->render_catalog($items, $tags, $paginationArray['pagination']);
@@ -34,9 +34,9 @@ class MainController
 
 	public function catalogByTag($tag): string
 	{
-		$items = MainService::getProductList($tag);
+		$countList = MainService::getCountList($tag);
 		$tags = MainService::getTagsList();
-		$paginationArray = $this->paginationForItems($items);
+		$paginationArray = $this->paginationForItems($countList);
 		$items = MainService::getProductList($tag, "", $paginationArray);
 
 		return $this->render_catalog($items, $tags, $paginationArray['pagination']);
@@ -44,22 +44,19 @@ class MainController
 
 	public function catalogBySearch(): string
 	{
-		{
-			$search = $_GET['search-string'] ?? "";
-			$items = MainService::getProductList(null, $search);
-			$tags = MainService::getTagsList();
-			$paginationArray = $this->paginationForItems($items);
-			$items = MainService::getProductList(null, $search, $paginationArray);
+		$search = $_GET['search-string'] ?? "";
+		$countList = MainService::getCountList(null, $search);
+		$tags = MainService::getTagsList();
+		$paginationArray = $this->paginationForItems($countList);
+		$items = MainService::getProductList(null, $search, $paginationArray);
 
-			return $this->render_catalog($items, $tags, $paginationArray['pagination']);
-		}
+		return $this->render_catalog($items, $tags, $paginationArray['pagination']);
 	}
 
-	public function paginationForItems($items): array
+	public function paginationForItems($total): array
 	{
 		$page = $_GET['page'] ?? 1;
 		$per_page = 2;
-		$total = count($items);
 		$pagination = new Pagination((int)$page, $per_page, $total);
 		$start = $pagination->get_start();
 
