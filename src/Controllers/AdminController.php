@@ -100,6 +100,11 @@ class AdminController
 		{
 			return json_encode(AdminService::addNewProduct() , JSON_THROW_ON_ERROR);
 		}
+
+		if ($_GET['table'] === 'tag')
+		{
+			return json_encode(AdminService::addNewTag(), JSON_THROW_ON_ERROR);
+		}
 		return 0;
 	}
 

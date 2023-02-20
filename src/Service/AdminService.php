@@ -28,6 +28,11 @@ class AdminService
 		return (new AdminRepository())->addEmptyProduct();
 	}
 
+	public static function addNewTag(): array
+	{
+		return (new AdminRepository())->addEmptyTag();
+	}
+
 	public static function deleteProduct(int $id): bool{
 		return (new AdminRepository())->deleteProduct($id);
 	}
