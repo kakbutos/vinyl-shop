@@ -35,10 +35,10 @@ class OrderService
 		else
 		{
 			$errors = $validate->getErrors();
-			$stringErrors = [];
+			$stringErrors = '';
 			foreach ($errors as $error)
 			{
-					$stringErrors = implode('<br>', $error);
+				$stringErrors .= '<br>' . implode('<br>', $error);
 			}
 			throw new Exception($stringErrors);
 		}
