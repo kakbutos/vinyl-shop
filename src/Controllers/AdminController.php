@@ -3,6 +3,7 @@
 namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
+use Eshop\src\Lib\AuthHelper;
 use Eshop\src\Service\MainService;
 use Eshop\src\Service\AdminService;
 
@@ -10,7 +11,7 @@ class AdminController
 {
 	public function getAdmin(): string
 	{
-		if (!userAdminController::isAuthorized()) return '';
+		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
 
 		session_start();
 		$render = new Template('../src/Views');
