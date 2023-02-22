@@ -95,6 +95,15 @@ function addNewObj(obj) {
 			}
 			row.append(elem);
 		}
+	row.append(`
+			<td class="table-td">
+				<div class="cell-content-div">
+					<div class="cell-button-div">
+						<button class="btn save-button submit-button" onclick = "document.location='admin/image/${obj[0]}/'">Изображения</button>
+					</div>
+				</div>
+			</td>`
+	);
 		row.append(`
 			<td class="table-td">
 				<div class="cell-content-div">

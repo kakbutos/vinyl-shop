@@ -29,3 +29,5 @@ Router::get('/login', [new Eshop\Controllers\AdminController(), 'login']);
 Router::post('/login', [new Eshop\Controllers\AdminController(), 'auth']);
 
 Router::get('/logout', [new Eshop\Controllers\AdminController(), 'logout']);
+
+Router::get('/admin/image/:id/', [new Eshop\Controllers\ImageController(), 'getImage']);
