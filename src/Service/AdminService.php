@@ -36,10 +36,12 @@ class AdminService
 	}
 
 
-	public static function deleteProduct(int $id): bool{
+	public static function deleteProduct(int $id): bool
+	{
 		return (new AdminRepository())->deleteProduct($id);
 	}
-	public static function deleteTag(int $id): bool{
+	public static function deleteTag(int $id): bool
+	{
 		return (new AdminRepository())->deleteTag($id);
 	}
 
@@ -81,11 +83,12 @@ class AdminService
 			->set('Цена', $product['PRICE'])->isNumber()
 			->set('Качество винила', $product['VINIL_STATUS'])->isRequired()->maxLength(4)
 			->set('Качество конверта', $product['COVER_STATUS'])->isRequired()->maxLength(50);
-			// ->set('Треки', $product['TRACKS'])->isRequired()->maxLength(1000);
+		// ->set('Треки', $product['TRACKS'])->isRequired()->maxLength(1000);
 
-		if($validate->validate())
+		if ($validate->validate())
 		{
-			$productObj = new Product((int)$product['ID'], $product['NAME'], $product['ARTIST'], $product['RELEASE_DATE'],
+			$productObj = new Product((int)$product['ID'], $product['NAME'], $product['ARTIST'],
+				$product['RELEASE_DATE'],
 				(float)$product['PRICE'], [], $product['VINIL_STATUS'], $product['COVER_STATUS'],
 				$product['TRACKS'], (bool)$product['IS_ACTIVE']);
 
@@ -103,4 +106,5 @@ class AdminService
 		}
 
 		return [];
+	}
 }
