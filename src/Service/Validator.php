@@ -19,7 +19,8 @@ class Validator
 			'maxLength'  => '"%s" не может быть длиннее %s символов',
 			'isEmail'    => 'Неверный формат email: %s',
 			'isName'     => 'Имя "%s" содержит недопустимые символы',
-			'isPhone'    => 'Неверный формат телефона: %s'
+			'isPhone'    => 'Неверный формат телефона: %s',
+			'isNumber'   => 'Поле "%s" содержит недопустимые символы'
 		);
 	}
 
@@ -109,5 +110,18 @@ class Validator
 		}
 
 		return $this->errors;
+	}
+
+	public function isNumber(): self
+	{
+		$template = '/^\d+$/';
+		$verify = preg_match($template, $this->data['value']);
+
+		if(!$verify)
+		{
+			$this->setError(sprintf($this->messages['isNumber'], $this->data['value']));
+		}
+
+		return $this;
 	}
 }

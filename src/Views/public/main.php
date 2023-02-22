@@ -5,7 +5,6 @@
  * @var string $pagination
  */
 $path = '';
-
 ?>
 
 <div class="products-list">
@@ -13,7 +12,7 @@ $path = '';
 	<a class="product-card" href="/product/<?=$item->getId() ?>/">
 		<div class="product-card-image-container">
 
-			<img src="/assets/img/<?=$item->getImageList()[0]->getPath() ?>" alt="">
+			<img src="/assets/img/<?=$item->getImageList()[0]->getPath() ?>/<?=$item->getImageList()[0]->getName() ?>" alt="">
 		</div>
 		<div class="product-card-info">
 			<div class="product-card-name-container">

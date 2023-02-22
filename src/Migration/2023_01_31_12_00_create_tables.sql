@@ -16,6 +16,7 @@ CREATE TABLE image
 (
 	ID int not null auto_increment,
 	PATH varchar(200) not null,
+	NAME varchar(200) not null,
 	IS_MAIN BOOLEAN,
 	PRIMARY KEY (ID)
 );

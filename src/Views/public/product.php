@@ -6,10 +6,12 @@ use \Eshop\src\Service\PageService;
  *
  */
 	$mainImagePath= '';
+	$mainImageName= '';
 	$imageList = $product->getImageList();
 	for ($i=0, $iMax = count($imageList); $i< $iMax; $i++){
 		if ($imageList[$i]->IsMain()){
 			$mainImagePath = $imageList[$i]->getPath();
+			$mainImageName = $imageList[$i]->getName();
 			break;
 		}
 	}
@@ -18,11 +20,11 @@ use \Eshop\src\Service\PageService;
 <div class="product-detail-container">
 	<div class="product-detail-image-side">
 		<div class="product-detail-main-image-container">
-			<img src="/assets/img/<?=$mainImagePath?>" alt="">
+			<img src="/assets/img/<?=$mainImagePath?>/<?=$mainImageName?>" alt="">
 		</div>
 		<div class="product-detail-galery-container">
 			<?php foreach ($imageList as $image):?>
-				<img src="/assets/img/<?=$image->getPath()?>" alt="">
+				<img src="/assets/img/<?=$image->getPath()?>/<?=$image->getName()?>" alt="">
 			<?php endforeach; ?>
 		</div>
 	</div>

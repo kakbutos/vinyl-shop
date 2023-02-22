@@ -10,7 +10,7 @@ use Exception;
 
 class AdminRepository
 {
-	public function getProdsByAdmin():array
+	public function getProdsByAdmin(): array
 	{
 		$List = [];
 		$connection = Connection::getInstance()->getConnection();
@@ -36,7 +36,7 @@ class AdminRepository
 				$row['VINYL_STATUS_ID'],
 				$row['COVER_STATUS'],
 				$row['TRACKS'],
-				(bool)['IS_ACTIVE']
+				(bool)['IS_ACTIVE'],
 			];
 		}
 
@@ -55,7 +55,7 @@ class AdminRepository
 		return [(array)$tableField, (array)$List];
 	}
 
-	public function addEmptyProduct():array
+	public function addEmptyProduct(): array
 	{
 		$connection = Connection::getInstance()->getConnection();
 
@@ -67,7 +67,7 @@ class AdminRepository
 
 		$Query = mysqli_query($connection, $queryProduct);
 		$id = mysqli_insert_id($connection);
-		return [$id,'Новый продукт',1,'2000',0,'VG+','M','Нет',1];
+		return [$id, 'Новый продукт', 1, '2000', 0, 'VG+', 'M', 'Нет', 1];
 	}
 
 	public function addEmptyTag(): array
@@ -84,24 +84,24 @@ class AdminRepository
 		return [$id, 'Новый тег'];
 	}
 
-	public function updateProduct($product):void
+	public function updateProduct($product): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
 
-		$prodictId = $product->getId();
-		$prodictName = mysqli_real_escape_string($connection, $product->getName());
-		$prodictArtist = mysqli_real_escape_string($connection, $product->getArtist());
-		$prodictReleaseDate = $product->getReleaseDate();
-		$prodictPrice = $product->getPrice();
-		$prodictVinylStatus = mysqli_real_escape_string($connection, $product->getVinylStatus());
-		$prodictCoverStatus = mysqli_real_escape_string($connection, $product->getCoverStatus());
-		$prodictTracks = mysqli_real_escape_string($connection, implode(';', $product->getTracks()) );
-		$prodictIsActive = $product->getIsActive();
+		$productId = $product->getId();
+		$productName = mysqli_real_escape_string($connection, $product->getName());
+		$productArtist = mysqli_real_escape_string($connection, $product->getArtist());
+		$productReleaseDate = $product->getReleaseDate();
+		$productPrice = $product->getPrice();
+		$productVinylStatus = mysqli_real_escape_string($connection, $product->getVinylStatus());
+		$productCoverStatus = mysqli_real_escape_string($connection, $product->getCoverStatus());
+		$productTracks = mysqli_real_escape_string($connection, implode(';', $product->getTracks()));
+		$productIsActive = $product->getIsActive();
 
 		$queryArtist = "SELECT a.ID FROM artist a
 			INNER JOIN product p on a.ID = p.ARTIST_ID
-			WHERE a.NAME = '$prodictArtist';
-";
+			WHERE a.NAME = '$productArtist';
+		";
 		$query = mysqli_query($connection, $queryArtist);
 
 		$artistId = null;
@@ -114,19 +114,33 @@ class AdminRepository
 		if ($artistId === null)
 		{
 			$queryArtist = "INSERT INTO artist (NAME) 
-			VALUES ('$prodictArtist');
+			VALUES ('$productArtist');
             ";
 
 			mysqli_query($connection, $queryArtist);
 			$artistId = mysqli_insert_id($connection);
 		}
 		$queryProduct = "UPDATE product
-			SET NAME = '$prodictName', ARTIST_ID = {$artistId}, RELEASE_DATE = '$prodictReleaseDate',
-			    PRICE = {$prodictPrice}, VINYL_STATUS_ID = '$prodictVinylStatus', 
-			    COVER_STATUS = '$prodictCoverStatus', TRACKS = '$prodictTracks', IS_ACTIVE = {$prodictIsActive}
-			WHERE ID = {$prodictId}
+			SET NAME = '$productName', ARTIST_ID = {$artistId}, RELEASE_DATE = '$productReleaseDate',
+			    PRICE = {$productPrice}, VINYL_STATUS_ID = '$productVinylStatus', 
+			    COVER_STATUS = '$productCoverStatus', TRACKS = '$productTracks', IS_ACTIVE = {$productIsActive}
+			WHERE ID = {$productId}
 			;";
 		$test = mysqli_query($connection, $queryProduct);
+		mysqli_commit($connection);
+		return $test;
+	}
+
+	public function updateTag($tag): void
+	{
+		$connection = Connection::getInstance()->getConnection();
+
+		$tagId = $tag->getId();
+		$tagName = $tag->getTitle();
+
+		mysqli_begin_transaction($connection);
+		$queryTag = "UPDATE tag SET NAME = '$tagName' WHERE ID = {$tagId}";
+		$test = mysqli_query($connection, $queryTag);
 		mysqli_commit($connection);
 	}
 
@@ -134,15 +148,25 @@ class AdminRepository
 	{
 		$connection = Connection::getInstance()->getConnection();
 
-		$deleteQuery = mysqli_query($connection,"
+		$deleteQuery = mysqli_query($connection, "
 			DELETE FROM product
 			WHERE ID = {$id};
 		");
 		return $deleteQuery;
 	}
 
+	public function deleteTag($id): bool
+	{
+		$connection = Connection::getInstance()->getConnection();
 
-	public function getTagsByAdmin():array
+		$deleteQuery = mysqli_query($connection, "
+		DELETE FROM tag
+		WHERE ID = {$id};
+		");
+		return $deleteQuery;
+	}
+
+	public function getTagsByAdmin(): array
 	{
 		$connection = Connection::getInstance()->getConnection();
 		$Query = mysqli_query($connection, "
@@ -156,22 +180,21 @@ class AdminRepository
 		$List = [];
 		while ($row = mysqli_fetch_assoc($Query))
 		{
-
 			$List[] = [
 				(int)$row['ID'],
-				$row['NAME']
+				$row['NAME'],
 			];
 		}
 
 		$tableField = [
 			new TableField('ID', 'id', 'ID'),
-			new TableField('Название', 'text', 'NAME')
+			new TableField('Название', 'text', 'NAME'),
 		];
 
 		return [(array)$tableField, (array)$List];
 	}
 
-	public function getOrdersByAdmin():array
+	public function getOrdersByAdmin(): array
 	{
 		$connection = Connection::getInstance()->getConnection();
 		$Query = mysqli_query($connection, "
@@ -193,18 +216,18 @@ class AdminRepository
 				$row['CUSTOMER_EMAIL'],
 				$row['CUSTOMER_PHONE'],
 				$row['COMMENT'],
-				$row['STATUS']
+				$row['STATUS'],
 			];
 		}
-			$tableField = [
-				new TableField('ID', 'id', 'ID'),
-				new TableField('Дата', 'text', 'DATE'),
-				new TableField('Имя покупателя', 'text', 'CUSTOMER_NAME'),
-				new TableField('Почта покупателя', 'text', 'CUSTOMER_EMAIL'),
-				new TableField('Телефон покупателя', 'text', 'CUSTOMER_PHONE'),
-				new TableField('Комментарий', 'text', 'COMMENT'),
-				new TableField('Статус заказа', 'text', 'STATUS')
-			];
+		$tableField = [
+			new TableField('ID', 'id', 'ID'),
+			new TableField('Дата', 'text', 'DATE'),
+			new TableField('Имя покупателя', 'text', 'CUSTOMER_NAME'),
+			new TableField('Почта покупателя', 'text', 'CUSTOMER_EMAIL'),
+			new TableField('Телефон покупателя', 'text', 'CUSTOMER_PHONE'),
+			new TableField('Комментарий', 'text', 'COMMENT'),
+			new TableField('Статус заказа', 'text', 'STATUS'),
+		];
 		return [(array)$tableField, (array)$List];
 	}
 }
