@@ -8,12 +8,14 @@ class Image
 {
 	private int $productId;
 	private string $path;
+	private string $name;
 	private bool $isMain;
 
-	public function __construct (int $productId, string $path, bool $isMain)
+	public function __construct (int $productId, string $path, string $name, bool $isMain)
 	{
 		$this->productId = $productId;
 		$this->path = $path;
+		$this->name = $name;
 		$this->isMain = $isMain;
 	}
 
@@ -32,4 +34,8 @@ class Image
 		return $this->isMain;
 	}
 
+	public function getName(): string
+	{
+		return $this->name;
+	}
 }

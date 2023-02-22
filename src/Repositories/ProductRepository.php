@@ -28,7 +28,7 @@ class ProductRepository
 		$limitPagination = $page ? "LIMIT {$start}, {$per_page}" : '';
 
 		$Query = mysqli_query($connection, "
-			SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, i.PATH, a.NAME as ARTIST  FROM product p
+			SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, i.PATH, i.NAME as IMAGE_NAME, a.NAME as ARTIST  FROM product p
 			JOIN artist a on p.ARTIST_ID = a.ID
 			JOIN product_image pi on p.ID = pi.PRODUCT_ID
 			JOIN image i on i.ID = pi.IMAGE_ID
@@ -48,6 +48,7 @@ class ProductRepository
 			$image[0] = new Image(
 				$row['ID'],
 				$row['PATH'],
+				$row['IMAGE_NAME'],
 				true
 			);
 
@@ -68,7 +69,7 @@ class ProductRepository
 		$connection = Connection::getInstance()->getConnection();
 
 		$Query = mysqli_query($connection, "
-			SELECT i.ID, i.PATH, i.IS_MAIN FROM image i
+			SELECT i.ID, i.PATH, i.NAME, i.IS_MAIN FROM image i
 			join product_image pi on i.ID = pi.IMAGE_ID
 			where pi.PRODUCT_ID = $id;
 		");
@@ -84,6 +85,7 @@ class ProductRepository
 			$imageList[] = new Image(
 				$row['ID'],
 				$row['PATH'],
+				$row['NAME'],
 				$row['IS_MAIN'] === '1'
 			);
 		}

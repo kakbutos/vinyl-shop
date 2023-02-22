@@ -6,8 +6,8 @@ use Eshop\src\Repositories\ImageRepository;
 
 class ImageService
 {
-	public static function getProductList(): array
+	public static function getImageList($id): array
 	{
-		return (new ImageRepository())->getList();
+		return (new ImageRepository())->getImageList($id);
 	}
 }
