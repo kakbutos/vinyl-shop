@@ -22,7 +22,7 @@ use Eshop\src\Service\PageService;
 		<div class="image-header">
 			<div class="image-title">Изменить изображения</div>
 			<div class="image-add">
-				 <form action="/admin/image/add/<?= $productId ?>" method="POST" enctype="multipart/form-data">
+				 <form action="/admin/image/add/<?= $productId ?>/" method="POST" enctype="multipart/form-data">
 					 <input type="file" name="file">
 					 <input type="submit" value="Загрузить">
 				 </form>
