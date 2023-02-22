@@ -23,7 +23,7 @@ class ImageRepository
 				$row['ID'],
 				$row['PATH'],
 				$row['NAME'],
-				(bool)$row['IS_MAIN']
+				(bool)$row['IS_MAIN'],
 			);
 		}
 		return $imageList;
