@@ -147,7 +147,7 @@ function saveItem(id){
 		dataType: 'json',
 		data: {table: table, obj: obj},
 		success: function(data){
-			if (data)
+			if (Array.isArray(data) && data.length)
 			{
 				alert(data[0]);
 			}
