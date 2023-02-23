@@ -41,7 +41,7 @@ use Eshop\src\Service\PageService;
 						</div>
 						<div class="image-isMain-container">
 							<?php if( $image->IsMain() === true): ?>Основное
-							<?php else: ?>Вспомогательное
+							<?php else: ?>Дополнительное
 							<?php endif; ?> изображение
 						</div>
 						<div class="image-action-container">

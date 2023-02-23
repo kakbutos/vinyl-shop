@@ -10,6 +10,9 @@ class ImageController
 {
 	public function getImage(string $id): string
 	{
+		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+
+		session_start();
 		$render = new Template('../src/Views');
 		$imageList = ImageService::getImageList($id);
 
