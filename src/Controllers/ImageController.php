@@ -27,7 +27,6 @@ class ImageController
 		{
 			$file = $_FILES['file'];
 			$test = ImageService::addImage($id, $file);
-			// var_dump($test);
 		}
 
 		header("Location: " . AuthHelper::getUrl() . "/admin/image/{$id}/");

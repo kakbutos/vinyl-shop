@@ -115,4 +115,10 @@ class AdminService
 
 		return [];
 	}
+
+	public static function getVinilStatuses():array{
+
+		return (new AdminRepository())->getVinilStatuses();
+	}
+
 }

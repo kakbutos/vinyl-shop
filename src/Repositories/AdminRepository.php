@@ -10,6 +10,7 @@ use Exception;
 
 class AdminRepository
 {
+
 	public function getProdsByAdmin(): array
 	{
 		$List = [];
@@ -46,7 +47,7 @@ class AdminRepository
 			new TableField('Исполнитель', 'text', 'ARTIST'),
 			new TableField('Дата релиза', 'number', 'RELEASE_DATE'),
 			new TableField('Цена', 'number', 'PRICE'),
-			new TableField('Качество винила', 'text', 'VINIL_STATUS'),
+			new TableField('Качество винила', 'select', 'VINIL_STATUS'),
 			new TableField('Качество конверта', 'text', 'COVER_STATUS'),
 			new TableField('Треки', 'text', 'TRACKS'),
 			new TableField('Активен', 'bool', 'IS_ACTIVE'),
@@ -62,12 +63,11 @@ class AdminRepository
 		$queryProduct = "INSERT INTO product
 			(NAME, ARTIST_ID, RELEASE_DATE, PRICE, VINYL_STATUS_ID, COVER_STATUS, 
 			 TRACKS, IS_ACTIVE)
-					VALUES ('Новый продукт',  1, '2000', 0,'VG+','M','Нет',1
-			   );";
+					VALUES ('Новый продукт',  1, '2000', 0,'VG+','Без недостатков','Нет', 1);";
 
 		$Query = mysqli_query($connection, $queryProduct);
 		$id = mysqli_insert_id($connection);
-		return [$id, 'Новый продукт', 1, '2000', 0, 'VG+', 'M', 'Нет', 1];
+		return [$id, 'Новый продукт', 1, '2000', 0, 'VG+', 'Без недостатков', 'Нет', false];
 	}
 
 	public function addEmptyTag(): array
@@ -235,4 +235,24 @@ class AdminRepository
 		];
 		return [(array)$tableField, (array)$List];
 	}
+
+
+	public function getVinilStatuses(): array{
+		$connection = Connection::getInstance()->getConnection();
+		$Query = mysqli_query($connection, "
+			SELECT ID
+			FROM `status`
+		");
+		if (!$Query)
+		{
+			throw new Exception(mysqli_error($connection));
+		}
+		$List = [];
+		while ($row = mysqli_fetch_assoc($Query))
+		{
+			$List[] = $row['ID'];
+		}
+		return $List;
+	}
+
 }

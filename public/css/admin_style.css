@@ -89,7 +89,7 @@ body{
     height: 100%;
 }
 
-.cell-input {
+.cell-input, .cell-select{
     width: calc(100%);
     display: inline-block;
     float: left;
@@ -100,9 +100,12 @@ body{
     color: #333;
     font-size: 17px;
 }
-.cell-input:focus{
+.cell-input:focus, .cell-select:focus{
 	border: 1px solid grey;
 }
+
+
+
 .cell-content-div{
 	display: inline-block;
     width: 100%;

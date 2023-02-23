@@ -37,13 +37,19 @@ function initializeTable (data) {
 	header.append(`<td class="table-td table-header-td"></td>`);
 	for (var i = 0; i < data.length; i++) {
 		addNewObj(data[i])
-		console.log(data[i]);
 	}
 
 	$('.cell-input[type=checkbox]').change(function (){
 		$(this).val($(this).is(':checked'));
 	});
 
+	for (var i = 0; i < obj_struct.length; i++)
+	{
+		if (obj_struct[i].type === 'select')
+		{
+			setSelectFieldData(obj_struct[i].field);
+		}
+	}
 }
 
 
@@ -68,46 +74,53 @@ function addNewObj(obj) {
 
 			switch(type) {
 				case 'id':
-			    {
-			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="number" data-field="${dataField}" disabled value="${obj[i]}">`);
-			    	break;
-
-			    }
-			  	case 'bool':
+				{
+					elem.find('.cell-text-div').append(`<input class="cell-input" type="number" data-field="${dataField}" disabled value="${obj[i]}">`);
+					break;
+				}
+				case 'bool':
 				{
 					let checked = obj[i] ? 'checked' : '';
 					elem.find('.cell-text-div').append(`<input class="cell-input" type="checkbox"  data-field="${dataField}"  value="${obj[i]}" ${checked}>`);
 					break;
-
-			    }
-			  	case 'number':
-			    {
-			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="number" data-field="${dataField}" value="${obj[i]}">`);
-			    	break;
-
-			    }
-			  	case 'text':
-			    {
-			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="text" data-field="${dataField}" value="${obj[i]}">`);
-			    	break;
-
-			    }
-			  	default:
-			    {
-			    	console.log( 'obj_struct type is undefined');
-			    }
+				}
+				case 'number':
+				{
+					elem.find('.cell-text-div').append(`<input class="cell-input" type="number" data-field="${dataField}" value="${obj[i]}">`);
+					break;
+				}
+				case 'text':
+				{
+					elem.find('.cell-text-div').append(`<input class="cell-input" type="text" data-field="${dataField}" value="${obj[i]}">`);
+					break;
+				}
+				case 'select':{
+					elem.find('.cell-text-div').append(`
+						<select class="cell-select" data-field="${dataField}">
+							<option value="${obj[i]}" selected>${obj[i]}</option>
+						</select>`
+					);
+					break;
+				}
+				default:
+				{
+					console.log( type + ' of obj_struct is undefined');
+				}
 			}
 			row.append(elem);
 		}
-	row.append(`
-			<td class="table-td">
-				<div class="cell-content-div">
-					<div class="cell-button-div">
-						<button class="btn save-button submit-button" onclick = "document.location='admin/image/${obj[0]}/'">Изображения</button>
+		if (table == 'product')
+		{
+			row.append(`
+				<td class="table-td">
+					<div class="cell-content-div">
+						<div class="cell-button-div">
+							<button class="btn save-button submit-button" onclick = "document.location='admin/image/${obj[0]}/'">Изображения</button>
+						</div>
 					</div>
-				</div>
-			</td>`
-	);
+				</td>`
+			);
+		}
 		row.append(`
 			<td class="table-td">
 				<div class="cell-content-div">
@@ -144,6 +157,7 @@ function newItem(table){
 
 function saveItem(id){
 	let inputs = $(`.row-${id}`).find('input');
+		inputs.push($(`.row-${id}`).find('select'))
 	let obj = [];
 
 	for (let i = 0; i < inputs.length; i++)
@@ -164,7 +178,6 @@ function saveItem(id){
 			{
 				alert(data[0]);
 			}
-			console.log(data);
 		}
 	});
 }
@@ -183,9 +196,28 @@ function getList(dataTable)
 	});
 }
 
+function setSelectFieldData(field){
+	$.ajax({
+		url: '/admin/getSelectFieldData',
+		method: 'get',
+		dataType: 'json',
+		data: {field: field},
+		success: function(data){
+			let selects = $(`*[data-field = ${field}]`);
+			for (let i = 0; i < selects.length; i++)
+			{
+				for (let j = 0; j < data.length; j++)
+				{
+					if ( $(selects[i]).find('option:selected').val() != data[j] ) {
+						$(selects[i]).append(`<option value="${data[j]}">${data[j]}</option>`);
+					}
+				}
+			}
 
+		}
+	});
+}
 function openSubmitModal(id){
-
 	let modal = `
 		<div class="submit-modal">
 			<div class="submit-modal-dialog">
@@ -215,7 +247,6 @@ function openSubmitModal(id){
 			dataType: 'json',
 			data: {table: table, id: id},
 			success: function(data){
-				console.log(data);
 				if (data){
 					$(`.row-${id}`).remove();
 					$('.submit-modal').remove();

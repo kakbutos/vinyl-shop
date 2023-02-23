@@ -12,20 +12,20 @@ class AdminController
 {
 	public function getAdmin(): string
 	{
-		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
-
+		if (!userAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
 		$render = new Template('../src/Views');
-
-		$tags = MainService::getTagsList();
-
-		return $render->render('admin', [
-
-		]);
+		return $render->render('admin', []);
 	}
 
 	public function getList()
 	{
-		if (!userAdminController::isAuthorized()) return '';
+		if (!userAdminController::isAuthorized())
+		{
+			return '';
+		}
 
 		$data = [];
 
@@ -52,7 +52,10 @@ class AdminController
 
 	public function newItem()
 	{
-		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+		if (!userAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
 
 		if ($_GET['table'] === 'product')
 		{
@@ -73,7 +76,10 @@ class AdminController
 	 */
 	public function setItem()
 	{
-		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+		if (!userAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
 
 		$item = $_POST['obj'];
 		$namedItem = [];
@@ -112,12 +118,14 @@ class AdminController
 	}
 
 	public function deleteItem(){
-		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+		if (!userAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
 
 		$table = $_POST['table'];
 		$id = (int)$_POST['id'];
 		if($table === 'product'){
-			$teml = 0;
 			return json_encode(AdminService::deleteProduct($id), JSON_THROW_ON_ERROR);
 		}
 
@@ -125,5 +133,15 @@ class AdminController
 			return json_encode(AdminService::deleteTag($id), JSON_THROW_ON_ERROR);
 		}
 		return 0;
+	}
+
+	public function getSelectFieldData(){
+		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+
+		$field = $_GET['field'];
+		if ($field === 'VINIL_STATUS'){
+			return json_encode(AdminService::getVinilStatuses(), JSON_THROW_ON_ERROR);
+		}
+
 	}
 }

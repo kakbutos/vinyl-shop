@@ -4,19 +4,25 @@ use Eshop\core\Routing\Router;
 
 Router::get('/', [new Eshop\Controllers\MainController(), 'catalog']);
 
+
 Router::get('/product/:id/', [new Eshop\Controllers\ProductController(), 'detail']);
+
 
 Router::get('/tag/:id/', [new Eshop\Controllers\MainController(), 'catalogByTag']);
 
 Router::get('/find', [new Eshop\Controllers\MainController(), 'catalogBySearch']);
 
+
 Router::get('/order/:id/', [new Eshop\Controllers\OrderController(), 'getOrder']);
 
 Router::post('/createOrder', [new Eshop\Controllers\OrderController(), 'createOrder']);
 
+
 Router::get('/admin', [new Eshop\Controllers\AdminController(), 'getAdmin']);
 
 Router::get('/admin/getList', [new Eshop\Controllers\AdminController(), 'getList']);
+
+Router::get('/admin/getSelectFieldData', [new Eshop\Controllers\AdminController(), 'getSelectFieldData']);
 
 Router::get('/admin/newItem', [new Eshop\Controllers\AdminController(), 'newItem']);
 
@@ -24,11 +30,13 @@ Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'setIte
 
 Router::post('/admin/deleteItem', [new Eshop\Controllers\AdminController(), 'deleteItem']);
 
+
 Router::get('/login', [new Eshop\Controllers\userAdminController(), 'login']);
 
 Router::post('/login', [new Eshop\Controllers\userAdminController(), 'auth']);
 
 Router::get('/logout', [new Eshop\Controllers\userAdminController(), 'logout']);
+
 
 Router::get('/admin/image/:id/', [new Eshop\Controllers\ImageController(), 'getImage']);
 
