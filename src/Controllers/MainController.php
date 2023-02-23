@@ -66,4 +66,5 @@ class MainController
 			'pagination' => $pagination
 		];
 	}
+
 }

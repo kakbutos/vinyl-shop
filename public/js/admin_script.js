@@ -34,12 +34,15 @@ function initializeTable (data) {
 	}
 	header.append(`<td class="table-td table-header-td"></td>`);
 	header.append(`<td class="table-td table-header-td"></td>`);
-
-
+	header.append(`<td class="table-td table-header-td"></td>`);
 	for (var i = 0; i < data.length; i++) {
-		addNewObj(data[i], i)
-
+		addNewObj(data[i])
+		console.log(data[i]);
 	}
+
+	$('.cell-input[type=checkbox]').change(function (){
+		$(this).val($(this).is(':checked'));
+	});
 
 }
 
@@ -71,9 +74,10 @@ function addNewObj(obj) {
 
 			    }
 			  	case 'bool':
-			    {
-			    	elem.find('.cell-text-div').append(`<input class="cell-input" type="text" data-field="${dataField}" value="${obj[i]}">`);
-			    	break;
+				{
+					let checked = obj[i] ? 'checked' : '';
+					elem.find('.cell-text-div').append(`<input class="cell-input" type="checkbox"  data-field="${dataField}"  value="${obj[i]}" ${checked}>`);
+					break;
 
 			    }
 			  	case 'number':
@@ -95,9 +99,7 @@ function addNewObj(obj) {
 			}
 			row.append(elem);
 		}
-		if (table === 'product')
-		{
-			row.append(`
+	row.append(`
 			<td class="table-td">
 				<div class="cell-content-div">
 					<div class="cell-button-div">
@@ -105,8 +107,7 @@ function addNewObj(obj) {
 					</div>
 				</div>
 			</td>`
-			);
-		}
+	);
 		row.append(`
 			<td class="table-td">
 				<div class="cell-content-div">

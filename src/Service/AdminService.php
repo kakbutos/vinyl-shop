@@ -87,10 +87,18 @@ class AdminService
 
 		if ($validate->validate())
 		{
-			$productObj = new Product((int)$product['ID'], $product['NAME'], $product['ARTIST'],
+			$active = $product['IS_ACTIVE'] === 'true';
+			$productObj = new Product(
+				(int)$product['ID'],
+				$product['NAME'],
+				$product['ARTIST'],
 				$product['RELEASE_DATE'],
-				(float)$product['PRICE'], [], $product['VINIL_STATUS'], $product['COVER_STATUS'],
-				$product['TRACKS'], (bool)$product['IS_ACTIVE']);
+				(float)$product['PRICE'],
+				[],
+				$product['VINIL_STATUS'],
+				$product['COVER_STATUS'],
+				$product['TRACKS'],
+				$active);
 
 			(new AdminRepository())->updateProduct($productObj);
 		}

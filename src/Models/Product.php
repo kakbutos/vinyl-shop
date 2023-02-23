@@ -21,9 +21,19 @@ class Product
 	/**
 	 * @throws Exception
 	 */
-	public function __construct (int $id, string $name, string $artist, string $releaseDate,
-		 float $price, array $imageList = [], ?string $vinylStatus = null,
-		?string $coverStatus = null, ?array $tracks = null, ?bool $isActive = null, ?string $vinylStatusName = null, ?string $vinylStatusDesk = null)
+	public function __construct (
+		int $id,
+		string $name,
+		string $artist,
+		string $releaseDate,
+		float $price,
+		array $imageList = [],
+		?string $vinylStatus = null,
+		?string $coverStatus = null,
+		?array $tracks = null,
+		?bool $isActive = null,
+		?string $vinylStatusName = null,
+		?string $vinylStatusDesk = null)
 	{
 		$this->id = $id;
 		$this->name = $name;

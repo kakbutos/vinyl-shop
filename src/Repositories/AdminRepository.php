@@ -36,7 +36,7 @@ class AdminRepository
 				$row['VINYL_STATUS_ID'],
 				$row['COVER_STATUS'],
 				$row['TRACKS'],
-				(bool)['IS_ACTIVE'],
+				(bool)$row['IS_ACTIVE'],
 			];
 		}
 
@@ -96,7 +96,7 @@ class AdminRepository
 		$productVinylStatus = mysqli_real_escape_string($connection, $product->getVinylStatus());
 		$productCoverStatus = mysqli_real_escape_string($connection, $product->getCoverStatus());
 		$productTracks = mysqli_real_escape_string($connection, implode(';', $product->getTracks()));
-		$productIsActive = $product->getIsActive();
+		$productIsActive = $product->getIsActive() ? 1 : 0;
 
 		$queryArtist = "SELECT a.ID FROM artist a
 			INNER JOIN product p on a.ID = p.ARTIST_ID
@@ -121,9 +121,14 @@ class AdminRepository
 			$artistId = mysqli_insert_id($connection);
 		}
 		$queryProduct = "UPDATE product
-			SET NAME = '$productName', ARTIST_ID = {$artistId}, RELEASE_DATE = '$productReleaseDate',
-			    PRICE = {$productPrice}, VINYL_STATUS_ID = '$productVinylStatus', 
-			    COVER_STATUS = '$productCoverStatus', TRACKS = '$productTracks', IS_ACTIVE = {$productIsActive}
+			SET NAME = '$productName', 
+			    ARTIST_ID = {$artistId}, 
+			    RELEASE_DATE = '$productReleaseDate',
+			    PRICE = {$productPrice}, 
+			    VINYL_STATUS_ID = '$productVinylStatus', 
+			    COVER_STATUS = '$productCoverStatus', 
+			    TRACKS = '$productTracks', 
+			    IS_ACTIVE = $productIsActive
 			WHERE ID = {$productId}
 			;";
 		$test = mysqli_query($connection, $queryProduct);
