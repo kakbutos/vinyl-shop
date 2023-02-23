@@ -4,6 +4,7 @@ namespace Eshop\src\Repositories;
 
 use Eshop\Core\DB\Connection;
 use Eshop\src\Models\Image;
+use MongoDB\Driver\Query;
 
 class ImageRepository
 {
@@ -41,7 +42,7 @@ class ImageRepository
 		mysqli_begin_transaction($connection);
 
 		$query = mysqli_query($connection, $queryImage);
-		if ($query === true)
+		if ($query)
 		{
 			$imageId = mysqli_insert_id($connection);
 
@@ -85,18 +86,68 @@ class ImageRepository
 		}
 
 		$deleteProductImageQuery = mysqli_query($connection, "
-			DELETE FROM product_image pi
-			WHERE pi.IMAGE_ID = {$imageId};
+			DELETE FROM product_image
+			WHERE IMAGE_ID = {$imageId};
 		");
 
-		var_dump($deleteProductImageQuery);
 
 		$deleteImageQuery = mysqli_query($connection, "
 			DELETE FROM image
 			WHERE ID = {$imageId};
 		");
-		var_dump($deleteImageQuery);
+		if(!$deleteImageQuery && !$deleteProductImageQuery)
+		{
+			return [];
+		}
+
 		return $select;
 	}
 
+	public function setIsMainImage($imageId): string
+	{
+		$connection = Connection::getInstance()->getConnection();
+
+		$selectQuery = mysqli_query($connection, "
+		SELECT PRODUCT_ID FROM product_image
+		WHERE IMAGE_ID = {$imageId};
+		");
+		$productId = 0;
+
+		while ($row = mysqli_fetch_assoc($selectQuery))
+		{
+			$productId = $row['PRODUCT_ID'];
+		}
+
+
+		$updateQuery = "
+		UPDATE image
+		SET IS_MAIN = FALSE
+		WHERE ID IN
+		(SELECT IMAGE_ID FROM product_image
+		WHERE PRODUCT_ID = {$productId})
+		";
+
+		$updateNewQuery = "
+		UPDATE image
+		SET IS_MAIN = TRUE
+		WHERE ID = {$imageId};
+		";
+
+		mysqli_begin_transaction($connection);
+		$query = mysqli_query($connection, $updateQuery);
+		var_dump($query);
+		if ($query)
+		{
+			$query = mysqli_query($connection, $updateNewQuery);
+		}
+
+		if ($query === false)
+		{
+			mysqli_rollback($connection);
+			return 0;
+		}
+		mysqli_commit($connection);
+
+		return $productId;
+	}
 }

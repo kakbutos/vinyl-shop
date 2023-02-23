@@ -23,7 +23,6 @@ class ImageController
 
 	public function addImage(int $id): void
 	{
-		$render = new Template('../src/Views');
 		if(!empty($_FILES['file']))
 		{
 			$file = $_FILES['file'];
@@ -36,7 +35,6 @@ class ImageController
 
 	public function deleteImage(int $imageId): void
 	{
-		$render = new Template('../src/Views');
 		$productId = ImageService::deleteImage($imageId);
 		if($productId === 0)
 		{
@@ -45,8 +43,11 @@ class ImageController
 		header("Location: " . AuthHelper::getUrl() . "/admin/image/{$productId}/");
 	}
 
-	public function getIsMainImage(int $imageId): string
+	public function getIsMainImage(int $imageId): void
 	{
-		return 'heh';
+		$productId = ImageService::setIsMainImage($imageId);
+
+		header("Location: " . AuthHelper::getUrl() . "/admin/image/{$productId}/");
 	}
+
 }

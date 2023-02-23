@@ -58,4 +58,11 @@ class ImageService
 
 		return $productId;
 	}
+
+	public static function setIsMainImage($imageId): int
+	{
+		$productId = (new ImageRepository())->setIsMainImage($imageId);
+
+		return $productId;
+	}
 }
