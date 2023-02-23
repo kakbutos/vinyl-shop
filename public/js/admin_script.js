@@ -95,7 +95,9 @@ function addNewObj(obj) {
 			}
 			row.append(elem);
 		}
-	row.append(`
+		if (table === 'product')
+		{
+			row.append(`
 			<td class="table-td">
 				<div class="cell-content-div">
 					<div class="cell-button-div">
@@ -103,7 +105,8 @@ function addNewObj(obj) {
 					</div>
 				</div>
 			</td>`
-	);
+			);
+		}
 		row.append(`
 			<td class="table-td">
 				<div class="cell-content-div">
