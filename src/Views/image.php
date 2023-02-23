@@ -40,13 +40,13 @@ use Eshop\src\Service\PageService;
 							<?=PageService::truncate($image->getName(), 20)  ?>
 						</div>
 						<div class="image-isMain-container">
-							<?php if( $image->IsMain() === true): ?>Основное
-							<?php else: ?>Дополнительное
-							<?php endif; ?> изображение
+							<?php if( $image->IsMain() === true): ?>Основное изображение
+							<?php else: ?>Дополнительное изображение
+							<?php endif; ?>
 						</div>
 						<div class="image-action-container">
-							<a href="/order/ /" class="image-button"> Удалить </a>
-							<a href="/order/ /" class="image-button"> Сделать основным </a>
+							<a href="/admin/image/isMain/<?= $image->getId() ?>/" class="image-button"> Сделать основным </a>
+							<a href="/admin/image/delete/<?= $image->getId() ?>/" class="image-button"> Удалить </a>
 						</div>
 					</div>
 				</div>

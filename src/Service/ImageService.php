@@ -11,7 +11,7 @@ class ImageService
 		return (new ImageRepository())->getImageList($id);
 	}
 
-	public static function addImageFile(int $id, $file): bool
+	public static function addImage(int $id, $file): bool
 	{
 		$name = $file['name'];
 		$guid = bin2hex(openssl_random_pseudo_bytes(16));
@@ -26,9 +26,36 @@ class ImageService
 		$pathFile = $dir . $name;
 		if (move_uploaded_file($file['tmp_name'], $pathFile))
 		{
-			return (new ImageRepository())->addImageList($id, $guid, $name);
+			return (new ImageRepository())->addImage($id, $guid, $name);
 		}
 
 		return false;
+	}
+
+	public static function deleteImage($imageId): int
+	{
+		$select = (new ImageRepository())->deleteImage($imageId);
+		if(empty($select))
+		{
+			return 0;
+		}
+
+		$productId = $select['productId'];
+		$name = $select['name'];
+		$dir = ROOT . "/public/assets/img/{$select['path']}/";
+
+		$test = unlink($dir . $name);
+		if (!$test)
+		{
+			return 0;
+		}
+
+		$test = rmdir($dir);
+		if(!$test)
+		{
+			return 0;
+		}
+
+		return $productId;
 	}
 }

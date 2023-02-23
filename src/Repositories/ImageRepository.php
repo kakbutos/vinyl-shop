@@ -30,36 +30,73 @@ class ImageRepository
 		return $imageList;
 	}
 
-	public function addImageList($id, $guid, $name): bool
+	public function addImage($id, $guid, $name): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
 
+		$queryImage = "INSERT INTO image (PATH, NAME, IS_MAIN)
+			VALUES ('$guid', '$name', false);
+		";
+
 		mysqli_begin_transaction($connection);
 
-		$Query = mysqli_query($connection, "
-			INSERT INTO image (PATH, NAME, IS_MAIN)
-			VALUES ('$guid', '$name', false);
-		");
-		if ($Query === true)
+		$query = mysqli_query($connection, $queryImage);
+		if ($query === true)
 		{
-			$ImageId = mysqli_insert_id($connection);
+			$imageId = mysqli_insert_id($connection);
 
-			$Query = mysqli_query($connection, "
+			$query = mysqli_query($connection, "
 			INSERT INTO product_image (PRODUCT_ID, IMAGE_ID)
-			VALUES ('$id', '$ImageId');
+			VALUES ('$id', '$imageId');
 		");
-			if ($Query === true)
+
+			if ($query === false)
 			{
-				mysqli_commit($connection);
-				return true;
+				mysqli_rollback($connection);
+				return false;
 			}
 
-		}
-		else
-		{
-			mysqli_rollback($connection);
+			mysqli_commit($connection);
+			return true;
 		}
 
 		return false;
 	}
+
+	public function deleteImage($imageId): array
+	{
+		$connection = Connection::getInstance()->getConnection();
+
+		$selectQuery = mysqli_query($connection, "
+		SELECT i.NAME, i.PATH, pi.PRODUCT_ID FROM image i
+		INNER JOIN product_image pi on i.ID = pi.IMAGE_ID
+		WHERE i.ID = {$imageId};
+		");
+
+		$select = [];
+
+		while ($row = mysqli_fetch_assoc($selectQuery))
+		{
+			$select = array(
+				'name' => $row['NAME'],
+				'path' => $row['PATH'],
+				'productId' => $row['PRODUCT_ID'],
+				);
+		}
+
+		$deleteProductImageQuery = mysqli_query($connection, "
+			DELETE FROM product_image pi
+			WHERE pi.IMAGE_ID = {$imageId};
+		");
+
+		var_dump($deleteProductImageQuery);
+
+		$deleteImageQuery = mysqli_query($connection, "
+			DELETE FROM image
+			WHERE ID = {$imageId};
+		");
+		var_dump($deleteImageQuery);
+		return $select;
+	}
+
 }
