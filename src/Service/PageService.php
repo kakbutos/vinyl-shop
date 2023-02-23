@@ -17,4 +17,20 @@ class PageService
 
 		return [];
 	}
+
+	// Обрезание текста, который превышает максимальную длину
+	public static function truncate(string $text, ?int $maxLength = null): string
+	{
+		if ($maxLength === null)
+		{
+			return $text;
+		}
+
+		$cropped = mb_strimwidth($text, 0, $maxLength);
+		if ($cropped !== $text)
+		{
+			return $cropped . "...";
+		}
+		return $text;
+	}
 }

@@ -52,7 +52,7 @@ class AdminController
 
 	public function newItem()
 	{
-		if (!userAdminController::isAuthorized()) return '';
+		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
 
 		if ($_GET['table'] === 'product')
 		{
@@ -73,9 +73,13 @@ class AdminController
 	 */
 	public function setItem()
 	{
+		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+
 		$item = $_POST['obj'];
 		$namedItem = [];
-		for ($i = 0, $iMax = count($item); $i< $iMax; $i++){
+
+		for ($i = 0, $iMax = count($item); $i< $iMax; $i++)
+		{
 			$namedItem[$item[$i]['field']] = $item[$i]['value'];
 		}
 
@@ -108,7 +112,7 @@ class AdminController
 	}
 
 	public function deleteItem(){
-		if (!userAdminController::isAuthorized()) return '';
+		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
 
 		$table = $_POST['table'];
 		$id = (int)$_POST['id'];

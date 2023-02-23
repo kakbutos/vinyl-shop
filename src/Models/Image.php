@@ -6,22 +6,17 @@ use Exception;
 
 class Image
 {
-	private int $productId;
+	private int $id;
 	private string $path;
 	private string $name;
 	private bool $isMain;
 
-	public function __construct (int $productId, string $path, string $name, bool $isMain)
+	public function __construct (int $id, string $path, string $name, bool $isMain)
 	{
-		$this->productId = $productId;
+		$this->id = $id;
 		$this->path = $path;
 		$this->name = $name;
 		$this->isMain = $isMain;
-	}
-
-	public function getProductId(): int
-	{
-		return $this->productId;
 	}
 
 	public function getPath(): string
@@ -37,5 +32,10 @@ class Image
 	public function getName(): string
 	{
 		return $this->name;
+	}
+
+	public function getId(): int
+	{
+		return $this->id;
 	}
 }

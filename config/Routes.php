@@ -31,3 +31,9 @@ Router::post('/login', [new Eshop\Controllers\userAdminController(), 'auth']);
 Router::get('/logout', [new Eshop\Controllers\userAdminController(), 'logout']);
 
 Router::get('/admin/image/:id/', [new Eshop\Controllers\ImageController(), 'getImage']);
+
+Router::post('/admin/image/add/:id/', [new Eshop\Controllers\ImageController(), 'addImage']);
+
+Router::get('/admin/image/delete/:id/', [new Eshop\Controllers\ImageController(), 'deleteImage']);
+
+Router::get('/admin/image/isMain/:id/', [new Eshop\Controllers\ImageController(), 'getIsMainImage']);
