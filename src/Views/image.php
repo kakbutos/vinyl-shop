@@ -52,6 +52,10 @@ use Eshop\src\Service\PageService;
 				</div>
 			<?php endforeach; ?>
 		</div>
+
+		<div class="button-move">
+			<a href="/admin" class="image-button"> Вернуться на главную </a>
+		</div>
 	</div>
 </div>
 

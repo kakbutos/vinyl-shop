@@ -14,7 +14,6 @@ class AdminController
 	{
 		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
 
-		session_start();
 		$render = new Template('../src/Views');
 
 		$tags = MainService::getTagsList();

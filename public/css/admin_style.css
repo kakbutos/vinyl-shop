@@ -310,3 +310,8 @@ body{
 	background: #fe9524;
 	color: white;
 }
+
+.button-move {
+	margin-left: 15px;
+	margin-top: 15px;
+}
