@@ -9,8 +9,6 @@
 <div class="order-content">
 
 	<form action="/createOrder" method="post">
-<!--		<input type="hidden" name="productId" value="--><?//= $product->getId() ?><!--">-->
-<!--		<input type="hidden" name="productPrice" value="--><?//= $product->getPrice() ?><!--">-->
 		<div class="person-info">
 			<h3>Контактная информация</h3>
 
@@ -36,18 +34,10 @@
 					<?=$product['artist'] . ' -'?>
 					<?=$product['name']?>
 				</div>
-
 				<div class="count-price">
-					<div class="count">
-						<?=$product['qty'] . ' шт.'?>
-<!--						<button type="button" onclick="this.nextElementSibling.stepDown()" class="change-count-button">-</button>-->
-<!--						<input type="number" min="0" max="99" value="1" readonly class="product-count" id="product-count" name="count">-->
-<!--						<button type="button" onclick="this.previousElementSibling.stepUp()" class="change-count-button">+</button>-->
-					</div>
+					<div class="count"><?=$product['qty'] . ' шт.'?></div>
 
-					<div class="price" id="#price">
-						<?= $product['price'] . ' руб'?>
-					</div>
+					<div class="price" id="#price"><?= $product['price'] . ' руб'?></div>
 				</div>
 				<?php endforeach ?>
 			</div>

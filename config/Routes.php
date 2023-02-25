@@ -13,11 +13,6 @@ Router::get('/tag/:id/', [new Eshop\Controllers\MainController(), 'catalogByTag'
 Router::get('/find', [new Eshop\Controllers\MainController(), 'catalogBySearch']);
 
 
-// Router::get('/order/:id/', [new Eshop\Controllers\OrderController(), 'getOrder']);
-
-Router::post('/createOrder', [new Eshop\Controllers\OrderController(), 'createOrder']);
-
-
 Router::get('/admin', [new Eshop\Controllers\AdminController(), 'getAdmin']);
 
 Router::get('/admin/getList', [new Eshop\Controllers\AdminController(), 'getList']);
@@ -57,3 +52,5 @@ Router::get('/cart/reduce/:id/', [new Eshop\Controllers\CartController(), 'reduc
 
 
 Router::post('/checkout', [new Eshop\Controllers\OrderController(), 'getOrder']);
+
+Router::post('/createOrder', [new Eshop\Controllers\OrderController(), 'createOrder']);
