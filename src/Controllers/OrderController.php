@@ -4,10 +4,8 @@ namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
 use Eshop\src\Models\Cart;
-use Eshop\src\Repositories\OrderRepository;
 use Eshop\src\Service\MainService;
 use Eshop\src\Service\OrderService;
-use Eshop\src\Service\ProductService;
 use Exception;
 
 class OrderController
@@ -15,18 +13,28 @@ class OrderController
 	/**
 	 * @throws Exception
 	 */
-	public function getOrder(string $id): string
+	public function getOrder(): string
 	{
-		$quantityProductsInCart = (new Cart())->getTotalQuantity();
 		$render = new Template('../src/Views');
-		$product = ProductService::getProductById($id);
 		$tags = MainService::getTagsList();
-		$orders = (new OrderRepository())->getList();
+		$quantityProductsInCart = (new Cart())->getTotalQuantity();
+
+		if ($quantityProductsInCart > 0)
+		{
+			$cart = new Cart();
+			$products = $cart->getCart();
+
+			return $render->render('layout', [
+				'header' => $render->render('/components/header', ['quantity' => $quantityProductsInCart]),
+				'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
+				'content' => $render->render('/public/order',['products' => $products]),
+			]);
+		}
 
 		return $render->render('layout', [
 			'header' => $render->render('/components/header', ['quantity' => $quantityProductsInCart]),
 			'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
-			'content' => $render->render('/public/order',['product' => $product,'orders' => $orders]),
+			'content' => 'Нет товаров для заказа',
 		]);
 	}
 

@@ -1,9 +1,7 @@
 <?php
 
-use Eshop\src\Models\Product;
-
 /**
- * @var Product $product
+ * @var array $products
  *
  */
 ?>
@@ -11,8 +9,8 @@ use Eshop\src\Models\Product;
 <div class="order-content">
 
 	<form action="/createOrder" method="post">
-		<input type="hidden" name="productId" value="<?= $product->getId() ?>">
-		<input type="hidden" name="productPrice" value="<?= $product->getPrice() ?>">
+<!--		<input type="hidden" name="productId" value="--><?//= $product->getId() ?><!--">-->
+<!--		<input type="hidden" name="productPrice" value="--><?//= $product->getPrice() ?><!--">-->
 		<div class="person-info">
 			<h3>Контактная информация</h3>
 
@@ -33,28 +31,31 @@ use Eshop\src\Models\Product;
 		<div class="order-info">
 			<div class="order-info-content">
 				<h3>Ваш заказ</h3>
+				<?php foreach ($products as $id => $product): ?>
 				<div class="product-title">
-					<?=$product->getArtist() . ' -'?>
-					<?=$product->getName()?>
+					<?=$product['artist'] . ' -'?>
+					<?=$product['name']?>
 				</div>
 
 				<div class="count-price">
 					<div class="count">
-						<button type="button" onclick="this.nextElementSibling.stepDown()" class="change-count-button">-</button>
-						<input type="number" min="0" max="99" value="1" readonly class="product-count" id="product-count" name="count">
-						<button type="button" onclick="this.previousElementSibling.stepUp()" class="change-count-button">+</button>
+						<?=$product['qty'] . ' шт.'?>
+<!--						<button type="button" onclick="this.nextElementSibling.stepDown()" class="change-count-button">-</button>-->
+<!--						<input type="number" min="0" max="99" value="1" readonly class="product-count" id="product-count" name="count">-->
+<!--						<button type="button" onclick="this.previousElementSibling.stepUp()" class="change-count-button">+</button>-->
 					</div>
 
 					<div class="price" id="#price">
-						<?= $product->getPrice() . ' руб'?>
+						<?= $product['price'] . ' руб'?>
 					</div>
 				</div>
+				<?php endforeach ?>
 			</div>
 
 			<div class="order-info-footer">
 				<div class="total-price">
 					<h4>Итого</h4>
-					<span class="summ"><?= $product->getPrice() . ' руб' ?></span>
+					<span class="summ"></span>
 				</div>
 
 				<input class="order-button" type="submit" value="Оформить заказ">
@@ -64,8 +65,6 @@ use Eshop\src\Models\Product;
 	</form>
 
 </div>
-<script>
-	var price = <?= $product->getPrice()?>
-</script>
+
 <script src="/js/Order_Script.js"></script>
 
