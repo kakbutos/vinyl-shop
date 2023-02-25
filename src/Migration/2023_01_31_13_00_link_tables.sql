@@ -15,11 +15,12 @@ CREATE TABLE product_tag
 
 CREATE TABLE product_order
 (
+	ID int not null auto_increment,
 	PRODUCT_ID int not null,
 	ORDER_ID int not null,
 	COUNT int not null,
 	PRICE DOUBLE not null,
-	PRIMARY KEY (PRODUCT_ID, ORDER_ID),
+	PRIMARY KEY (ID),
 	FOREIGN KEY FK_PO_PRODUCT (PRODUCT_ID)
 		REFERENCES product(ID)
 		ON UPDATE RESTRICT
