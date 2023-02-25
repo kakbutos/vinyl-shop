@@ -3,6 +3,7 @@ use Eshop\src\Service\PageService;
 /**
  * @var array $imageList
  * @var int $productId
+ * @var string $info
  */
 ?>
 
@@ -17,8 +18,13 @@ use Eshop\src\Service\PageService;
 </head>
 
 <body>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
 <div class="container">
 	<div class="content">
+
+		<?=$info ?>
+
 		<div class="image-header">
 			<div class="image-title">Изменить изображения</div>
 			<div class="image-add">
