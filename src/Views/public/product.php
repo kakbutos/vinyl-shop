@@ -1,4 +1,6 @@
 <?php
+
+use Eshop\src\Models\Product;
 use \Eshop\src\Service\PageService;
 /**
  * @var Product $product
@@ -106,7 +108,9 @@ use \Eshop\src\Service\PageService;
 				<div class="product-detail-buy-price">
 					<?=$product->getPrice()?>
 				</div>
-				<a href="/order/<?=$product->getId()?>/" class="buy-button"> Купить </a>
+				<a href="/cart/<?=$product->getId()?>/" class="buy-button" data-id="<?=$product->getId()?>"> Купить </a>
 			</div>
 	</div>
 </div>
+
+<script src="/js/cart_script.js"></script>
