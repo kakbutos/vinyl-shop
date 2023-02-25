@@ -2,7 +2,7 @@
 
 /**
  * @var array $products
- *
+ * @var $totalSum
  */
 ?>
 
@@ -37,7 +37,7 @@
 				<div class="count-price">
 					<div class="count"><?=$product['qty'] . ' шт.'?></div>
 
-					<div class="price" id="#price"><?= $product['price'] . ' руб'?></div>
+					<div class="price" id="#price"><?= ($product['price'] * $product['qty']) . ' руб'?></div>
 				</div>
 				<?php endforeach ?>
 			</div>
@@ -45,7 +45,7 @@
 			<div class="order-info-footer">
 				<div class="total-price">
 					<h4>Итого</h4>
-					<span class="summ"></span>
+					<span class="summ"><?= $totalSum ?></span>
 				</div>
 
 				<input class="order-button" type="submit" value="Оформить заказ">

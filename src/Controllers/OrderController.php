@@ -23,11 +23,12 @@ class OrderController
 		{
 			$cart = new Cart();
 			$products = $cart->getCart();
+			$totalSum = $cart->getTotalSum();
 
 			return $render->render('layout', [
 				'header' => $render->render('/components/header', ['quantity' => $quantityProductsInCart]),
 				'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
-				'content' => $render->render('/public/order',['products' => $products]),
+				'content' => $render->render('/public/order',['products' => $products, 'totalSum' => $totalSum], ),
 			]);
 		}
 
