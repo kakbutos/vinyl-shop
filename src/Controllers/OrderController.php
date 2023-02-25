@@ -48,6 +48,7 @@ class OrderController
 		try
 		{
 			OrderService::addOrder();
+			session_unset();
 			return $render->render('/public/orderInfo');
 		}
 		catch (Exception $e)

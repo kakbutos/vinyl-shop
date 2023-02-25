@@ -36,9 +36,9 @@ class OrderRepository extends Repository
 		$customerPhone = mysqli_real_escape_string($connection, $order->getCustomerPhone());
 		$comment = mysqli_real_escape_string($connection, $order->getComment());
 		$status = $order->getStatus();
-		$productId = $order->getProductId();
-		$count = $order->getCount();
-		$price = $order->getPrice();
+		$products = $order->getProducts();
+		// $count = $order->getCount();
+		// $price = $order->getPrice();
 
 		$comment = $comment ?: "NULL";
 
@@ -57,7 +57,15 @@ class OrderRepository extends Repository
 		{
 			mysqli_query($connection, $queryOrder);
 			$orderId = mysqli_insert_id($connection);
-			mysqli_query($connection, "INSERT INTO product_order (PRODUCT_ID, ORDER_ID, COUNT, PRICE) VALUES ('$productId', '$orderId', '$count', '$price');");
+
+			$valuesArray = [];
+			foreach ($products as $id => $product)
+			{
+				$valuesArray[] = sprintf("(%s, %s, %s, %s)", $id, $orderId, $product['qty'], $product['price']);
+			}
+			$valuesString = implode(', ', $valuesArray);
+			$queryProductOrder = "INSERT INTO product_order (PRODUCT_ID, ORDER_ID, COUNT, PRICE) VALUES $valuesString";
+			mysqli_query($connection, $queryProductOrder);
 			mysqli_commit($connection);
 		}
 
