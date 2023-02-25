@@ -30,7 +30,7 @@ use Eshop\src\Service\PageService;
 			<div class="image-add">
 				 <form action="/admin/image/add/<?= $productId ?>/" method="POST" enctype="multipart/form-data">
 					 <input type="file" name="file">
-					 <input type="submit" value="Загрузить">
+					 <input type="submit" class="image-button" value="Загрузить">
 				 </form>
 			</div>
 		</div>
@@ -65,6 +65,7 @@ use Eshop\src\Service\PageService;
 	</div>
 </div>
 
+<script src="/js/imageScript.js"></script>
 </body>
 
 </html>

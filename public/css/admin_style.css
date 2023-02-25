@@ -321,25 +321,41 @@ body{
 
 /*----------------------------------*/
 
-.info-field {
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	flex-direction: column;
-	align-content: center;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	font-size: x-large;
-	height: 40px;
-	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-	border-radius: 20px;
+.submit-modal-image{
+	display: block;
+	position: fixed;
+	top: 20%;
+	left: calc(50% - 200px);
+	background: #effcb3;
+	border: 1px solid grey;
+	height: 100px;
+	width: 400px;
+	border-radius: 5px;
+	padding: 5px;
 }
 
-.info-field.info {
-	background-color: palegreen;
+.modal-error-info {
+	background: #fcbcb3;
+	font-size: 100px;
 }
 
 .info-field.danger {
 	background-color: #ffb8b8;
+}
 
+.submit-modal-body-image{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+
+}
+
+.submit-modal-body-text {
+	margin-bottom: 25px;
+}
+
+.image-button-info{
+	width: 120px;
 }
