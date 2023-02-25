@@ -45,3 +45,10 @@ Router::post('/admin/image/add/:id/', [new Eshop\Controllers\ImageController(), 
 Router::get('/admin/image/delete/:id/', [new Eshop\Controllers\ImageController(), 'deleteImage']);
 
 Router::get('/admin/image/isMain/:id/', [new Eshop\Controllers\ImageController(), 'getIsMainImage']);
+
+
+Router::get('/admin/order/:id/', [new Eshop\Controllers\OrderItemController(), 'getOrderItems']);
+
+Router::get('/admin/order/add/:id/', [new Eshop\Controllers\OrderItemController(), 'addOrderItem']);
+
+Router::get('/admin/order/delete/:id/', [new Eshop\Controllers\OrderItemController(), 'deleteOrderItem']);
