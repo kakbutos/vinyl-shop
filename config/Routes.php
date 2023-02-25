@@ -53,3 +53,4 @@ Router::get('/admin/order/add/:id/', [new Eshop\Controllers\OrderItemController(
 
 Router::get('/admin/order/delete/:id/', [new Eshop\Controllers\OrderItemController(), 'deleteOrderItem']);
 
+Router::post('/admin/order/update/:id/', [new Eshop\Controllers\OrderItemController(), 'updateOrderItem']);

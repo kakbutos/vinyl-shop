@@ -15,7 +15,7 @@ class OrderItemRepository
 		$List = [];
 		$connection = Connection::getInstance()->getConnection();
 		$Query = mysqli_query($connection, "
-			SELECT product_order.ID as ID, PRODUCT_ID, p.NAME as NAME, COUNT, p.PRICE
+			SELECT product_order.ID as ID, PRODUCT_ID, ORDER_ID, p.NAME as NAME, COUNT, p.PRICE
 			FROM product_order
 			JOIN product p on product_order.PRODUCT_ID = p.ID
 			WHERE ORDER_ID = {$id}
@@ -31,6 +31,7 @@ class OrderItemRepository
 			$List[] = [
 				'ID' => $row['ID'],
 				'PRODUCT_ID' => $row['PRODUCT_ID'],
+				'ORDER_ID' => $row['ORDER_ID'],
 				'NAME' => $row['NAME'],
 				'COUNT' => (int)$row['COUNT'],
 				'PRICE' => (float)$row['PRICE']
@@ -61,25 +62,26 @@ class OrderItemRepository
 		return mysqli_query($connection, $queryProduct);
 	}
 
-	public function updateOrderItem(array $order): void
+	public function updateOrderItem(array $ProductOrder): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
 
-		$id = $order['ID'];
-		$orderProductId = $order['PRODUCT_ID'];
-		$orderId = $order['ORDER_ID'];
-		$orderCount = $order['COUNT'];
-		$orderPrice = $order['PRICE'];
+		$id = $ProductOrder['ID'];
+		$orderProductId = $ProductOrder['PRODUCT_ID'];
+		$orderId = $ProductOrder['ORDER_ID'];
+		$orderCount = $ProductOrder['COUNT'];
+		$orderPrice = $ProductOrder['PRICE'];
 
-		mysqli_begin_transaction($connection);
+		var_dump($orderCount, $orderPrice); die;
+
 		$queryOrder = "UPDATE product_order 
-		SET PRODUCT_ID = '$orderProductId',
-		    ORDER_ID = '$orderId',
-		    COUNT = '$orderCount',
-		    PRICE = '$orderPrice'
-		WHERE ID = '$id'
+		SET
+		    COUNT = {$orderCount},
+		    PRICE = {$orderPrice}
+		WHERE ID = {$id}
 		";
 		$test = mysqli_query($connection, $queryOrder);
-		mysqli_commit($connection);
+
+		return $test;
 	}
 }

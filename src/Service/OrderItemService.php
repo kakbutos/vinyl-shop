@@ -26,15 +26,16 @@ class OrderItemService
 		return (new OrderItemRepository())->deleteEmptyOrderItem($id);
 	}
 
-	public static function updateOrderItemList($order): array
+	public static function updateOrderItemList($order):bool
 	{
 		$orderArr = [
-			(int)$order['PRODUCT_ID'],
-			(int)$order['ORDER_ID'],
-			(int)$order['COUNT'],
-			(int)$order['PRICE'],
+			'ID' => (int)$order[0],
+			'PRODUCT_ID' => (int)$order[1],
+			'ORDER_ID' => (int)$order[2],
+			'COUNT' => (int)$order[3],
+			'PRICE' => (float)$order[4],
 		];
 
-		(new OrderItemRepository())->updateOrderItem($orderArr);
+		return (new OrderItemRepository())->updateOrderItem($orderArr);
 	}
 }

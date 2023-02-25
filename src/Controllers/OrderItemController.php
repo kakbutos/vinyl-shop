@@ -40,4 +40,25 @@ class OrderItemController
 		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$orderItem}/");
 	}
 
+	public function updateOrderItem(int $id):void
+	{
+		if (!userAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
+
+		$orderId = $_POST['ID'];
+		$productId = $_POST['PRODUCT_ID'];
+		$productOrderId = $_POST['ORDER_ID'];
+		$productCount = $_POST['COUNT'];
+		$productPrice = $_POST['PRICE'];
+
+		$order = [
+			$orderId, $productId, $productOrderId, $productCount, $productPrice
+		];
+
+		$result = OrderItemService::updateOrderItemList($id, $order);
+
+		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$productOrderId}/");
+	}
 }
