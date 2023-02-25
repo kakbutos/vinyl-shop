@@ -22,13 +22,23 @@ class OrderItemController
 
 	public function addOrderItem(int $id): void
 	{
+		if (!userAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
 		$orderItem = OrderItemService::addOrderItemList($id);
 		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$orderItem}/");
 	}
 
 	public function deleteOrderItem(int $id): void
 	{
+		if (!userAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
 		$orderItem = OrderItemService::deleteOrderItemList($id);
 		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$orderItem}/");
 	}
+
+
 }

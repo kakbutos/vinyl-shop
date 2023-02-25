@@ -59,14 +59,14 @@
 			<td class="table-td">
 				<div class="cell-content-div">
 					<div class="cell-button-div">
-						<a href = "/admin/order/update/" class="btn save-button submit-button" onclick = "">Сохранить</a>
+						<a href = "/admin/order/update/<?=$order?>/" class="btn save-button submit-button" onclick = "">Сохранить</a>
 					</div>
 				</div>
 			</td>
 			<td class="table-td">
 				<div class="cell-content-div">
 					<div class="cell-button-div">
-						<a href = "/admin/order/delete/<?= $order['PRODUCT_ID'] ?>/" class="btn delete-button danger-button">Удалить</a>
+						<a href = "/admin/order/delete/<?= $order['ID'] ?>/" class="btn delete-button danger-button">Удалить</a>
 					</div>
 				</div>
 			</td>
