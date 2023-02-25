@@ -76,5 +76,8 @@
 	<div class="add-button-container">
 		<a href = "/admin/order/add/<?= $orderId ?>/" class = "btn add-button">Добавить</a>
 	</div>
+	<div class="button-move">
+		<a href="/admin" class="image-button"> Вернуться на главную </a>
+	</div>
 </div>
 </body>

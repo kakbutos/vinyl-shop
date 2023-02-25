@@ -40,5 +40,4 @@ class OrderItemController
 		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$orderItem}/");
 	}
 
-
 }
