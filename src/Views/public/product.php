@@ -19,6 +19,14 @@ use \Eshop\src\Service\PageService;
 	}
 
 ?>
+
+<div id="modal" class="modal">
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<p>Товар успешно добавлен в корзину</p>
+	</div>
+</div>
+
 <div class="product-detail-container">
 	<div class="product-detail-image-side">
 		<div class="product-detail-main-image-container">
