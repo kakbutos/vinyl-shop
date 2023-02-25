@@ -15,7 +15,7 @@
 
 							<a class="cart-product-image" href="/product/<?= $id ?>/">
 								<div class="cart-product-image-container">
-									<img src="/assets/img/<?= $product['img'] ?>" alt="">
+									<img src="/assets/img/<?= $product['imgPath'] ?>/<?= $product['imgName'] ?>" alt="">
 								</div>
 							</a>
 

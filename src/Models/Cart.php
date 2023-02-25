@@ -19,7 +19,8 @@ class Cart
 				'name' => $product->getName(),
 				'price' => $product->getPrice(),
 				'qty' => $quantity,
-				'img' => $product->getImageList()[0]->getPath(),
+				'imgPath' => $product->getImageList()[0]->getPath(),
+				'imgName' => $product->getImageList()[0]->getName(),
 			];
 		}
 		$_SESSION['cartQty'] = isset($_SESSION['cartQty']) ? $_SESSION['cartQty'] + $quantity : $quantity;
