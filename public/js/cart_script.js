@@ -35,7 +35,6 @@ function showMessage() {
 $('.incr-count-button').on('click', function(e) {
 	let id = e.target.id;
 	let count = document.getElementById("product-count" + id).value;
-	console.log(count);
 	let price = document.getElementById('price' +id).textContent;
 	price = Number(price.replace(/[a-zа-яё]/gi, ''));
 	$('#sum' + id).html(count*price + ' руб');
@@ -61,22 +60,23 @@ $('.decr-count-button').on('click', function(e) {
 	let price = document.getElementById('price' +id).textContent;
 	price = Number(price.replace(/[a-zа-яё]/gi, ''));
 	$('#sum' + id).html(count*price + ' руб');
-	console.log(count);
 	if (count <=1 ){
 		$(`#item-${id}`).remove();
 	}
 
 	let allProductsCount = $('.cart-product-item').length;
 	if (allProductsCount <= 0){
-		$('.content').empty();
-		$('.content').append('Корзина пуста');
+		$('.content').empty().append('Корзина пуста');
 	}
 
 	$.ajax({
 		url: '/cart/reduce/' + id +'/',
 		type: 'GET',
 		success: function(result){
-			if (!result) alert('Продукта с таким id не существует.')
+			if (!result)
+			{
+			 alert('Продукта с таким id не существует.')
+			}
 		},
 		error: function(){
 			alert('Не удалось уменьшить количество товара в корзине')
@@ -84,7 +84,7 @@ $('.decr-count-button').on('click', function(e) {
 	})
 
 	let quantity = document.getElementById('quantity').textContent;
-	if (quantity > 1) {
+	if (quantity >= 1) {
 		let newQuantity = Number(quantity) - 1;
 		$('.products-quantity').html(newQuantity);
 	}
