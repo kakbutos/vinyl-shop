@@ -10,7 +10,7 @@
 		<div class="cart-content">
 			<div class="cart-products-list">
 				<?php foreach ($products as $id => $product): ?>
-					<div class="cart-product-item">
+					<div class="cart-product-item" id="item-<?= $id ?>">
 						<div class="cart-product-item-content">
 
 							<a class="cart-product-image" href="/product/<?= $id ?>/">

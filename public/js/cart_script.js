@@ -57,10 +57,14 @@ $('.incr-count-button').on('click', function(e) {
 
 $('.decr-count-button').on('click', function(e) {
 	let id = e.target.id;
-	let count = document.getElementById("product-count" + id).value;
+	let count = document.getElementById('product-count' + id).value;
 	let price = document.getElementById('price' +id).textContent;
 	price = Number(price.replace(/[a-zа-яё]/gi, ''));
 	$('#sum' + id).html(count*price + ' руб');
+	console.log(count);
+	if (count <=1 ){
+		$(`#item-${id}`).remove();
+	}
 	$.ajax({
 		url: '/cart/reduce/' + id +'/',
 		type: 'GET',
