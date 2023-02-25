@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @var string $quantity
+ */
 ?>
 
 <div class="header">
@@ -15,9 +17,12 @@
 		</form>
 	</div>
 	<div class="additional-header-container">
-		<a href="" class="cart-button">
+		<a href="/cart" class="cart-button">
+			<span class="products-quantity" id="quantity"><?= $quantity ?></span>
 			<img src="/assets/icon/carts.png" alt="" >
 		</a>
 
 	</div>
 </div>
+
+<script src="/js/cart_script.js"></script>

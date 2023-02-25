@@ -3,6 +3,7 @@
 namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
+use Eshop\src\Models\Cart;
 use Eshop\src\Repositories\OrderRepository;
 use Eshop\src\Service\MainService;
 use Eshop\src\Service\OrderService;
@@ -16,13 +17,14 @@ class OrderController
 	 */
 	public function getOrder(string $id): string
 	{
+		$quantityProductsInCart = (new Cart())->getTotalQuantity();
 		$render = new Template('../src/Views');
 		$product = ProductService::getProductById($id);
 		$tags = MainService::getTagsList();
 		$orders = (new OrderRepository())->getList();
 
 		return $render->render('layout', [
-			'header' => $render->render('/components/header', []),
+			'header' => $render->render('/components/header', ['quantity' => $quantityProductsInCart]),
 			'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
 			'content' => $render->render('/public/order',['product' => $product,'orders' => $orders]),
 		]);
