@@ -65,6 +65,13 @@ $('.decr-count-button').on('click', function(e) {
 	if (count <=1 ){
 		$(`#item-${id}`).remove();
 	}
+
+	let allProductsCount = $('.cart-product-item').length;
+	if (allProductsCount <= 0){
+		$('.content').empty();
+		$('.content').append('Корзина пуста');
+	}
+
 	$.ajax({
 		url: '/cart/reduce/' + id +'/',
 		type: 'GET',
