@@ -583,7 +583,7 @@ span.cart-icon-count {
 	padding-bottom: 10px;
 }
 
-div#\#price,
+.cart-price,
 .cart-product-quantity {
 	margin-left: 25px;
 }
