@@ -2,6 +2,7 @@
 
 namespace Eshop\Controllers;
 
+use Eshop\Core\Session;
 use Eshop\Core\Template\Template;
 use Eshop\src\Service\UserService;
 use Eshop\src\Lib\AuthHelper;
@@ -10,7 +11,7 @@ class userAdminController
 {
 	public function auth()
 	{
-		session_start();
+		new Session();
 
 		$email = htmlspecialchars($_POST['email']);
 		$password = htmlspecialchars($_POST['password']);
@@ -37,7 +38,7 @@ class userAdminController
 
 	public function logout(): void
 	{
-		session_start();
+		new Session();
 		$_SESSION = [];
 		session_destroy();
 		header("Location: " . AuthHelper::getUrl() . "/login");
@@ -51,7 +52,7 @@ class userAdminController
 
 	public static function isAuthorized(): bool
 	{
-		session_start();
+		new Session();
 		$email = $_SESSION['USER_EMAIL'];
 		if (!isset($email))
 		{

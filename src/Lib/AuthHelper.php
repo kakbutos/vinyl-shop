@@ -2,6 +2,8 @@
 
 namespace Eshop\src\Lib;
 
+use Eshop\Core\Session;
+
 class AuthHelper
 {
 	public static function getPasswordHash(string $password): string
@@ -17,7 +19,7 @@ class AuthHelper
 
 	public static function generateFormCsrfToken()
 	{
-		session_start();
+		new Session();
 		return $_SESSION['csrf_token'] = substr(str_shuffle('qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'), 0,
 			10);
 	}
