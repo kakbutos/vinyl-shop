@@ -143,7 +143,7 @@ body{
 	margin-top: 7px;
 }
 .product-card:hover{
-	box-shadow: 0px 0px 2px 1px #fe9524;
+	box-shadow: 0 0 2px 1px #fe9524;
 }
 .product-card-info{
 	display: flex;
@@ -288,7 +288,6 @@ body{
 .product-detail-line-property-vinyl:hover{
 	cursor: pointer;
 	transform: scale(0.95);
-
 }
 
 .product-detail-line-property-vinyl:hover:before{
@@ -386,7 +385,7 @@ label {
 	margin-bottom: 5px;
 }
 
-input#email, #name, #phone, #fullname {
+input#email, #name, #phone, #full-name {
 	margin-bottom: 15px;
 	outline: none;
 	border: 1px solid grey;

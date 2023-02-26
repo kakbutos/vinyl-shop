@@ -13,7 +13,7 @@
 			<h3>Контактная информация</h3>
 
 			<label for="name">ФИО<span class="required-field"> *</span></label>
-			<input type="text" required id="name" name="fullname">
+			<input type="text" required id="name" name="full-name">
 
 			<label for="email">Email<span class="required-field"> *</span></label>
 			<input type="email" required id="email" name="email">
@@ -23,7 +23,7 @@
 
 
 			<label for="comment">Комментарий</label>
-			<textarea name="comment" rows="5" cols="40"></textarea>
+			<textarea name="comment" id="comment" rows="5" cols="40"></textarea>
 		</div>
 
 		<div class="order-info">
@@ -45,7 +45,7 @@
 			<div class="order-info-footer">
 				<div class="total-price">
 					<h4>Итого</h4>
-					<span class="summ"><?= $totalSum ?></span>
+					<span class="sum"><?= $totalSum . ' руб'?></span>
 				</div>
 
 				<input class="order-button" type="submit" value="Оформить заказ">
