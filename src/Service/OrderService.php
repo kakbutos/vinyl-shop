@@ -16,7 +16,7 @@ class OrderService
 	{
 		$validate = new Validator();
 
-		$customerName = $_POST['fullname'];
+		$customerName = $_POST['full-name'];
 		$customerEmail = $_POST['email'];
 		$customerPhone = $_POST['phone'];
 		$comment = $_POST['comment'] ?? null;
