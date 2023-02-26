@@ -56,5 +56,5 @@
 
 </div>
 
-<script src="/js/Order_Script.js"></script>
+<script src="/js/order_script.js"></script>
 
