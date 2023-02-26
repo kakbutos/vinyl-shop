@@ -138,20 +138,17 @@ class AdminService
 
 		if ($validate->validate())
 		{
-			$date = $order['DATE'];
-			$date = strtotime($date);
-			$date =
+			$date = new \DateTime($order['DATE']);
 
 			$productObj = new Order(
-				(int)$order['ID'],
+				[],
 				$order['CUSTOMER_NAME'],
 				$order['CUSTOMER_EMAIL'],
 				$order['CUSTOMER_PHONE'],
-				1,
-				1,
 				$order['COMMENT'],
 				$order['STATUS'],
 				$date,
+				(int)$order['ID']
 			);
 
 			(new AdminRepository())->updateOrder($productObj);
