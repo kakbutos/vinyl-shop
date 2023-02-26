@@ -31,7 +31,7 @@ class ImageRepository
 		return $imageList;
 	}
 
-	public function addImage($id, $guid, $name): bool
+	public function addImage($id, $guid, $name): string
 	{
 		$connection = Connection::getInstance()->getConnection();
 
@@ -54,14 +54,14 @@ class ImageRepository
 			if ($query === false)
 			{
 				mysqli_rollback($connection);
-				return false;
+				return 'addError';
 			}
 
 			mysqli_commit($connection);
-			return true;
+			return 'addOk';
 		}
 
-		return false;
+		return 'addError';
 	}
 
 	public function deleteImage($imageId): array
@@ -103,8 +103,9 @@ class ImageRepository
 		return $select;
 	}
 
-	public function setIsMainImage($imageId): string
+	public function setIsMainImage($imageId): array
 	{
+		$select = ['productId' => 0, 'info' => 'isMainError'];
 		$connection = Connection::getInstance()->getConnection();
 
 		$selectQuery = mysqli_query($connection, "
@@ -115,9 +116,9 @@ class ImageRepository
 
 		while ($row = mysqli_fetch_assoc($selectQuery))
 		{
-			$productId = $row['PRODUCT_ID'];
+			(int)$productId = $row['PRODUCT_ID'];
 		}
-
+		$select['productId'] = $productId;
 
 		$updateQuery = "
 		UPDATE image
@@ -144,10 +145,10 @@ class ImageRepository
 		if ($query === false)
 		{
 			mysqli_rollback($connection);
-			return 0;
+			return $select;
 		}
 		mysqli_commit($connection);
-
-		return $productId;
+		$select['info'] = 'isMainOk';
+		return $select;
 	}
 }

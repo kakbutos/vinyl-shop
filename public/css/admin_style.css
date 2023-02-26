@@ -318,3 +318,43 @@ body{
 	margin-left: 15px;
 	margin-top: 15px;
 }
+
+/*----------------------------------*/
+
+.submit-modal-image{
+	display: block;
+	position: fixed;
+	top: 20%;
+	left: calc(50% - 200px);
+	background: #effcb3;
+	border: 1px solid grey;
+	height: 100px;
+	width: 400px;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.modal-error-info {
+	background: #fcbcb3;
+}
+
+.info-field.danger {
+	background-color: #ffb8b8;
+}
+
+.submit-modal-body-image{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+
+}
+
+.submit-modal-body-text {
+	margin-bottom: 25px;
+}
+
+.image-button-info{
+	width: 120px;
+}

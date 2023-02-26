@@ -11,16 +11,24 @@ class ImageService
 		return (new ImageRepository())->getImageList($id);
 	}
 
-	public static function addImage(int $id, $file): bool
+	public static function addImage(int $id, $file): string
 	{
+		$formatImage = array('png', 'jpg', 'gif', 'jpeg');
 		$name = $file['name'];
+
+		$array = explode('.', strtolower($name));
+
+		if(!in_array(array_pop($array), $formatImage, true))
+		{
+			return 'addError';
+		}
 		$guid = bin2hex(openssl_random_pseudo_bytes(16));
 		$dir = ROOT . "/public/assets/img/{$guid}/";
 		// var_dump($dir);
 		if (!mkdir($dir) && !is_dir($dir))
 		{
 			// throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
-			return false;
+			return 'addError';
 		}
 
 		$pathFile = $dir . $name;
@@ -29,40 +37,41 @@ class ImageService
 			return (new ImageRepository())->addImage($id, $guid, $name);
 		}
 
-		return false;
+		return 'addError';
 	}
 
-	public static function deleteImage($imageId): int
+	public static function deleteImage($imageId): array
 	{
+		$info = ['productId' => 0, 'info' => 'deleteError'];
 		$select = (new ImageRepository())->deleteImage($imageId);
 		if(empty($select))
 		{
-			return 0;
+			return $info;
 		}
 
-		$productId = $select['productId'];
+		$info['productId'] = $select['productId'];
 		$name = $select['name'];
 		$dir = ROOT . "/public/assets/img/{$select['path']}/";
 
 		$test = unlink($dir . $name);
 		if (!$test)
 		{
-			return 0;
+			return $info;
 		}
 
 		$test = rmdir($dir);
 		if(!$test)
 		{
-			return 0;
+			return $info;
 		}
-
-		return $productId;
+		$info['info'] = 'deleteOk';
+		return $info;
 	}
 
-	public static function setIsMainImage($imageId): int
+	public static function setIsMainImage($imageId): array
 	{
-		$productId = (new ImageRepository())->setIsMainImage($imageId);
+		$info = (new ImageRepository())->setIsMainImage($imageId);
 
-		return $productId;
+		return $info;
 	}
 }
