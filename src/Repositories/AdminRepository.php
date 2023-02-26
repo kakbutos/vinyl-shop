@@ -153,7 +153,7 @@ class AdminRepository
 		return $test;
 	}
 
-	public function updateTag($tag): void
+	public function updateTag($tag): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
 
@@ -164,19 +164,36 @@ class AdminRepository
 		$queryTag = "UPDATE tag SET NAME = '$tagName' WHERE ID = {$tagId}";
 		$test = mysqli_query($connection, $queryTag);
 		mysqli_commit($connection);
+
+		return $test;
 	}
 
-	public function updateOrder($tag): void
+	public function updateOrder($order): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
 
-		$tagId = $tag->getId();
-		$tagName = $tag->getTitle();
+		$orderId = $order->getId();
+		$date = mysqli_real_escape_string($connection, $order->getCreatedAt());
+		$orderCustomerName = mysqli_real_escape_string($connection, $order->getCustomerName());
+		$orderCustomerEmail = mysqli_real_escape_string($connection, $order->getCustomerEmail());
+		$orderCustomerPhone = mysqli_real_escape_string($connection, $order->getCustomerPhone());
+		$orderComment = mysqli_real_escape_string($connection, $order->getComment());
+		$orderStatus = mysqli_real_escape_string($connection, $order->getStatus());
+
 
 		mysqli_begin_transaction($connection);
-		$queryTag = "UPDATE tag SET NAME = '$tagName' WHERE ID = {$tagId}";
+		$queryTag = "UPDATE `order` 
+			SET DATE = '$date', 
+			    CUSTOMER_NAME = '$orderCustomerName', 
+			    CUSTOMER_EMAIL = '$orderCustomerEmail',
+				CUSTOMER_PHONE = '$orderCustomerPhone', 
+				COMMENT = '$orderComment', 
+				STATUS = '$orderStatus'
+            WHERE ID = {$orderId}";
 		$test = mysqli_query($connection, $queryTag);
 		mysqli_commit($connection);
+
+		return $test;
 	}
 
 	public function deleteProduct($id): bool

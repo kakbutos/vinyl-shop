@@ -86,7 +86,7 @@ class AdminController
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}
-
+		$errors = [];
 		$item = $_POST['obj'];
 		$namedItem = [];
 
@@ -120,7 +120,7 @@ class AdminController
 			$errors = AdminService::updateTag($tag);
 		}
 
-		if ($_POST['table'] ==='update'){
+		if ($_POST['table'] ==='order'){
 			$update = [
 				'ID' => $namedItem['ID'],
 				'DATE' => $namedItem['DATE'],
@@ -128,7 +128,7 @@ class AdminController
 				'CUSTOMER_EMAIL' => $namedItem['CUSTOMER_EMAIL'],
 				'CUSTOMER_PHONE' => $namedItem['CUSTOMER_PHONE'],
 				'COMMENT' => $namedItem['COMMENT'],
-				'STATUS' => $namedItem['STATUS'],
+				'STATUS' => $namedItem['STATUS']
 			];
 			$errors = AdminService::updateOrder($update);
 		}

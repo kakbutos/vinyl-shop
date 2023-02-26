@@ -2,6 +2,7 @@
 
 namespace Eshop\src\Service;
 
+use Eshop\src\Models\Order;
 use Eshop\src\Models\Product;
 use Eshop\src\Models\Tag;
 use Eshop\src\Repositories\AdminRepository;
@@ -137,14 +138,20 @@ class AdminService
 
 		if ($validate->validate())
 		{
-			$productObj = new Product(
+			$date = $order['DATE'];
+			$date = strtotime($date);
+			$date =
+
+			$productObj = new Order(
 				(int)$order['ID'],
-				$order['DATE'],
 				$order['CUSTOMER_NAME'],
 				$order['CUSTOMER_EMAIL'],
 				$order['CUSTOMER_PHONE'],
+				1,
+				1,
 				$order['COMMENT'],
-				$order['STATUS']
+				$order['STATUS'],
+				$date,
 			);
 
 			(new AdminRepository())->updateOrder($productObj);
