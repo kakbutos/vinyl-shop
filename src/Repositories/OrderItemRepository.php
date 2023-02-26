@@ -15,7 +15,7 @@ class OrderItemRepository
 		$List = [];
 		$connection = Connection::getInstance()->getConnection();
 		$Query = mysqli_query($connection, "
-			SELECT product_order.ID as ID, PRODUCT_ID, ORDER_ID, p.NAME as NAME, COUNT, p.PRICE
+			SELECT product_order.ID as ID, PRODUCT_ID, ORDER_ID, p.NAME as NAME, COUNT, product_order.PRICE
 			FROM product_order
 			JOIN product p on product_order.PRODUCT_ID = p.ID
 			WHERE ORDER_ID = {$id}
@@ -71,8 +71,6 @@ class OrderItemRepository
 		$orderId = $ProductOrder['ORDER_ID'];
 		$orderCount = $ProductOrder['COUNT'];
 		$orderPrice = $ProductOrder['PRICE'];
-
-		var_dump($orderCount, $orderPrice); die;
 
 		$queryOrder = "UPDATE product_order 
 		SET

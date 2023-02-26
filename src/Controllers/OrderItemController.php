@@ -57,7 +57,7 @@ class OrderItemController
 			$orderId, $productId, $productOrderId, $productCount, $productPrice
 		];
 
-		$result = OrderItemService::updateOrderItemList($id, $order);
+		$result = OrderItemService::updateOrderItemList($order);
 
 		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$productOrderId}/");
 	}
