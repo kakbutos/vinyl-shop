@@ -1,6 +1,6 @@
 let obj_struct = [];
 let table = 'product';
-
+let global_product_tags = [];
 initialize();
 
 function initialize()
@@ -34,8 +34,8 @@ function initializeTable(data)
 					  </td>`);
 		header.append(elem);
 	}
-
-	for (let i = 1; i < 4; i++) {
+	let additionalButtonsCount = 4;
+	for (let i = 1; i < additionalButtonsCount; i++) {
 		header.append(`<td class="table-td table-header-td"></td>`);
 	}
 
@@ -54,11 +54,23 @@ function initializeTable(data)
 			setSelectFieldData(obj_struct[i].field);
 		}
 	}
+
+	if (table==='product'){
+		$.ajax({
+			url: '/admin/getList',
+			method: 'get',
+			dataType: 'json',
+			data: { table: 'tag' },
+			success: function(data) {
+				console.log(data);
+			}
+		});
+	}
+
 }
 
 function addNewObj(obj) {
 	const row = $(`<tr class="table-tr row row-${obj[0]}"></tr>`);
-
 	for (let i = 0; i < obj.length; i++) {
 		const type = obj_struct[i].type;
 		const dataField = obj_struct[i].field;
@@ -103,6 +115,11 @@ function addNewObj(obj) {
 						<option value="${obj[i]}" selected>${obj[i]}</option>
 					</select>`
 				);
+				break;
+			}
+			case 'checkboxes':
+			{
+				elem.find('.cell-text-div').append(`<input class="cell-input" type="button" data-field="${dataField}" value="${obj[i]}">`);
 				break;
 			}
 			default:
@@ -201,9 +218,44 @@ function getList(dataTable)
 		data: { table: dataTable },
 		success: function(data) {
 			obj_struct = data[0];
+			console.log(obj_struct);
 			initializeTable(data[1]);
 		}
 	});
+}
+
+function openSelectTagModal(){
+	const modal = `
+		<div class="tags-modal">
+			<div class="tags-modal-dialog">
+				<div class="tags-modal-content">
+					<div class="tags-modal-header">
+						<a href="#" title="Close" class="cancel-button">×</a>
+					</div>
+					<div class="tags-modal-body">    
+						<fieldset class="tags-modal-tags-set">
+							<legend>Теги:</legend>
+						
+							<div>
+							  <input type="checkbox" id="scales" name="scales" checked>
+							  <label for="scales">Scales</label>
+							</div>
+							
+							<div>
+							  <input type="checkbox" id="horns" name="horns">
+							  <label for="horns">Horns</label>
+							</div>
+							
+						</fieldset>
+					</div>
+					<div class="tags-modal-footer">
+						<button class="btn save-button submit-button" style="margin-right: 10px">Ок</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	`;
+	$('body').append(modal);
 }
 
 function setSelectFieldData(field) {
@@ -226,6 +278,7 @@ function setSelectFieldData(field) {
 			}
 		}
 	});
+
 }
 
 function openSubmitModal(id) {

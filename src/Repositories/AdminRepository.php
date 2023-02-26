@@ -27,7 +27,6 @@ class AdminRepository
 
 		while ($row = mysqli_fetch_assoc($Query))
 		{
-
 			$List[] = [
 				(int)$row['ID'],
 				$row['NAME'],
@@ -37,6 +36,7 @@ class AdminRepository
 				$row['VINYL_STATUS_ID'],
 				$row['COVER_STATUS'],
 				$row['TRACKS'],
+				"TEMP_TAG",
 				(bool)$row['IS_ACTIVE'],
 			];
 		}
@@ -50,6 +50,7 @@ class AdminRepository
 			new TableField('Качество винила', 'select', 'VINIL_STATUS'),
 			new TableField('Качество конверта', 'text', 'COVER_STATUS'),
 			new TableField('Треки', 'text', 'TRACKS'),
+			new TableField('Тэги', 'checkboxes', 'TAGS'),
 			new TableField('Активен', 'bool', 'IS_ACTIVE'),
 		];
 
