@@ -21,7 +21,7 @@ class ProductRepository
 		$start = $page ? mysqli_escape_string($connection, $page['start']) : '';
 		$per_page = $page ? mysqli_escape_string($connection, $page['per_page']) : '';
 
-		$makeWhereQuery = 'where i.IS_MAIN = 1';
+		$makeWhereQuery = 'where i.IS_MAIN = 1 and p.IS_ACTIVE = 1';
 		$makeWhereQuery = $tag ? $makeWhereQuery . " and  pt.TAG_ID = $tag" : $makeWhereQuery;
 		$joinTagTable = $tag ? 'JOIN product_tag pt on p.ID = pt.PRODUCT_ID' : '';
 		$makeWhereQuery = $search ? $makeWhereQuery . " and p.NAME LIKE '%{$search}%'" : $makeWhereQuery;
@@ -133,9 +133,9 @@ class ProductRepository
 		$search = mysqli_escape_string($connection, $search);
 
 		$joinTagTable = $tag ? 'JOIN product_tag pt on p.ID = pt.PRODUCT_ID' : '';
-		$makeWhereQuery = $tag ? "pt.TAG_ID = $tag" : '';
-		$makeWhereQuery = $search ? $makeWhereQuery . "p.NAME LIKE '%{$search}%'" : $makeWhereQuery;
-		$makeWhereQuery = ($makeWhereQuery !== '') ? "where " . $makeWhereQuery : '';
+		$makeWhereQuery = 'where p.IS_ACTIVE = 1';
+		$makeWhereQuery = $tag ? $makeWhereQuery . " and pt.TAG_ID = $tag" : $makeWhereQuery;
+		$makeWhereQuery = $search ? $makeWhereQuery . " and p.NAME LIKE '%{$search}%'" : $makeWhereQuery;
 
 		$Query = mysqli_query($connection, "
 			SELECT COUNT(p.ID) as `COUNT` FROM product p
