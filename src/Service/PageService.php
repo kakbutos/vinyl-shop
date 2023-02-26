@@ -7,15 +7,18 @@ class PageService
 	// Разделение треков по сторонам пластинки
 	public static function formatTrackForDetailPage(array $tracks):array
 	{
-		foreach ($tracks as $i => $item)
+		if (empty($tracks))
 		{
-			if (strpos($item, 'B1') === 0)
-			{
-				return [array_slice($tracks, 0, $i), array_slice($tracks, $i)];
-			}
+			return ['Нет информации'];
+		}
+		$i = round(count($tracks) / 2);
+
+		if (count($tracks) === 1)
+		{
+			return $tracks;
 		}
 
-		return [];
+		return [array_slice($tracks, 0, $i), array_slice($tracks, $i)];
 	}
 
 	// Обрезание текста, который превышает максимальную длину

@@ -85,6 +85,13 @@ use \Eshop\src\Service\PageService;
 
 			<?php $tracks = PageService::formatTrackForDetailPage($product->getTracks())  ?>
 			<div class="product-detail-line-property-container">
+				<?php if (count($tracks) <= 1): ?>
+					<div class="product-detail-line-property-tracks-list">
+							<div class="product-detail-line-property-tracks">
+								<?=$tracks[0]?>
+							</div>
+					</div>
+				<?php else: ?>
 				<div class="product-detail-line-property-tracks-list">
 					<?php foreach ($tracks[0] as $item): ?>
 						<div class="product-detail-line-property-tracks">
@@ -100,7 +107,9 @@ use \Eshop\src\Service\PageService;
 						</div>
 					<?php endforeach;?>
 				</div>
+				<?php endif; ?>
 			</div>
+
 
 			<div class="product-detail-buy-container">
 				<div class="product-detail-buy-price">
