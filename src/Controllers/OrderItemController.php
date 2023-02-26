@@ -52,10 +52,12 @@ class OrderItemController
 		$productOrderId = $_POST['ORDER_ID'];
 		$productCount = $_POST['COUNT'];
 		$productPrice = $_POST['PRICE'];
+		$productName = $_POST['NAME'];
 
 		$order = [
-			$orderId, $productId, $productOrderId, $productCount, $productPrice
+			$orderId, $productId, $productOrderId, $productCount, $productPrice, $productName
 		];
+
 
 		$result = OrderItemService::updateOrderItemList($order);
 

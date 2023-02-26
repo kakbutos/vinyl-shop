@@ -71,9 +71,11 @@ class OrderItemRepository
 		$orderId = $ProductOrder['ORDER_ID'];
 		$orderCount = $ProductOrder['COUNT'];
 		$orderPrice = $ProductOrder['PRICE'];
+		$orderProductName = $ProductOrder['NAME'];
 
 		$queryOrder = "UPDATE product_order 
 		SET
+		    PRODUCT_ID = (SELECT ID FROM product WHERE NAME = '{$orderProductName}'),
 		    COUNT = {$orderCount},
 		    PRICE = {$orderPrice}
 		WHERE ID = {$id}

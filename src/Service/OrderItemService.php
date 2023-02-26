@@ -34,6 +34,7 @@ class OrderItemService
 			'ORDER_ID' => (int)$order[2],
 			'COUNT' => (int)$order[3],
 			'PRICE' => (float)$order[4],
+			'NAME' => $order[5],
 		];
 
 		return (new OrderItemRepository())->updateOrderItem($orderArr);
