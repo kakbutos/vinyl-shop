@@ -219,8 +219,7 @@ function setSelectFieldData(field) {
 			{
 				for (let j = 0; j < data.length; j++)
 				{
-					if ($(selects[i]).find('option:selected').val() !== data[j])
-					{
+					if ( $(selects[i]).find('option:selected').val() != data[j] ) {
 						$(selects[i]).append(`<option value="${data[j]}">${data[j]}</option>`);
 					}
 				}

@@ -82,6 +82,12 @@ body{
 .table-td:last-child{
 	border-right: 1px solid grey;
 }
+
+.table-td-unable{
+	visibility: hidden;
+	display: none;
+}
+
 .cell-text-div{
 	display: inline-block;
     float: left;

@@ -50,7 +50,7 @@ class AdminController
 		return $data;
 	}
 
-	public function newItem()
+	public function addItem()
 	{
 		if (!userAdminController::isAuthorized())
 		{
@@ -66,6 +66,12 @@ class AdminController
 		{
 			return json_encode(AdminService::addNewTag(), JSON_THROW_ON_ERROR);
 		}
+
+		if ($_GET['table'] === 'order')
+		{
+			return json_encode(AdminService::addNewOrder(), JSON_THROW_ON_ERROR);
+		}
+
 		return 0;
 	}
 
@@ -74,13 +80,13 @@ class AdminController
 	/**
 	 * @throws \Exception
 	 */
-	public function setItem()
+	public function updateItem()
 	{
 		if (!userAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}
-
+		$errors = [];
 		$item = $_POST['obj'];
 		$namedItem = [];
 
@@ -101,7 +107,7 @@ class AdminController
 				'VINIL_STATUS' => $namedItem['VINIL_STATUS'],
 				'COVER_STATUS' => $namedItem['COVER_STATUS'],
 				'TRACKS' => [$namedItem['TRACKS']],
-				'IS_ACTIVE' => $namedItem['IS_ACTIVE']
+				'IS_ACTIVE' => $namedItem['IS_ACTIVE'],
 			];
 			$errors = AdminService::updateProduct($product);
 		}
@@ -109,9 +115,22 @@ class AdminController
 		if ($_POST['table'] ==='tag'){
 			$tag = [
 				'ID' => $namedItem['ID'],
-				'NAME' => $namedItem['NAME']
+				'NAME' => $namedItem['NAME'],
 			];
 			$errors = AdminService::updateTag($tag);
+		}
+
+		if ($_POST['table'] ==='order'){
+			$update = [
+				'ID' => $namedItem['ID'],
+				'DATE' => $namedItem['DATE'],
+				'CUSTOMER_NAME' => $namedItem['CUSTOMER_NAME'],
+				'CUSTOMER_EMAIL' => $namedItem['CUSTOMER_EMAIL'],
+				'CUSTOMER_PHONE' => $namedItem['CUSTOMER_PHONE'],
+				'COMMENT' => $namedItem['COMMENT'],
+				'STATUS' => $namedItem['STATUS']
+			];
+			$errors = AdminService::updateOrder($update);
 		}
 
 		return json_encode($errors , JSON_THROW_ON_ERROR);
@@ -132,6 +151,11 @@ class AdminController
 		if ($table === 'tag'){
 			return json_encode(AdminService::deleteTag($id), JSON_THROW_ON_ERROR);
 		}
+
+		if ($table === 'order'){
+			return json_encode(AdminService::deleteOrder($id), JSON_THROW_ON_ERROR);
+		}
+
 		return 0;
 	}
 

@@ -84,6 +84,23 @@ class AdminRepository
 		return [$id, 'Новый тег'];
 	}
 
+	public function addEmptyOrder(): array
+	{
+		$connection = Connection::getInstance()->getConnection();
+		$currentDate = date("Y-m-d H:i:s");
+
+		$queryOrder = "INSERT INTO `order`
+		(DATE, CUSTOMER_NAME, CUSTOMER_EMAIL, CUSTOMER_PHONE, STATUS) 
+				VALUES ('$currentDate', 'Клиент', 'email@gmail.com', 88005553535, 'В обработке');
+		";
+
+		mysqli_begin_transaction($connection);
+		$Query = mysqli_query($connection, $queryOrder);
+		$id = mysqli_insert_id($connection);
+		mysqli_commit($connection);
+		return [$id, $currentDate, 'Клиент', 'email@gmail.com', 88005553535, '', 'В обработке'];
+	}
+
 	public function updateProduct($product): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
@@ -136,7 +153,7 @@ class AdminRepository
 		return $test;
 	}
 
-	public function updateTag($tag): void
+	public function updateTag($tag): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
 
@@ -147,6 +164,36 @@ class AdminRepository
 		$queryTag = "UPDATE tag SET NAME = '$tagName' WHERE ID = {$tagId}";
 		$test = mysqli_query($connection, $queryTag);
 		mysqli_commit($connection);
+
+		return $test;
+	}
+
+	public function updateOrder($order): bool
+	{
+		$connection = Connection::getInstance()->getConnection();
+
+		$orderId = $order->getId();
+		$date = mysqli_real_escape_string($connection, $order->getCreatedAt());
+		$orderCustomerName = mysqli_real_escape_string($connection, $order->getCustomerName());
+		$orderCustomerEmail = mysqli_real_escape_string($connection, $order->getCustomerEmail());
+		$orderCustomerPhone = mysqli_real_escape_string($connection, $order->getCustomerPhone());
+		$orderComment = mysqli_real_escape_string($connection, $order->getComment());
+		$orderStatus = mysqli_real_escape_string($connection, $order->getStatus());
+
+
+		mysqli_begin_transaction($connection);
+		$queryTag = "UPDATE `order` 
+			SET DATE = '$date', 
+			    CUSTOMER_NAME = '$orderCustomerName', 
+			    CUSTOMER_EMAIL = '$orderCustomerEmail',
+				CUSTOMER_PHONE = '$orderCustomerPhone', 
+				COMMENT = '$orderComment', 
+				STATUS = '$orderStatus'
+            WHERE ID = {$orderId}";
+		$test = mysqli_query($connection, $queryTag);
+		mysqli_commit($connection);
+
+		return $test;
 	}
 
 	public function deleteProduct($id): bool
@@ -170,6 +217,53 @@ class AdminRepository
 		");
 		return $deleteQuery;
 	}
+
+	public function deleteOrder($id): bool
+	{
+		$connection = Connection::getInstance()->getConnection();
+
+		$testId = [];
+		$selectOrderItemQuery = "
+		SELECT ID FROM product_order
+		WHERE ORDER_ID = {$id};
+		";
+
+		$query = mysqli_query($connection, $selectOrderItemQuery);
+		while ($row = mysqli_fetch_assoc($query))
+		{
+			$testId[] = $row['ID'];
+		}
+		$deleteOrderItemQuery = "
+		DELETE FROM product_order
+		WHERE ORDER_ID = {$id};
+		";
+
+		$deleteOrderQuery = "
+		DELETE FROM `order`
+		WHERE ID = {$id};
+		";
+
+		mysqli_begin_transaction($connection);
+		if (empty($testId))
+		{
+			$test = mysqli_query($connection, $deleteOrderQuery);
+		}
+		else
+		{
+			$test = mysqli_query($connection, $deleteOrderItemQuery);
+			if ($test)
+			{
+				$test = mysqli_query($connection, $deleteOrderQuery);
+			}
+		}
+		if ($test)
+		{
+			mysqli_commit($connection);
+		}
+
+		return $test;
+	}
+
 
 	public function getTagsByAdmin(): array
 	{

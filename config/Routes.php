@@ -19,9 +19,9 @@ Router::get('/admin/getList', [new Eshop\Controllers\AdminController(), 'getList
 
 Router::get('/admin/getSelectFieldData', [new Eshop\Controllers\AdminController(), 'getSelectFieldData']);
 
-Router::get('/admin/newItem', [new Eshop\Controllers\AdminController(), 'newItem']);
+Router::get('/admin/newItem', [new Eshop\Controllers\AdminController(), 'addItem']);
 
-Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'setItem']);
+Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'updateItem']);
 
 Router::post('/admin/deleteItem', [new Eshop\Controllers\AdminController(), 'deleteItem']);
 
@@ -54,3 +54,12 @@ Router::get('/cart/reduce/:id/', [new Eshop\Controllers\CartController(), 'reduc
 Router::post('/checkout', [new Eshop\Controllers\OrderController(), 'getOrder']);
 
 Router::post('/createOrder', [new Eshop\Controllers\OrderController(), 'createOrder']);
+
+
+Router::get('/admin/order/:id/', [new Eshop\Controllers\OrderItemController(), 'getOrderItems']);
+
+Router::get('/admin/order/add/:id/', [new Eshop\Controllers\OrderItemController(), 'addOrderItem']);
+
+Router::get('/admin/order/delete/:id/', [new Eshop\Controllers\OrderItemController(), 'deleteOrderItem']);
+
+Router::post('/admin/order/update/:id/', [new Eshop\Controllers\OrderItemController(), 'updateOrderItem']);
