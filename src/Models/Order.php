@@ -6,14 +6,12 @@ use Exception;
 
 class Order
 {
-	private string $orderId;
+	private int $orderId;
 	private array $products;
 	private \DateTime $createdAt;
 	private string $customerName;
 	private string $customerEmail;
 	private string $customerPhone;
-	// private string $count;
-	// private string $price;
 	private ?string $comment = null;
 	private ?string $status;
 
@@ -25,11 +23,10 @@ class Order
 		string $customerName,
 		string $customerEmail,
 		string $customerPhone,
-		// string $count,
-		// string $price,
 		?string $comment,
 		string $status = 'CREATE',
-		?\DateTime $createdAt = null
+		?\DateTime $createdAt = null,
+		?int $orderId = null
 	)
 	{
 		$this->products = $products;
@@ -41,6 +38,7 @@ class Order
 		$this->setComment($comment);
 		$this->setStatus($status);
 		$this->createdAt = $createdAt ?? new \DateTime();
+		$this->orderId = $orderId;
 	}
 
 	public function setOrderId(string $orderId): void
@@ -96,16 +94,6 @@ class Order
 		$this->comment = $comment;
 	}
 
-	// public function setCount($count): void
-	// {
-	// 	$this->count = $count;
-	// }
-	//
-	// public function setPrice($price): void
-	// {
-	// 	$this->price = $price;
-	// }
-
 	public function setStatus($status): void
 	{
 		$this->status = $status;
@@ -145,16 +133,6 @@ class Order
 	{
 		return $this->comment;
 	}
-
-	// public function getCount(): string
-	// {
-	// 	return $this->count;
-	// }
-	//
-	// public function getPrice(): string
-	// {
-	// 	return $this->price;
-	// }
 
 	public function getStatus(): string
 	{

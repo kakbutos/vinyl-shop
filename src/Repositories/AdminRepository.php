@@ -173,8 +173,8 @@ class AdminRepository
 	{
 		$connection = Connection::getInstance()->getConnection();
 
-		$orderId = $order->getId();
-		$date = mysqli_real_escape_string($connection, $order->getCreatedAt());
+		$orderId = (int)($order->getOrderId());
+		$date = mysqli_real_escape_string($connection, $order->getCreatedAt()->format('Y-m-d H:i:s'));
 		$orderCustomerName = mysqli_real_escape_string($connection, $order->getCustomerName());
 		$orderCustomerEmail = mysqli_real_escape_string($connection, $order->getCustomerEmail());
 		$orderCustomerPhone = mysqli_real_escape_string($connection, $order->getCustomerPhone());
@@ -190,7 +190,7 @@ class AdminRepository
 				CUSTOMER_PHONE = '$orderCustomerPhone', 
 				COMMENT = '$orderComment', 
 				STATUS = '$orderStatus'
-            WHERE ID = {$orderId}";
+            WHERE ID = {$orderId};";
 		$test = mysqli_query($connection, $queryTag);
 		mysqli_commit($connection);
 
