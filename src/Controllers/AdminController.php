@@ -66,6 +66,12 @@ class AdminController
 		{
 			return json_encode(AdminService::addNewTag(), JSON_THROW_ON_ERROR);
 		}
+
+		if ($_GET['table'] === 'order')
+		{
+			return json_encode(AdminService::addNewOrder(), JSON_THROW_ON_ERROR);
+		}
+
 		return 0;
 	}
 
@@ -132,6 +138,11 @@ class AdminController
 		if ($table === 'tag'){
 			return json_encode(AdminService::deleteTag($id), JSON_THROW_ON_ERROR);
 		}
+
+		if ($table === 'order'){
+			return json_encode(AdminService::deleteOrder($id), JSON_THROW_ON_ERROR);
+		}
+
 		return 0;
 	}
 

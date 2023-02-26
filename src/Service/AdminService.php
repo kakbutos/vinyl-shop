@@ -29,10 +29,13 @@ class AdminService
 	{
 		return (new AdminRepository())->addEmptyProduct();
 	}
-
 	public static function addNewTag(): array
 	{
 		return (new AdminRepository())->addEmptyTag();
+	}
+	public static function addNewOrder(): array
+	{
+		return (new AdminRepository())->addEmptyOrder();
 	}
 
 
@@ -43,6 +46,10 @@ class AdminService
 	public static function deleteTag(int $id): bool
 	{
 		return (new AdminRepository())->deleteTag($id);
+	}
+	public static function deleteOrder(int $id): bool
+	{
+		return (new AdminRepository())->deleteOrder($id);
 	}
 
 	public static function updateTag($tag): array
