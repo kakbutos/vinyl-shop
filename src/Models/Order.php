@@ -7,13 +7,13 @@ use Exception;
 class Order
 {
 	private string $orderId;
-	private string $productId;
+	private array $products;
 	private \DateTime $createdAt;
 	private string $customerName;
 	private string $customerEmail;
 	private string $customerPhone;
-	private string $count;
-	private string $price;
+	// private string $count;
+	// private string $price;
 	private ?string $comment = null;
 	private ?string $status;
 
@@ -21,25 +21,23 @@ class Order
 	 * @throws Exception
 	 */
 	public function __construct(
-		// ?string $orderId,
-		string $productId,
+		array $products,
 		string $customerName,
 		string $customerEmail,
 		string $customerPhone,
-		string $count,
-		string $price,
+		// string $count,
+		// string $price,
 		?string $comment,
 		string $status = 'CREATE',
 		?\DateTime $createdAt = null
 	)
 	{
-		// $this->orderId = $orderId;
-		$this->productId = $productId;
+		$this->products = $products;
 		$this->setCustomerName($customerName);
 		$this->setCustomerEmail($customerEmail);
 		$this->setCustomerPhone($customerPhone);
-		$this->setCount($count);
-		$this->price = $price;
+		// $this->setCount($count);
+		// $this->price = $price;
 		$this->setComment($comment);
 		$this->setStatus($status);
 		$this->createdAt = $createdAt ?? new \DateTime();
@@ -98,15 +96,15 @@ class Order
 		$this->comment = $comment;
 	}
 
-	public function setCount($count): void
-	{
-		$this->count = $count;
-	}
-
-	public function setPrice($price): void
-	{
-		$this->price = $price;
-	}
+	// public function setCount($count): void
+	// {
+	// 	$this->count = $count;
+	// }
+	//
+	// public function setPrice($price): void
+	// {
+	// 	$this->price = $price;
+	// }
 
 	public function setStatus($status): void
 	{
@@ -118,9 +116,9 @@ class Order
 		return $this->orderId;
 	}
 
-	public function getProductId(): string
+	public function getProducts(): array
 	{
-		return $this->productId;
+		return $this->products;
 	}
 
 	public function getCreatedAt(): \DateTime
@@ -148,15 +146,15 @@ class Order
 		return $this->comment;
 	}
 
-	public function getCount(): string
-	{
-		return $this->count;
-	}
-
-	public function getPrice(): string
-	{
-		return $this->price;
-	}
+	// public function getCount(): string
+	// {
+	// 	return $this->count;
+	// }
+	//
+	// public function getPrice(): string
+	// {
+	// 	return $this->price;
+	// }
 
 	public function getStatus(): string
 	{

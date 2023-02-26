@@ -3,6 +3,7 @@
 namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
+use Eshop\src\Models\Cart;
 use Eshop\src\Service\MainService;
 use Eshop\src\Service\Pagination;
 
@@ -11,9 +12,10 @@ class MainController
 
 	public function render_catalog($items, $tags, $pagination = null): string
 	{
+		$quantityProductsInCart = (new Cart())->getTotalQuantity();
 		$render = new Template('../src/Views');
 		return $render->render('layout', [
-			'header' => $render->render('/components/header', []),
+			'header' => $render->render('/components/header', ['quantity' => $quantityProductsInCart]),
 			'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
 			'content' => $render->render('/public/main', [
 				'pagination' => $render->render('/components/pagination', ['pagination' => $pagination]),

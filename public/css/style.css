@@ -143,7 +143,7 @@ body{
 	margin-top: 7px;
 }
 .product-card:hover{
-	box-shadow: 0px 0px 2px 1px #fe9524;
+	box-shadow: 0 0 2px 1px #fe9524;
 }
 .product-card-info{
 	display: flex;
@@ -288,7 +288,6 @@ body{
 .product-detail-line-property-vinyl:hover{
 	cursor: pointer;
 	transform: scale(0.95);
-
 }
 
 .product-detail-line-property-vinyl:hover:before{
@@ -386,7 +385,7 @@ label {
 	margin-bottom: 5px;
 }
 
-input#email, #name, #phone, #fullname {
+input#email, #name, #phone, #full-name {
 	margin-bottom: 15px;
 	outline: none;
 	border: 1px solid grey;
@@ -413,7 +412,7 @@ textarea {
 
 .count-price {
 	display: flex;
-	margin-top: 15px;
+	margin: 15px 0;
 	justify-content: space-between;
 }
 
@@ -496,4 +495,111 @@ h1.thanks {
 	text-transform: uppercase;
 	margin: 30px 0;
 	font-size: 12px;
+}
+
+/*----------------------------------*/
+/*modal*/
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	text-align: center;
+	width: 40%;
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/*----------------------------------*/
+/*Cart*/
+
+a.cart-button {
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+span.cart-icon-count {
+	color: #8a979d;
+}
+
+.cart-product-item {
+	border-bottom: 1px solid #dedede;
+}
+
+.additional-header-container {
+	margin-right: 10px;
+}
+
+.cart-product-item-content {
+	display: flex;
+	flex-direction: row;
+	margin-left: 25px;
+	padding-bottom: 22px;
+	padding-top: 22px;
+}
+
+.cart-product-image-container img {
+	max-width: 95px;
+}
+
+.cart-product-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-bottom: 4px;
+	margin-left: 30px;
+}
+
+.cart-product-name {
+	padding-bottom: 10px;
+}
+
+.cart-price,
+.cart-product-quantity {
+	margin-left: 25px;
+}
+
+.cart-total-price {
+	margin-left: 25px;
+	padding-right: 10px;
+}
+
+a.delete-product-button {
+	text-decoration: none;
+	color: #fe9524;
+	font-size: smaller;
+}
+
+form.checkout {
+	display: flex;
+	flex-direction: column;
+	align-content: flex-start;
 }

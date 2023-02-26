@@ -1,4 +1,6 @@
 <?php
+
+use Eshop\src\Models\Product;
 use \Eshop\src\Service\PageService;
 /**
  * @var Product $product
@@ -17,6 +19,14 @@ use \Eshop\src\Service\PageService;
 	}
 
 ?>
+
+<div id="modal" class="modal">
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<p>Товар успешно добавлен в корзину</p>
+	</div>
+</div>
+
 <div class="product-detail-container">
 	<div class="product-detail-image-side">
 		<div class="product-detail-main-image-container">
@@ -115,7 +125,9 @@ use \Eshop\src\Service\PageService;
 				<div class="product-detail-buy-price">
 					<?=$product->getPrice()?>
 				</div>
-				<a href="/order/<?=$product->getId()?>/" class="buy-button"> Купить </a>
+				<a href="/cart/<?=$product->getId()?>/" class="buy-button" data-id="<?=$product->getId()?>"> Купить </a>
 			</div>
 	</div>
 </div>
+
+<script src="/js/cart_script.js"></script>

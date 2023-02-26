@@ -5,6 +5,7 @@ namespace Eshop;
 use Eshop\Core\Config\Config;
 use Eshop\Core\DB\Migrator;
 use Eshop\core\Routing\Router;
+use Eshop\Core\Session;
 
 class Application
 {
@@ -14,6 +15,9 @@ class Application
 		{
 			Migrator::migrate();
 		}
+
+		new Session();
+
 		$route = Router::findRoute($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
 		if ($route)
