@@ -24,9 +24,9 @@ Router::get('/admin/getList', [new Eshop\Controllers\AdminController(), 'getList
 
 Router::get('/admin/getSelectFieldData', [new Eshop\Controllers\AdminController(), 'getSelectFieldData']);
 
-Router::get('/admin/newItem', [new Eshop\Controllers\AdminController(), 'newItem']);
+Router::get('/admin/newItem', [new Eshop\Controllers\AdminController(), 'addItem']);
 
-Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'setItem']);
+Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'updateItem']);
 
 Router::post('/admin/deleteItem', [new Eshop\Controllers\AdminController(), 'deleteItem']);
 

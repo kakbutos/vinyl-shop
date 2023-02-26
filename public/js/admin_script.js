@@ -121,6 +121,18 @@ function addNewObj(obj) {
 				</td>`
 			);
 		}
+	if (table == 'order')
+	{
+		row.append(`
+				<td class="table-td">
+					<div class="cell-content-div">
+						<div class="cell-button-div">
+							<button class="btn save-button submit-button" onclick = "document.location='admin/order/${obj[0]}/'">Товары</button>
+						</div>
+					</div>
+				</td>`
+		);
+	}
 		row.append(`
 			<td class="table-td">
 				<div class="cell-content-div">

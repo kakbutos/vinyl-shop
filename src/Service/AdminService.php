@@ -123,6 +123,46 @@ class AdminService
 		return [];
 	}
 
+	public static function updateOrder($order):array
+	{
+		$validate = new Validator();
+
+		$validate->set('ID', $order['ID'])->isRequired()->isNumber()
+			->set('Дата выпуска', $order['DATE'])->isRequired()->maxLength(50)
+			->set('Имя покупателя', $order['CUSTOMER_NAME'])->isRequired()->maxLength(200)
+			->set('Почта покупателя', $order['CUSTOMER_EMAIL'])->isRequired()->isEmail()
+			->set('Телефон покупателя', $order['CUSTOMER_PHONE'])->isRequired()->isPhone()
+			->set('Комментарий', $order['COMMENT'])->maxLength(1000)
+			->set('Статус заказа', $order['STATUS'])->isRequired()->maxLength(50);
+
+		if ($validate->validate())
+		{
+			$productObj = new Product(
+				(int)$order['ID'],
+				$order['DATE'],
+				$order['CUSTOMER_NAME'],
+				$order['CUSTOMER_EMAIL'],
+				$order['CUSTOMER_PHONE'],
+				$order['COMMENT'],
+				$order['STATUS']
+			);
+
+			(new AdminRepository())->updateOrder($productObj);
+		}
+		else
+		{
+			$errors = $validate->getErrors();
+			$stringErrors = [];
+			foreach ($errors as $error)
+			{
+				$stringErrors[] = $error;
+			}
+			return $stringErrors;
+		}
+
+		return [];
+	}
+
 	public static function getVinilStatuses():array{
 
 		return (new AdminRepository())->getVinilStatuses();

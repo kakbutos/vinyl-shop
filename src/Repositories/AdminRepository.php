@@ -166,6 +166,19 @@ class AdminRepository
 		mysqli_commit($connection);
 	}
 
+	public function updateOrder($tag): void
+	{
+		$connection = Connection::getInstance()->getConnection();
+
+		$tagId = $tag->getId();
+		$tagName = $tag->getTitle();
+
+		mysqli_begin_transaction($connection);
+		$queryTag = "UPDATE tag SET NAME = '$tagName' WHERE ID = {$tagId}";
+		$test = mysqli_query($connection, $queryTag);
+		mysqli_commit($connection);
+	}
+
 	public function deleteProduct($id): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
