@@ -10,7 +10,10 @@ class ImageController
 {
 	public function getImage(int $id): string
 	{
-		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+		if (!UserAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
 		$info = '';
 		if (isset($_GET['info']))
 		{
@@ -20,7 +23,7 @@ class ImageController
 		$render = new Template('../src/Views');
 		$imageList = ImageService::getImageList($id);
 
-		return $render->render('image', [
+		return $render->render('admin/image', [
 			'info' => $render->render('/components/adminInfo', ['info' => $info]),
 			'imageList' => $imageList,
 			'productId' => $id,
@@ -29,6 +32,11 @@ class ImageController
 
 	public function addImage(int $productId)
 	{
+		if (!UserAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
+
 		$info = '';
 		if(!empty($_FILES['file']))
 		{
@@ -41,6 +49,11 @@ class ImageController
 
 	public function deleteImage(int $imageId): void
 	{
+		if (!UserAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
+
 		$info = ImageService::deleteImage($imageId);
 		if($info['productId'] === 0)
 		{
@@ -51,6 +64,11 @@ class ImageController
 
 	public function getIsMainImage(int $imageId): void
 	{
+		if (!UserAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
+
 		$info = ImageService::setIsMainImage($imageId);
 
 		header("Location: " . AuthHelper::getUrl() . "/admin/image/{$info['productId']}/?info={$info['info']}");

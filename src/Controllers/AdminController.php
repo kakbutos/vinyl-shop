@@ -3,16 +3,14 @@
 namespace Eshop\Controllers;
 
 use Eshop\Core\Template\Template;
-use Eshop\src\Models\Product;
 use Eshop\src\Lib\AuthHelper;
-use Eshop\src\Service\MainService;
 use Eshop\src\Service\AdminService;
 
 class AdminController
 {
 	public function getAdmin(): string
 	{
-		if (!userAdminController::isAuthorized())
+		if (!UserAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}
@@ -22,7 +20,7 @@ class AdminController
 
 	public function getList()
 	{
-		if (!userAdminController::isAuthorized())
+		if (!UserAdminController::isAuthorized())
 		{
 			return '';
 		}
@@ -52,7 +50,7 @@ class AdminController
 
 	public function addItem()
 	{
-		if (!userAdminController::isAuthorized())
+		if (!UserAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}
@@ -82,7 +80,7 @@ class AdminController
 	 */
 	public function updateItem()
 	{
-		if (!userAdminController::isAuthorized())
+		if (!UserAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}
@@ -137,7 +135,7 @@ class AdminController
 	}
 
 	public function deleteItem(){
-		if (!userAdminController::isAuthorized())
+		if (!UserAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}
@@ -160,7 +158,7 @@ class AdminController
 	}
 
 	public function getSelectFieldData(){
-		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+		if (!UserAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
 
 		$field = $_GET['field'];
 		if ($field === 'VINIL_STATUS'){
@@ -169,12 +167,12 @@ class AdminController
 	}
 
 	public function getProductTagRelation(){
-		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+		if (!UserAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
 		return json_encode(AdminService::getProductTagRelation(), JSON_THROW_ON_ERROR);
 	}
 
 	public function setProductTag(){
-		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+		if (!UserAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
 
 		$id = (int)$_POST['productId'];
 		$tags = [];

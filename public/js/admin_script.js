@@ -237,6 +237,7 @@ function newItem(table) {
 		data: { table },
 		success: function(data) {
 			addNewObj(data);
+			setSelectFieldData("VINIL_STATUS");
 		}
 	});
 }

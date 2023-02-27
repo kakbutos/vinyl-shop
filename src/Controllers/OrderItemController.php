@@ -10,11 +10,14 @@ class OrderItemController
 {
 	public function getOrderItems(int $id): string
 	{
-		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+		if (!UserAdminController::isAuthorized())
+		{
+			header("Location: " . AuthHelper::getUrl() . "/login");
+		}
 
 		$list = OrderItemService::getOrderItemList($id);
 		$render = new Template('../src/Views');
-		return $render->render('order', [
+		return $render->render('admin/order', [
 			"orderList" => $list,
 			"orderId" => $id,
 		]);
@@ -22,27 +25,29 @@ class OrderItemController
 
 	public function addOrderItem(int $id): void
 	{
-		if (!userAdminController::isAuthorized())
+		if (!UserAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}
+
 		$orderId = OrderItemService::addOrderItemList($id);
 		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$orderId}/");
 	}
 
 	public function deleteOrderItem(int $id): void
 	{
-		if (!userAdminController::isAuthorized())
+		if (!UserAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}
+
 		$orderId = OrderItemService::deleteOrderItemList($id);
 		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$orderId}/");
 	}
 
 	public function updateOrderItem(int $id):void
 	{
-		if (!userAdminController::isAuthorized())
+		if (!UserAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}

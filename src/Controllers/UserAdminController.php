@@ -7,7 +7,7 @@ use Eshop\Core\Template\Template;
 use Eshop\src\Service\UserService;
 use Eshop\src\Lib\AuthHelper;
 
-class userAdminController
+class UserAdminController
 {
 	public function auth()
 	{
@@ -47,7 +47,7 @@ class userAdminController
 	public function login()
 	{
 		$render = new Template('../src/Views');
-		return $render->render('login', []);
+		return $render->render('admin/login', []);
 	}
 
 	public static function isAuthorized(): bool
