@@ -50,6 +50,7 @@ class AdminController
 
 	public function addItem()
 	{
+		if (!UserAdminController::checkCsrfToken()) return '';
 		if (!UserAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
@@ -73,13 +74,12 @@ class AdminController
 		return 0;
 	}
 
-
-
 	/**
 	 * @throws \Exception
 	 */
 	public function updateItem()
 	{
+		if (!UserAdminController::checkCsrfToken()) return '';
 		if (!UserAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
@@ -135,6 +135,7 @@ class AdminController
 	}
 
 	public function deleteItem(){
+		if (!UserAdminController::checkCsrfToken()) return '';
 		if (!UserAdminController::isAuthorized())
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
@@ -172,6 +173,7 @@ class AdminController
 	}
 
 	public function setProductTag(){
+		if (!UserAdminController::checkCsrfToken()) return '';
 		if (!UserAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
 
 		$id = (int)$_POST['productId'];

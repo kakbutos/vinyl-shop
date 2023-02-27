@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="csrf-token" content="<?php echo $_SESSION['csrf_token']?>">
 	<title>Document</title>
 	<link rel="stylesheet" href="/css/reset.css">
 	<link rel="stylesheet" href="/css/admin_style.css">
@@ -36,3 +37,11 @@
 	<script src="/js/admin_script.js"></script>
 </body>
 </html>
+
+<script>
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+</script>

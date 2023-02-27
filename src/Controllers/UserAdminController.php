@@ -72,4 +72,23 @@ class UserAdminController
 
 		return false;
 	}
+
+	public static function checkCsrfToken(): bool
+	{
+		new Session();
+
+		$csrf = null;
+		foreach (getallheaders() as $name => $value) {
+			if ($name === 'X-CSRF-TOKEN') {
+				$csrf = $value;
+			}
+		}
+
+		if ($_SESSION['csrf_token'] !== $csrf)
+		{
+			return false;
+		}
+
+		return true;
+	}
 }
