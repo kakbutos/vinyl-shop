@@ -174,5 +174,7 @@ class AdminService
 	public static function getProductTagRelation():array{
 		return (new AdminRepository())->getProductTagRelation();
 	}
-
+	public static function setProductTag($id, $tags):array{
+		return (new AdminRepository())->setProductTag($id, $tags);
+	}
 }

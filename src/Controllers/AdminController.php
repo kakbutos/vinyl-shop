@@ -170,8 +170,19 @@ class AdminController
 
 	public function getProductTagRelation(){
 		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
-
 		return json_encode(AdminService::getProductTagRelation(), JSON_THROW_ON_ERROR);
+	}
 
+	public function setProductTag(){
+		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+
+		$id = (int)$_POST['productId'];
+		$tags = [];
+		for ($i = 0, $iMax = count($_POST['tags']); $i< $iMax; $i++)
+		{
+			$tags[] = (int)$_POST['tags'][$i];
+		}
+
+		return json_encode(AdminService::setProductTag($id, $tags), JSON_THROW_ON_ERROR);
 	}
 }

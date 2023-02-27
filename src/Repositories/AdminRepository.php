@@ -205,6 +205,7 @@ class AdminRepository
 			DELETE FROM product
 			WHERE ID = {$id};
 		");
+		//удалить все связи
 		return $deleteQuery;
 	}
 
@@ -366,5 +367,31 @@ class AdminRepository
 			$List[] = [(int)$row['PRODUCT_ID'], (int)$row['TAG_ID']];
 		}
 		return $List;
+	}
+
+	public function setProductTag($id, $tags):array{
+		$connection = Connection::getInstance()->getConnection();
+
+		$deleteQuery = "DELETE FROM product_tag WHERE PRODUCT_ID = {$id};";
+
+		$setQuery = "";
+		for ($i = 0, $iMax = count($tags); $i< $iMax; $i++){
+			$setQuery .= "INSERT INTO product_tag (PRODUCT_ID, TAG_ID) VALUES ({$id}, {$tags[$i]});";
+		}
+
+		//mysqli_begin_transaction($connection);
+
+		$test = mysqli_query($connection, $deleteQuery);
+		if ($test)
+		{
+			$test = mysqli_multi_query($connection, $setQuery);
+		}
+		if ($test)
+		{
+			$test = mysqli_commit($connection);
+			return [];
+		}
+		mysqli_rollback($connection);
+		return ['error'];
 	}
 }
