@@ -17,6 +17,11 @@ class CartController
 	public function addToCart(string $productId): bool
 	{
 		$id = (int)$productId;
+		if ($id === 0)
+		{
+			return false;
+		}
+
 		$product = (new ProductRepository())->getProductById($id);
 		if ($product === null)
 		{

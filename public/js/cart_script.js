@@ -5,8 +5,14 @@ $('.buy-button').on('click', function(e) {
 		url: '/cart/add/' + id +'/',
 		type: 'GET',
 		success: function(result){
-			if (!result) alert('Продукта с таким id не существует.')
-			showMessage(result);
+			if (!result)
+			{
+				alert('Продукта с таким id не существует.')
+			}
+			else
+			{
+				showMessage();
+			}
 		},
 		error: function(){
 			alert('Не удалось добавить товар в корзину.')
