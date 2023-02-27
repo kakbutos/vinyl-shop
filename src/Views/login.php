@@ -34,6 +34,6 @@
 	</form>
 </div>
 
-<script src="/js/login.js"></script>
+<script src="/js/login_order.js"></script>
 </body>
 </html>
