@@ -238,6 +238,9 @@ function newItem(table) {
 		success: function(data) {
 			addNewObj(data);
 			setSelectFieldData("VINIL_STATUS");
+			$('.cell-input[type=checkbox]').change(function() {
+				$(this).val($(this).is(':checked'));
+			});
 		}
 	});
 }
