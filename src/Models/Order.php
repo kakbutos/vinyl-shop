@@ -6,7 +6,7 @@ use Exception;
 
 class Order
 {
-	private int $orderId;
+	private ?int $orderId;
 	private array $products;
 	private \DateTime $createdAt;
 	private string $customerName;
@@ -14,6 +14,7 @@ class Order
 	private string $customerPhone;
 	private ?string $comment = null;
 	private ?string $status;
+
 
 	/**
 	 * @throws Exception
