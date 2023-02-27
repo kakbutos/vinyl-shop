@@ -10,7 +10,7 @@ use Eshop\src\Service\Pagination;
 class MainController
 {
 
-	public function render_catalog($items, $tags, $pagination = null): string
+	public function renderCatalog($items, $tags, $pagination = null): string
 	{
 		$quantityProductsInCart = (new Cart())->getTotalQuantity();
 		$render = new Template('../src/Views');
@@ -31,7 +31,7 @@ class MainController
 		$paginationArray = $this->paginationForItems($countList);
 		$items = MainService::getProductList(null, "", $paginationArray);
 
-		return $this->render_catalog($items, $tags, $paginationArray['pagination']);
+		return $this->renderCatalog($items, $tags, $paginationArray['pagination']);
 	}
 
 	public function catalogByTag($tag): string
@@ -41,7 +41,7 @@ class MainController
 		$paginationArray = $this->paginationForItems($countList);
 		$items = MainService::getProductList($tag, "", $paginationArray);
 
-		return $this->render_catalog($items, $tags, $paginationArray['pagination']);
+		return $this->renderCatalog($items, $tags, $paginationArray['pagination']);
 	}
 
 	public function catalogBySearch(): string
@@ -52,13 +52,13 @@ class MainController
 		$paginationArray = $this->paginationForItems($countList);
 		$items = MainService::getProductList(null, $search, $paginationArray);
 
-		return $this->render_catalog($items, $tags, $paginationArray['pagination']);
+		return $this->renderCatalog($items, $tags, $paginationArray['pagination']);
 	}
 
 	public function paginationForItems($total): array
 	{
 		$page = $_GET['page'] ?? 1;
-		$per_page = 2;
+		$per_page = 4;
 		$pagination = new Pagination((int)$page, $per_page, $total);
 		$start = $pagination->get_start();
 
