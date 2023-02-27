@@ -42,8 +42,33 @@ class AdminService
 
 	public static function deleteProduct(int $id): bool
 	{
-		return (new AdminRepository())->deleteProduct($id);
+		$select = (new AdminRepository())->deleteProduct($id);
+		if (empty($select) )
+		{
+			return false;
+		}
+		$images = $select['images'];
+		foreach ($images as $image)
+		{
+			$name = $image['name'];
+			$dir = ROOT . "/public/assets/img/{$image['path']}/";
+
+			$test = unlink($dir . $name);
+			if (!$test)
+			{
+				return false;
+			}
+
+			$test = rmdir($dir);
+			if(!$test)
+			{
+				return false;
+			}
+		}
+
+		return $select['susses'];
 	}
+
 	public static function deleteTag(int $id): bool
 	{
 		return (new AdminRepository())->deleteTag($id);
