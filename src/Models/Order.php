@@ -33,8 +33,6 @@ class Order
 		$this->setCustomerName($customerName);
 		$this->setCustomerEmail($customerEmail);
 		$this->setCustomerPhone($customerPhone);
-		// $this->setCount($count);
-		// $this->price = $price;
 		$this->setComment($comment);
 		$this->setStatus($status);
 		$this->createdAt = $createdAt ?? new \DateTime();
