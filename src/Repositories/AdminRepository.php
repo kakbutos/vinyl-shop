@@ -217,6 +217,14 @@ class AdminRepository
 	public function deleteProduct($id): bool
 	{
 		$connection = Connection::getInstance()->getConnection();
+		$daleteTagQuery = mysqli_query($connection, "
+			DELETE FROM product_tag
+			WHERE PRODUCT_ID = {$id};
+		");
+		$daleteImageQuery = mysqli_query($connection, "
+			DELETE FROM product_image
+			WHERE PRODUCT_ID = {$id};
+		");
 
 		$deleteQuery = mysqli_query($connection, "
 			DELETE FROM product

@@ -64,9 +64,9 @@ INSERT INTO `order` (DATE, CUSTOMER_NAME, CUSTOMER_EMAIL, CUSTOMER_PHONE, COMMEN
 INSERT INTO product_order (ORDER_ID, PRODUCT_ID , COUNT, PRICE)
 VALUES (1, 1, 2, 5580),
        (1, 2, 1, 4480),
-       (2, 8, 3, 2990),
+       (2, 3, 3, 2990),
        (3, 4, 1, 2190),
-       (3, 7, 2, 5990);
+       (3, 5, 2, 5990);
 
 INSERT INTO image (ID, PATH, NAME, IS_MAIN)
 VALUES (1, '892496fd1e98ba4d89b8642ceba3d014', '892496fd1e98ba4d89b8642ceba3d014.jpg', TRUE),
