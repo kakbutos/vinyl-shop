@@ -62,11 +62,45 @@ function initializeTable(data)
 			dataType: 'json',
 			data: { table: 'tag' },
 			success: function(data) {
-				console.log(data);
+				for (let i = 0; i < data[1].length; i++)
+				{
+					global_product_tags[data[1][i][0]] = data[1][i][1];
+				}
+				setProductTags();
 			}
 		});
 	}
 
+}
+function setProductTags(){
+	$.ajax({
+		url: '/admin/getProductTagRelation',
+		method: 'get',
+		dataType: 'json',
+		success: function(data) {
+			console.log(data);
+			let productTagsNames = [];
+			let productTagsIds = [];
+			for (let i = 0; i < data.length; i++)
+			{
+				if (productTagsNames[data[i][0]] !== undefined){
+					productTagsNames[data[i][0]] += ", " + global_product_tags[data[i][1]];
+					productTagsIds[data[i][0]].push(data[i][1]);
+				}else{
+					productTagsNames[data[i][0]] = global_product_tags[data[i][1]];
+					productTagsIds[data[i][0]] = [data[i][1]];
+				}
+			}
+			for (let i = 0; i < productTagsNames.length; i++)
+			{
+				$(`.row-${i}`).find(`*[data-field = TAGS]`).val( productTagsNames[i] );
+				$(`.row-${i}`).find(`*[data-field = TAGS]`).data('tags', productTagsIds[i]);
+				$(`.row-${i}`).find(`*[data-field = TAGS]`).on('click', function(){
+					openSelectTagModal($(this));
+				});
+			}
+		}
+	});
 }
 
 function addNewObj(obj) {
@@ -119,7 +153,7 @@ function addNewObj(obj) {
 			}
 			case 'checkboxes':
 			{
-				elem.find('.cell-text-div').append(`<input class="cell-input" type="button" data-field="${dataField}" value="${obj[i]}">`);
+				elem.find('.cell-text-div').append(`<input class="cell-input" type="button" data-tags="" data-field="${dataField}" value="Нет тега">`);
 				break;
 			}
 			default:
@@ -129,6 +163,19 @@ function addNewObj(obj) {
 		}
 
 		row.append(elem);
+	}
+
+	if (table === 'order')
+	{
+		row.append(`
+		<td class="table-td">
+			<div class="cell-content-div">
+				<div class="cell-button-div">
+					<button class="btn save-button submit-button" onclick = "document.location='/admin/order/${obj[0]}/'">Продукты</button>
+				</div>
+			</div>
+		</td>`
+		);
 	}
 
 	if (table === 'product')
@@ -218,13 +265,14 @@ function getList(dataTable)
 		data: { table: dataTable },
 		success: function(data) {
 			obj_struct = data[0];
-			console.log(obj_struct);
 			initializeTable(data[1]);
 		}
 	});
 }
 
-function openSelectTagModal(){
+function openSelectTagModal(elem){
+
+	console.log(elem.data('tags'));//tags list
 	const modal = `
 		<div class="tags-modal">
 			<div class="tags-modal-dialog">

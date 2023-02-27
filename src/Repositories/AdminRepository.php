@@ -36,7 +36,7 @@ class AdminRepository
 				$row['VINYL_STATUS_ID'],
 				$row['COVER_STATUS'],
 				$row['TRACKS'],
-				"TEMP_TAG",
+				"",
 				(bool)$row['IS_ACTIVE'],
 			];
 		}
@@ -350,4 +350,21 @@ class AdminRepository
 		return $List;
 	}
 
+	public function getProductTagRelation():array{
+		$connection = Connection::getInstance()->getConnection();
+		$Query = mysqli_query($connection, "
+			SELECT PRODUCT_ID, TAG_ID
+			FROM `product_tag`
+		");
+		if (!$Query)
+		{
+			throw new Exception(mysqli_error($connection));
+		}
+		$List = [];
+		while ($row = mysqli_fetch_assoc($Query))
+		{
+			$List[] = [(int)$row['PRODUCT_ID'], (int)$row['TAG_ID']];
+		}
+		return $List;
+	}
 }

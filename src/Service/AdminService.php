@@ -168,8 +168,11 @@ class AdminService
 	}
 
 	public static function getVinilStatuses():array{
-
 		return (new AdminRepository())->getVinilStatuses();
+	}
+
+	public static function getProductTagRelation():array{
+		return (new AdminRepository())->getProductTagRelation();
 	}
 
 }

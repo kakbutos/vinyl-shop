@@ -166,6 +166,12 @@ class AdminController
 		if ($field === 'VINIL_STATUS'){
 			return json_encode(AdminService::getVinilStatuses(), JSON_THROW_ON_ERROR);
 		}
+	}
+
+	public function getProductTagRelation(){
+		if (!userAdminController::isAuthorized()) header("Location: " . AuthHelper::getUrl() . "/login");
+
+		return json_encode(AdminService::getProductTagRelation(), JSON_THROW_ON_ERROR);
 
 	}
 }

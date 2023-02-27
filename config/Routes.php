@@ -19,6 +19,8 @@ Router::get('/admin/getList', [new Eshop\Controllers\AdminController(), 'getList
 
 Router::get('/admin/getSelectFieldData', [new Eshop\Controllers\AdminController(), 'getSelectFieldData']);
 
+Router::get('/admin/getProductTagRelation', [new Eshop\Controllers\AdminController(), 'getProductTagRelation']);
+
 Router::get('/admin/newItem', [new Eshop\Controllers\AdminController(), 'addItem']);
 
 Router::post('/admin/setItem', [new Eshop\Controllers\AdminController(), 'updateItem']);
