@@ -84,7 +84,7 @@ class AdminRepository
 		}
 
 		mysqli_rollback($connection);
-		return [$id, 'Новый продукт', 1, '2000', 0, 'VG+', 'Без недостатков', 'Нет', false];
+		return [$id, 'Новый продукт', 1, '2000', 0, 'VG+', 'Без недостатков', 'Нет',1, false];
 	}
 
 	public function addEmptyTag(): array
