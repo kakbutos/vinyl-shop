@@ -83,7 +83,7 @@ class AdminRepository
 			}
 		}
 
-		mysqli_rollback($connection);
+		mysqli_commit($connection);
 		return [$id, 'Новый продукт', 1, '2000', 0, 'VG+', 'Без недостатков', 'Нет',1, false];
 	}
 
