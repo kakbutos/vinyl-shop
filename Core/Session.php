@@ -12,7 +12,7 @@ class Session
 		}
 	}
 
-	public function get()
+	public function get(): ?array
 	{
 		return $_SESSION ?? null;
 	}
@@ -22,8 +22,16 @@ class Session
 		return $_SESSION[$name] ?? null;
 	}
 
-	public function setValue(string $name, string $key, $value): void
+	public function setValue(string $key, $value): void
 	{
-		$_SESSION[$name][$key] = $value;
+		$_SESSION[$key] = $value;
+	}
+
+	public function delete(string $name): void
+	{
+		if (isset($_SESSION[$name]))
+		{
+			unset($_SESSION[$name]);
+		}
 	}
 }
