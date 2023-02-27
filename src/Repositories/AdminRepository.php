@@ -66,8 +66,24 @@ class AdminRepository
 			 TRACKS, IS_ACTIVE)
 					VALUES ('Новый продукт',  1, '2000', 0,'VG+','Без недостатков','Нет', 1);";
 
-		$Query = mysqli_query($connection, $queryProduct);
-		$id = mysqli_insert_id($connection);
+
+		mysqli_begin_transaction($connection);
+		$test = mysqli_query($connection, $queryProduct);
+		if ($test)
+		{
+			$id = mysqli_insert_id($connection);
+			$queryTag = "INSERT INTO product_tag
+			(PRODUCT_ID, TAG_ID)
+					VALUES ({$id}, 1);";
+			$test = mysqli_query($connection, $queryTag);
+			if(!$test)
+			{
+				mysqli_rollback($connection);
+				return [];
+			}
+		}
+
+		mysqli_rollback($connection);
 		return [$id, 'Новый продукт', 1, '2000', 0, 'VG+', 'Без недостатков', 'Нет', false];
 	}
 
