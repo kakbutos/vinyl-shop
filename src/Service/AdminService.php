@@ -56,14 +56,10 @@ class AdminService
 			$test = unlink($dir . $name);
 			if (!$test)
 			{
-				return false;
+				continue;
 			}
 
 			$test = rmdir($dir);
-			if(!$test)
-			{
-				return false;
-			}
 		}
 
 		return $select['susses'];
