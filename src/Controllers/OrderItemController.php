@@ -26,8 +26,8 @@ class OrderItemController
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}
-		$orderItem = OrderItemService::addOrderItemList($id);
-		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$orderItem}/");
+		$orderId = OrderItemService::addOrderItemList($id);
+		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$orderId}/");
 	}
 
 	public function deleteOrderItem(int $id): void
@@ -36,8 +36,8 @@ class OrderItemController
 		{
 			header("Location: " . AuthHelper::getUrl() . "/login");
 		}
-		$orderItem = OrderItemService::deleteOrderItemList($id);
-		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$orderItem}/");
+		$orderId = OrderItemService::deleteOrderItemList($id);
+		header("Location: " . AuthHelper::getUrl() . "/admin/order/{$orderId}/");
 	}
 
 	public function updateOrderItem(int $id):void

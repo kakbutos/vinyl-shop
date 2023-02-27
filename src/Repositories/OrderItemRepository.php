@@ -40,26 +40,40 @@ class OrderItemRepository
 		return $List;
 	}
 
-	public function addEmptyOrderItem($id): bool
+	public function addEmptyOrderItem($id): int
 	{
 		$connection = Connection::getInstance()->getConnection();
 
-		$Query = "INSERT INTO product_order 
+		$query = "INSERT INTO product_order 
 		(PRODUCT_ID, ORDER_ID, COUNT, PRICE) VALUES (1, $id, 1, 2000)
 		";
 
-		return mysqli_query($connection, $Query);
+		mysqli_query($connection, $query);
+		return $id;
 	}
 
-	public function deleteEmptyOrderItem($id): bool
+	public function deleteEmptyOrderItem($id): int
 	{
 		$connection = Connection::getInstance()->getConnection();
+		$orderId = 0;
+		$selectQuery = "SELECT ORDER_ID FROM product_order
+			WHERE ID = {$id};
+		";
+
+		$selectQuery = mysqli_query($connection, $selectQuery);
+		while ($row = mysqli_fetch_assoc($selectQuery))
+		{
+			$orderId = $row['ORDER_ID'];
+		}
+
 
 		$queryProduct = "DELETE FROM product_order
 						WHERE ID = {$id}
 		";
 
-		return mysqli_query($connection, $queryProduct);
+		mysqli_query($connection, $queryProduct);
+
+		return $orderId;
 	}
 
 	public function updateOrderItem(array $ProductOrder): bool

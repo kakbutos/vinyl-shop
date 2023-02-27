@@ -16,12 +16,12 @@ class OrderItemService
 		return (new OrderItemRepository())->getOrderItems($id);
 	}
 
-	public static function addOrderItemList(int $id): bool
+	public static function addOrderItemList(int $id): int
 	{
 		return (new OrderItemRepository())->addEmptyOrderItem($id);
 	}
 
-	public static function deleteOrderItemList(int $id): bool
+	public static function deleteOrderItemList(int $id): int
 	{
 		return (new OrderItemRepository())->deleteEmptyOrderItem($id);
 	}
