@@ -138,20 +138,17 @@ class AdminService
 
 		if ($validate->validate())
 		{
-			$date = $order['DATE'];
-			$date = strtotime($date);
-			$date =
+			$date = new \DateTime($order['DATE']);
 
 			$productObj = new Order(
-				(int)$order['ID'],
+				[],
 				$order['CUSTOMER_NAME'],
 				$order['CUSTOMER_EMAIL'],
 				$order['CUSTOMER_PHONE'],
-				1,
-				1,
 				$order['COMMENT'],
 				$order['STATUS'],
 				$date,
+				(int)$order['ID']
 			);
 
 			(new AdminRepository())->updateOrder($productObj);
@@ -171,8 +168,13 @@ class AdminService
 	}
 
 	public static function getVinilStatuses():array{
-
 		return (new AdminRepository())->getVinilStatuses();
 	}
 
+	public static function getProductTagRelation():array{
+		return (new AdminRepository())->getProductTagRelation();
+	}
+	public static function setProductTag($id, $tags):array{
+		return (new AdminRepository())->setProductTag($id, $tags);
+	}
 }

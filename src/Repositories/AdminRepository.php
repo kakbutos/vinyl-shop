@@ -27,7 +27,6 @@ class AdminRepository
 
 		while ($row = mysqli_fetch_assoc($Query))
 		{
-
 			$List[] = [
 				(int)$row['ID'],
 				$row['NAME'],
@@ -37,6 +36,7 @@ class AdminRepository
 				$row['VINYL_STATUS_ID'],
 				$row['COVER_STATUS'],
 				$row['TRACKS'],
+				"",
 				(bool)$row['IS_ACTIVE'],
 			];
 		}
@@ -50,6 +50,7 @@ class AdminRepository
 			new TableField('Качество винила', 'select', 'VINIL_STATUS'),
 			new TableField('Качество конверта', 'text', 'COVER_STATUS'),
 			new TableField('Треки', 'text', 'TRACKS'),
+			new TableField('Тэги', 'checkboxes', 'TAGS'),
 			new TableField('Активен', 'bool', 'IS_ACTIVE'),
 		];
 
@@ -172,8 +173,8 @@ class AdminRepository
 	{
 		$connection = Connection::getInstance()->getConnection();
 
-		$orderId = $order->getId();
-		$date = mysqli_real_escape_string($connection, $order->getCreatedAt());
+		$orderId = (int)($order->getOrderId());
+		$date = mysqli_real_escape_string($connection, $order->getCreatedAt()->format('Y-m-d H:i:s'));
 		$orderCustomerName = mysqli_real_escape_string($connection, $order->getCustomerName());
 		$orderCustomerEmail = mysqli_real_escape_string($connection, $order->getCustomerEmail());
 		$orderCustomerPhone = mysqli_real_escape_string($connection, $order->getCustomerPhone());
@@ -189,7 +190,7 @@ class AdminRepository
 				CUSTOMER_PHONE = '$orderCustomerPhone', 
 				COMMENT = '$orderComment', 
 				STATUS = '$orderStatus'
-            WHERE ID = {$orderId}";
+            WHERE ID = {$orderId};";
 		$test = mysqli_query($connection, $queryTag);
 		mysqli_commit($connection);
 
@@ -204,6 +205,7 @@ class AdminRepository
 			DELETE FROM product
 			WHERE ID = {$id};
 		");
+		//удалить все связи
 		return $deleteQuery;
 	}
 
@@ -349,4 +351,47 @@ class AdminRepository
 		return $List;
 	}
 
+	public function getProductTagRelation():array{
+		$connection = Connection::getInstance()->getConnection();
+		$Query = mysqli_query($connection, "
+			SELECT PRODUCT_ID, TAG_ID
+			FROM `product_tag`
+		");
+		if (!$Query)
+		{
+			throw new Exception(mysqli_error($connection));
+		}
+		$List = [];
+		while ($row = mysqli_fetch_assoc($Query))
+		{
+			$List[] = [(int)$row['PRODUCT_ID'], (int)$row['TAG_ID']];
+		}
+		return $List;
+	}
+
+	public function setProductTag($id, $tags):array{
+		$connection = Connection::getInstance()->getConnection();
+
+		$deleteQuery = "DELETE FROM product_tag WHERE PRODUCT_ID = {$id};";
+
+		$setQuery = "";
+		for ($i = 0, $iMax = count($tags); $i< $iMax; $i++){
+			$setQuery .= "INSERT INTO product_tag (PRODUCT_ID, TAG_ID) VALUES ({$id}, {$tags[$i]});";
+		}
+
+		//mysqli_begin_transaction($connection);
+
+		$test = mysqli_query($connection, $deleteQuery);
+		if ($test)
+		{
+			$test = mysqli_multi_query($connection, $setQuery);
+		}
+		if ($test)
+		{
+			$test = mysqli_commit($connection);
+			return [];
+		}
+		mysqli_rollback($connection);
+		return ['error'];
+	}
 }

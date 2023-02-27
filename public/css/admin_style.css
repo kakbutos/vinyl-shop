@@ -204,9 +204,46 @@ body{
 	font-size: 23px;
 	padding-bottom: 15px;
 }
-
+.cancel-button{
+	font-size: 20px;
+}
 /*----------------------------------*/
 
+.tags-modal{
+	display: block;
+	position: fixed;
+	top: 20%;
+	left: calc(50% - 200px);
+	background: white;
+	border: 1px solid grey;
+
+	width: 400px;
+	border-radius: 5px;
+	padding: 5px;
+}
+.tags-modal-header{
+	display: flex;
+	justify-content: flex-end;
+
+}
+.tags-modal-close{
+	font-size: 25px;
+	color: black;
+}
+.tags-modal-close:hover{
+	color: grey;
+}
+.tags-modal-body{
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	padding: 15px;
+}
+.tags-modal-footer{
+	display: flex;
+	justify-content: flex-end;
+}
+/*----------------------------------*/
 .container {
 	display: flex;
 	justify-content: center;
