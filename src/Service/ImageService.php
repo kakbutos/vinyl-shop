@@ -16,7 +16,17 @@ class ImageService
 		$formatImage = array('png', 'jpg', 'gif', 'jpeg');
 		$name = $file['name'];
 
+		if (!preg_match('=^[^/?*;:{}\\\\]+$=', $name))
+		{
+			return 'addError';
+		}
+
 		$array = explode('.', strtolower($name));
+
+		if($file['size'] >= 2097152)
+		{
+			return 'addError';
+		}
 
 		if(!in_array(array_pop($array), $formatImage, true))
 		{
@@ -24,10 +34,9 @@ class ImageService
 		}
 		$guid = bin2hex(openssl_random_pseudo_bytes(16));
 		$dir = ROOT . "/public/assets/img/{$guid}/";
-		// var_dump($dir);
+
 		if (!mkdir($dir) && !is_dir($dir))
 		{
-			// throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
 			return 'addError';
 		}
 
