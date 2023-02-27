@@ -2,6 +2,7 @@
 
 namespace Eshop\Controllers;
 
+use Eshop\Core\Session;
 use Eshop\Core\Template\Template;
 use Eshop\src\Models\Cart;
 use Eshop\src\Service\MainService;
@@ -48,7 +49,11 @@ class OrderController
 		try
 		{
 			OrderService::addOrder();
-			session_unset();
+			$session = new Session();
+			$session->delete('cart');
+			$session->delete('cartQty');
+			$session->delete('cartSum');
+
 			return $render->render('/public/orderInfo');
 		}
 		catch (Exception $e)
