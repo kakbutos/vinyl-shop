@@ -35,6 +35,10 @@ function initializeTable(data)
 		header.append(elem);
 	}
 	let additionalButtonsCount = 4;
+
+	if (table=='tag'){
+		additionalButtonsCount = 3;
+	}
 	for (let i = 1; i < additionalButtonsCount; i++) {
 		header.append(`<td class="table-td table-header-td"></td>`);
 	}
@@ -160,6 +164,11 @@ function addNewObj(obj) {
 			case 'checkboxes':
 			{
 				elem.find('.cell-text-div').append(`<input class="cell-input" type="button" data-tags data-field="${dataField}" value="Без тега">`);
+
+				elem.find('.cell-text-div').find('input').data('tags', [1]);
+				elem.find('.cell-text-div').find('input').on('click', function(){
+					openSelectTagModal($(this));
+				});
 				break;
 			}
 			default:
@@ -256,6 +265,10 @@ function saveItem(id) {
 			if (Array.isArray(data) && data.length)
 			{
 				alert(data[0]);
+			}
+			else
+			{
+				alert("Элемент сохранён");
 			}
 		}
 	});

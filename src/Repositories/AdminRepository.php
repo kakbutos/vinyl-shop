@@ -64,7 +64,7 @@ class AdminRepository
 		$queryProduct = "INSERT INTO product
 			(NAME, ARTIST_ID, RELEASE_DATE, PRICE, VINYL_STATUS_ID, COVER_STATUS, 
 			 TRACKS, IS_ACTIVE)
-					VALUES ('Новый продукт',  1, '2000', 0,'VG+','Без недостатков','Нет', 1);";
+					VALUES ('Новый продукт',  1, '2000', 0,'VG+','Без недостатков','Нет', 0);";
 
 
 		mysqli_begin_transaction($connection);
@@ -84,7 +84,8 @@ class AdminRepository
 		}
 
 		mysqli_commit($connection);
-		return [$id, 'Новый продукт', 1, '2000', 0, 'VG+', 'Без недостатков', 'Нет',1, false];
+		return [$id, 'Новый продукт', 'Без исполнителя', '2000', 0, 'VG+', 'Без недостатков', 'Нет', 1, false];
+		//ID, name, artist_id, release_date, price, vinyl_status, cover_status, tracks, tag, is_active
 	}
 
 	public function addEmptyTag(): array
