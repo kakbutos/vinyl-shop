@@ -38,9 +38,10 @@ class UserAdminController
 
 	public function logout(): void
 	{
-		new Session();
-		$_SESSION = [];
-		session_destroy();
+		$session = new Session();
+		$session->unset('USER_EMAIL');
+		$session->unset('csrf_token');
+
 		header("Location: " . AuthHelper::getUrl() . "/login");
 	}
 
