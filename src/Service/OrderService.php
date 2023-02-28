@@ -12,25 +12,21 @@ class OrderService
 	/**
 	 * @throws Exception
 	 */
-	public static function addOrder(): void
+	public static function addOrder($formData): void
 	{
 		$validate = new Validator();
 
-		$customerName = $_POST['full-name'];
-		$customerEmail = $_POST['email'];
-		$customerPhone = $_POST['phone'];
-		$comment = $_POST['comment'] ?? null;
-
-		$validate->set('ФИО', $customerName)->isRequired()->maxLength(100)->isName()
-				 ->set('email', $customerEmail)->isRequired()->isEmail()
-				 ->set('телефон', $customerPhone)->isRequired()->isPhone();
+		$validate->set('ФИО', $formData['customerName'])->isRequired()->maxLength(100)->isName();
+		$validate->set('email', $formData['customerEmail'])->isRequired()->isEmail();
+		$validate->set('телефон', $formData['customerPhone'])->isRequired()->isPhone();
+		$validate->set('комментарий', $formData['comment'])->maxLength(255);
 
 		if($validate->validate())
 		{
 			$cart = new Cart();
 			$products = $cart->getCart();
 
-			$order = new Order($products, $customerName, $customerEmail, $customerPhone, $comment);
+			$order = new Order($products, $formData['customerName'], $formData['customerEmail'], $formData['customerPhone'], $formData['comment']);
 			(new OrderRepository())->add($order);
 		}
 		else

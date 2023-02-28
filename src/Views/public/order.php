@@ -3,6 +3,7 @@
 /**
  * @var array $products
  * @var $totalSum
+ * @var $errors
  */
 ?>
 
@@ -24,6 +25,8 @@
 
 			<label for="comment">Комментарий</label>
 			<textarea name="comment" id="comment" rows="5" cols="40"></textarea>
+
+			<div class="alert"><?= $errors ?? '' ?></div>
 		</div>
 
 		<div class="order-info">

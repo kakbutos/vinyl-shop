@@ -14,7 +14,7 @@ class OrderController
 	/**
 	 * @throws Exception
 	 */
-	public function getOrder(): string
+	public function getOrder($errors = null): string
 	{
 		$render = new Template('../src/Views');
 		$tags = MainService::getTagsList();
@@ -29,7 +29,7 @@ class OrderController
 			return $render->render('layout', [
 				'header' => $render->render('/components/header', ['quantity' => $quantityProductsInCart]),
 				'sidebar' => $render->render('/components/sidebar', ['tags' => $tags]),
-				'content' => $render->render('/public/order',['products' => $products, 'totalSum' => $totalSum], ),
+				'content' => $render->render('/public/order',['products' => $products, 'totalSum' => $totalSum, 'errors' => $errors], ),
 			]);
 		}
 
@@ -45,10 +45,16 @@ class OrderController
 	 */
 	public function createOrder(): string
 	{
+		$formData = ['customerName' => $_POST['full-name'],
+					'customerEmail' => $_POST['email'],
+					'customerPhone' => $_POST['phone'],
+					'comment' => $_POST['comment'] ?? null
+			];
+
 		$render = new Template('../src/Views');
 		try
 		{
-			OrderService::addOrder();
+			OrderService::addOrder($formData);
 			$session = new Session();
 			$session->delete('cart');
 			$session->delete('cartQty');
@@ -56,9 +62,10 @@ class OrderController
 
 			return $render->render('/public/orderInfo');
 		}
-		catch (Exception $e)
+		catch (Exception $errors)
 		{
-			return $render->render('/public/orderInfo', ['errors' => $e]);
+			$errorMessages = $errors->getMessage();
+			return $this->getOrder($errorMessages);
 		}
 	}
 
