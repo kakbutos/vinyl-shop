@@ -56,9 +56,9 @@ class OrderController
 		{
 			OrderService::addOrder($formData);
 			$session = new Session();
-			$session->delete('cart');
-			$session->delete('cartQty');
-			$session->delete('cartSum');
+			$session->unset('cart');
+			$session->unset('cartQty');
+			$session->unset('cartSum');
 
 			return $render->render('/public/orderInfo');
 		}
