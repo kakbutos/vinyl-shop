@@ -214,24 +214,63 @@ class AdminRepository
 		return $test;
 	}
 
-	public function deleteProduct($id): bool
+	public function deleteProduct($id): array
 	{
 		$connection = Connection::getInstance()->getConnection();
-		$daleteTagQuery = mysqli_query($connection, "
+		$imageArray = [];
+
+		$selectQuery = "
+		SELECT i.NAME, i.PATH FROM image i
+			INNER JOIN product_image pi on i.ID = pi.IMAGE_ID
+		WHERE PRODUCT_ID = {$id};
+		";
+
+		$daleteTagQuery = "
 			DELETE FROM product_tag
 			WHERE PRODUCT_ID = {$id};
-		");
-		$daleteImageQuery = mysqli_query($connection, "
+		";
+
+		$daleteImageQuery ="
 			DELETE FROM product_image
 			WHERE PRODUCT_ID = {$id};
-		");
+		";
 
-		$deleteQuery = mysqli_query($connection, "
+		$deleteQuery = "
 			DELETE FROM product
 			WHERE ID = {$id};
-		");
-		//удалить все связи
-		return $deleteQuery;
+		";
+
+		mysqli_begin_transaction($connection);
+
+		$test = mysqli_query($connection, $daleteTagQuery);
+		if ($test)
+		{
+			$selectImage = mysqli_query($connection, $selectQuery);
+			while ($row = mysqli_fetch_assoc($selectImage))
+			{
+				$imageArray[] = [
+					'name' => $row['NAME'],
+					'path' => $row['PATH']
+				];
+			}
+			$test = mysqli_query($connection, $daleteImageQuery);
+
+			if (!$test)
+			{
+				return [];
+			}
+			$test = mysqli_query($connection, $deleteQuery);
+
+			if (!$test)
+			{
+				mysqli_rollback($connection);
+				return [];
+			}
+		}
+
+		mysqli_commit($connection);
+
+		return ['images' => $imageArray, 'susses' => $test];
 	}
 
 	public function deleteTag($id): bool
