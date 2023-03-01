@@ -1,6 +1,6 @@
 <?php
 	use Eshop\src\Lib\AuthHelper;
-	$helper = AuthHelper::generateFormCsrfToken();
+	$token = AuthHelper::generateFormCsrfToken();
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
 			<input class="input-form" required="required" type="password" name="password" placeholder="Password">
 			<span class="focus-input"></span>
 		</div>
-		<input style="display: none" type="hidden" id="csrf_token" name="csrf_token" value="<?=$helper?>">
+		<input style="display: none" type="hidden" id="csrf_token" name="csrf_token" value="<?=$token?>">
 
 		<div class="btn-wrap-form">
 			<div class="btn-bg"></div>
