@@ -70,7 +70,7 @@ class OrderRepository extends Repository
 		catch (\mysqli_sql_exception $exception)
 		{
 			mysqli_rollback($connection);
-			throw new Exception(mysqli_error($connection));
+			throw $exception;
 		}
 	}
 
