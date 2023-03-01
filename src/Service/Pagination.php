@@ -33,11 +33,13 @@ class Pagination
 		return ($this->current_page - 1) * $this->per_page;
 	}
 
+	// количество страниц в пагинации
 	public function get_count_pages(): int
 	{
 		return ceil($this->total / $this->per_page) ?: 1;
 	}
 
+	// текущая страница
 	public function get_current_pages(): int
 	{
 
@@ -54,6 +56,7 @@ class Pagination
 		return $this->page;
 	}
 
+	// возвращает шаблон пагинации
 	public function get_html(): string
 	{
 		$back = '';
@@ -103,6 +106,7 @@ class Pagination
 
 	}
 
+	// генерирует ссылку для перехода по табам
 	public function get_link($page): string
 	{
 		if ($page == 1)
