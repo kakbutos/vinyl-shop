@@ -7,6 +7,7 @@ class Pagination
 	public int $count_pages = 1; // количество страниц в пагинации
 	public int $current_page = 1; // текущая страница
 	public string $uri = ''; // url страницы
+	public int $mid_size = 5; // количество страниц по бокам от текущей страницы
 
 	public int $page; // номер страницы
 	public int $per_page; // количество элементов на одну страницу
