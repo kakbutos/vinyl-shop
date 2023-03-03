@@ -14,8 +14,9 @@ class CartController
 	/**
 	 * @throws Exception
 	 */
-	public function addToCart(string $productId): bool
+	public function addToCart(): bool
 	{
+		$productId = $_POST['id'];
 		$id = (int)$productId;
 		if ($id === 0)
 		{

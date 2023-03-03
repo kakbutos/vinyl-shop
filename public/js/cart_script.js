@@ -2,8 +2,9 @@ $('.buy-button').on('click', function(e) {
 	e.preventDefault();
 	var id = $(this).data('id');
 	$.ajax({
-		url: '/cart/add/' + id +'/',
-		type: 'GET',
+		url: '/cart/add',
+		type: 'POST',
+		data: {id: id},
 		success: function(result){
 			if (!result)
 			{
@@ -45,8 +46,9 @@ $('.incr-count-button').on('click', function(e) {
 	price = Number(price.replace(/[a-zа-яё]/gi, ''));
 	$('#sum' + id).html(count*price + ' руб');
 	$.ajax({
-		url: '/cart/add/' + id +'/',
-		type: 'GET',
+		url: '/cart/add',
+		type: 'POST',
+		data: {id: id},
 		success: function(result){
 			if (!result) alert('Продукта с таким id не существует.')
 		},

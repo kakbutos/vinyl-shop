@@ -46,7 +46,7 @@ Router::get('/admin/image/delete/:id/', [new Eshop\Controllers\ImageController()
 Router::get('/admin/image/isMain/:id/', [new Eshop\Controllers\ImageController(), 'getIsMainImage']);
 
 
-Router::get('/cart/add/:id/', [new Eshop\Controllers\CartController(), 'addToCart']);
+Router::post('/cart/add', [new Eshop\Controllers\CartController(), 'addToCart']);
 
 Router::get('/cart', [new Eshop\Controllers\CartController(), 'getCart']);
 
