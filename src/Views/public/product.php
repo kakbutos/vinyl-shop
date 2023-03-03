@@ -125,7 +125,7 @@ use \Eshop\src\Service\PageService;
 				<div class="product-detail-buy-price">
 					<?=$product->getPrice()?>
 				</div>
-				<a href="/cart/<?=$product->getId()?>/" class="buy-button" data-id="<?=$product->getId()?>"> Купить </a>
+				<a href="/cart/add" class="buy-button" data-id="<?=$product->getId()?>"> Купить </a>
 			</div>
 	</div>
 </div>
