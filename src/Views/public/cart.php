@@ -24,7 +24,7 @@
 									<div class="cart-product-name"><?= $product['name'] ?></div>
 									<div class="cart-product-artist"><?= $product['artist'] ?></div>
 								</div>
-								<a href="/cart/delete/<?= $id ?>/" class="delete-product-button"> Удалить </a>
+								<a href="/cart/delete" class="delete-product-button" data-id="<?= $id ?>"> Удалить </a>
 
 							</div>
 

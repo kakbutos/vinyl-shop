@@ -50,7 +50,7 @@ Router::post('/cart/add', [new Eshop\Controllers\CartController(), 'addToCart'])
 
 Router::get('/cart', [new Eshop\Controllers\CartController(), 'getCart']);
 
-Router::get('/cart/delete/:id/', [new Eshop\Controllers\CartController(), 'deleteProductFromCart']);
+Router::post('/cart/delete', [new Eshop\Controllers\CartController(), 'deleteProductFromCart']);
 
 Router::get('/cart/reduce/:id/', [new Eshop\Controllers\CartController(), 'reduceProductQuantity']);
 

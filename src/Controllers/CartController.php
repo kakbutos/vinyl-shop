@@ -88,12 +88,25 @@ class CartController
 	/**
 	 * @throws Exception
 	 */
-	public function deleteProductFromCart($productId): void
+	public function deleteProductFromCart(): bool
 	{
-		$cart = new Cart();
-		$cart->deleteProduct($productId);
+		$productId = $_POST['id'];
+		$id = (int)$productId;
+		if ($id === 0)
+		{
+			return false;
+		}
 
-		$referrer = $_SERVER['HTTP_REFERER'];
-		header("Location: $referrer");
+		try
+		{
+			$cart = new Cart();
+			$cart->deleteProduct($id);
+
+			return true;
+		}
+		catch (Exception $exception)
+		{
+			return false;
+		}
 	}
 }
