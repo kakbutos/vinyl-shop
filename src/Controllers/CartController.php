@@ -38,8 +38,9 @@ class CartController
 	/**
 	 * @throws Exception
 	 */
-	public function reduceProductQuantity(string $productId): bool
+	public function reduceProductQuantity(): bool
 	{
+		$productId = $_POST['id'];
 		$id = (int)$productId;
 		$product = (new ProductRepository())->getProductById($id);
 		if ($product === null)

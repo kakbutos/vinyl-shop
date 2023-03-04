@@ -54,6 +54,7 @@ $('.delete-product-button').on('click', function(e) {
 			else
 			{
 				$(`#item-${id}`).remove();
+				//посчитать количество для иконки
 				isEmpty();
 			}
 		},
@@ -134,31 +135,58 @@ $('.incr-count-button').on('click', function(e) {
 $('.decr-count-button').on('click', function(e) {
 	let id = e.target.id;
 	let count = document.getElementById('product-count' + id).value;
-	let price = document.getElementById('price' +id).textContent;
-	price = Number(price.replace(/[a-zа-яё]/gi, ''));
-	$('#sum' + id).html(count*price + ' руб');
-	if (count <=1 ){
-		$(`#item-${id}`).remove();
-	}
+	let price = document.getElementById('price' + id).textContent;
+	console.log(count);
 
-	let allProductsCount = $('.cart-product-item').length;
-	if (allProductsCount <= 0){
-		$('.content').empty().append('Корзина пуста');
-	}
-
-	$.ajax({
-		url: '/cart/reduce/' + id +'/',
-		type: 'GET',
-		success: function(result){
-			if (!result)
-			{
-				alert('Продукта с таким id не существует.')
+	if (Number(count) === 1 )
+	{
+		$.ajax({
+			url: '/cart/delete',
+			type: 'POST',
+			data: {id: id},
+			success: function(result){
+				if (!result)
+				{
+					alert('Продукта с таким id не существует.')
+				}
+				else
+				{
+					$(`#item-${id}`).remove();
+					//посчитать количество для иконки
+					isEmpty();
+				}
+			},
+			error: function(){
+				alert('Не удалось удалить товар из корзины.')
 			}
-		},
-		error: function(){
-			alert('Не удалось уменьшить количество товара в корзине')
-		}
-	})
+		});
+	}
+	else
+	{
+		$.ajax({
+			url: '/cart/reduce',
+			type: 'POST',
+			data: {id: id},
+			success: function(result){
+				if (!result)
+				{
+					alert('Продукта с таким id не существует.')
+				}
+
+			},
+			error: function(){
+				alert('Не удалось уменьшить количество товара в корзине')
+			}
+		});
+	}
+
+	$(".product-count").val($(".product-count").val()-1);
+
+	price = Number(price.replace(/[a-zа-яё]/gi, ''));
+	$('#sum' + id).html((count-1)*price + ' руб');
+
+
+	isEmpty();
 
 	let quantity = document.getElementById('quantity').textContent;
 	if (quantity >= 1) {

@@ -52,7 +52,7 @@ Router::get('/cart', [new Eshop\Controllers\CartController(), 'getCart']);
 
 Router::post('/cart/delete', [new Eshop\Controllers\CartController(), 'deleteProductFromCart']);
 
-Router::get('/cart/reduce/:id/', [new Eshop\Controllers\CartController(), 'reduceProductQuantity']);
+Router::post('/cart/reduce', [new Eshop\Controllers\CartController(), 'reduceProductQuantity']);
 
 
 Router::post('/checkout', [new Eshop\Controllers\OrderController(), 'getOrder']);
