@@ -19,6 +19,7 @@ class AdminRepository
 			SELECT p.ID,p.NAME, p.PRICE, p.RELEASE_DATE, a.NAME as ARTIST, p.COVER_STATUS, p.TRACKS, p.IS_ACTIVE, p.VINYL_STATUS_ID
 			FROM product p
 	        JOIN artist a on p.ARTIST_ID = a.ID
+			ORDER BY p.ID;
 		");
 		if (!$Query)
 		{
