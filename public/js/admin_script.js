@@ -314,7 +314,7 @@ function openSelectTagModal(elem){
 			<div class="tags-modal-dialog">
 				<div class="tags-modal-content">
 					<div class="tags-modal-header">
-						<a href="#" title="Close" class="cancel-button">×</a>
+						<span title="Close" class="cancel-button">×</span>
 					</div>
 					<div class="tags-modal-body">    
 						<fieldset class="tags-modal-tags-set">
@@ -370,6 +370,10 @@ function openSelectTagModal(elem){
 		$(elem).data('tags', newSelectedTagsIds);
 		$(elem).val(newSelectedTagsNames);
 		$(modal).remove();
+	});
+
+	$(modal).find('.cancel-button').on('click', function(){
+		$(modal).hide();
 	});
 
 	$('body').append(modal);
