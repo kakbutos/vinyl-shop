@@ -78,7 +78,7 @@ function initializeTable(data)
 						setProductTags(data);
 					}
 				});
-				setProductTags();
+
 			}
 		});
 	}
@@ -107,7 +107,7 @@ function setProductTags(data){
 			$(`.row-${i}`).find(`*[data-field = TAGS]`).data('tags', productTagsIds[i]);
 		}
 		$(`.row`).find(`*[data-field = TAGS]`).on('click', function(){
-			openSelectTagModal($(this));
+			//openSelectTagModal($(this));
 		});
 
 	}
@@ -230,6 +230,7 @@ function addNewObj(obj) {
 }
 
 function newItem(table) {
+
 	$.ajax({
 		url: '/admin/newItem',
 		method: 'get',
@@ -237,7 +238,7 @@ function newItem(table) {
 		data: { table },
 		success: function(data) {
 			addNewObj(data);
-			setSelectFieldData("VINIL_STATUS");
+			//setSelectFieldData("VINIL_STATUS");
 			$('.cell-input[type=checkbox]').change(function() {
 				$(this).val($(this).is(':checked'));
 			});
