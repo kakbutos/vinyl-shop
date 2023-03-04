@@ -380,7 +380,7 @@ class AdminRepository
 				$row['CUSTOMER_NAME'],
 				$row['CUSTOMER_EMAIL'],
 				$row['CUSTOMER_PHONE'],
-				($row['COMMENT'] === 'NULL')? '' : $row['COMMENT'],
+				$row['COMMENT'] ?? '',
 				$row['STATUS'],
 			];
 		}
