@@ -65,7 +65,7 @@ use Eshop\src\Service\PageService;
 	</div>
 </div>
 
-<script src="/js/image_script.js"></script>
+<script src="notification_script.js"></script>
 </body>
 
 </html>
