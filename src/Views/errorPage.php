@@ -17,7 +17,7 @@
 
 	<div class="error-page">
 		<?php if($responseCode === 500): ?>
-			<img class="error-image" src="/assets/icon/code500.png" alt="/">
+			<img class="error-image" src="/assets/icon/code500.webp" alt="/">
 			<div class="error-page-info">
 				Упс, что-то пошло не так
 			</div>
