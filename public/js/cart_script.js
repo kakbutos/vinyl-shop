@@ -53,8 +53,15 @@ $('.delete-product-button').on('click', function(e) {
 			}
 			else
 			{
+				let quantity = document.getElementById('quantity').textContent;
+				let deleteQuantity = $('#product-count' + id).val();
+
+				if (quantity >= deleteQuantity)
+				{
+					let newQuantity = Number(quantity) - deleteQuantity;
+					$('.products-quantity').html(newQuantity);
+				}
 				$(`#item-${id}`).remove();
-				//посчитать количество для иконки
 				isEmpty();
 			}
 		},
@@ -96,42 +103,6 @@ $('.incr-count-button').on('click', function(e) {
 	$('.products-quantity').html(newQuantity);
 });
 
-// $('.decr-count-button').on('click', function(e) {
-// 	let id = e.target.id;
-// 	let count = document.getElementById('product-count' + id).value;
-// 	let price = document.getElementById('price' +id).textContent;
-// 	price = Number(price.replace(/[a-zа-яё]/gi, ''));
-// 	$('#sum' + id).html(count*price + ' руб');
-// 	if (count <=1 ){
-// 		$(`#item-${id}`).remove();
-// 	}
-//
-// 	let allProductsCount = $('.cart-product-item').length;
-// 	if (allProductsCount <= 0){
-// 		$('.content').empty().append('Корзина пуста');
-// 	}
-//
-// 	$.ajax({
-// 		url: '/cart/reduce/' + id +'/',
-// 		type: 'GET',
-// 		success: function(result){
-// 			if (!result)
-// 			{
-// 			 alert('Продукта с таким id не существует.')
-// 			}
-// 		},
-// 		error: function(){
-// 			alert('Не удалось уменьшить количество товара в корзине')
-// 		}
-// 	})
-//
-// 	let quantity = document.getElementById('quantity').textContent;
-// 	if (quantity >= 1) {
-// 		let newQuantity = Number(quantity) - 1;
-// 		$('.products-quantity').html(newQuantity);
-// 	}
-// });
-
 $('.decr-count-button').on('click', function(e) {
 	let id = e.target.id;
 	let count = document.getElementById('product-count' + id).value;
@@ -152,7 +123,6 @@ $('.decr-count-button').on('click', function(e) {
 				else
 				{
 					$(`#item-${id}`).remove();
-					//посчитать количество для иконки
 					isEmpty();
 				}
 			},
@@ -172,7 +142,6 @@ $('.decr-count-button').on('click', function(e) {
 				{
 					alert('Продукта с таким id не существует.')
 				}
-
 			},
 			error: function(){
 				alert('Не удалось уменьшить количество товара в корзине')
@@ -180,13 +149,10 @@ $('.decr-count-button').on('click', function(e) {
 		});
 	}
 
-	$(".product-count").val($(".product-count").val()-1);
+	$('#product-count' + id).val($('#product-count' + id).val()-1);
 
 	price = Number(price.replace(/[a-zа-яё]/gi, ''));
 	$('#sum' + id).html((count-1)*price + ' руб');
-
-
-	isEmpty();
 
 	let quantity = document.getElementById('quantity').textContent;
 	if (quantity >= 1) {
