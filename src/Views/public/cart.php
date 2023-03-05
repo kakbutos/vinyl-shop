@@ -24,7 +24,7 @@
 									<div class="cart-product-name"><?= $product['name'] ?></div>
 									<div class="cart-product-artist"><?= $product['artist'] ?></div>
 								</div>
-								<a href="/cart/delete/<?= $id ?>/" class="delete-product-button"> Удалить </a>
+								<a href="/cart/delete" class="delete-product-button" data-id="<?= $id ?>"> Удалить </a>
 
 							</div>
 
@@ -34,7 +34,7 @@
 
 							<div class="cart-product-quantity">
 								<div class="count">
-									<button type="button" onclick="this.nextElementSibling.stepDown()" class="decr-count-button" id="<?= $id ?>">-</button>
+									<button type="button" class="decr-count-button" id="<?= $id ?>">-</button>
 									<input type="number" min="1" max="99" value="<?= $product['qty'] ?>" readonly class="product-count" id="product-count<?= $id ?>" name="count">
 									<button type="button" onclick="this.previousElementSibling.stepUp()" class="incr-count-button" id="<?= $id ?>">+</button>
 								</div>

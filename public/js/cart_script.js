@@ -1,9 +1,10 @@
 $('.buy-button').on('click', function(e) {
 	e.preventDefault();
-	var id = $(this).data('id');
+	let id = $(this).data('id');
 	$.ajax({
-		url: '/cart/add/' + id +'/',
-		type: 'GET',
+		url: '/cart/add',
+		type: 'POST',
+		data: {id: id},
 		success: function(result){
 			if (!result)
 			{
@@ -21,8 +22,8 @@ $('.buy-button').on('click', function(e) {
 });
 
 function showMessage() {
-	var modal = document.getElementById("modal");
-	var span = document.getElementsByClassName("close")[0];
+	let modal = document.getElementById("modal");
+	let span = document.getElementsByClassName("close")[0];
 	modal.style.display = "block";
 	span.onclick = function() {
 		modal.style.display = "none";
@@ -38,6 +39,47 @@ function showMessage() {
 	$('.products-quantity').html(newQuantity);
 }
 
+$('.delete-product-button').on('click', function(e) {
+	e.preventDefault();
+	let id = $(this).data('id');
+	$.ajax({
+		url: '/cart/delete',
+		type: 'POST',
+		data: {id: id},
+		success: function(result){
+			if (!result)
+			{
+				alert('Продукта с таким id не существует.')
+			}
+			else
+			{
+				let quantity = document.getElementById('quantity').textContent;
+				let deleteQuantity = $('#product-count' + id).val();
+
+				if (quantity >= deleteQuantity)
+				{
+					let newQuantity = Number(quantity) - deleteQuantity;
+					$('.products-quantity').html(newQuantity);
+				}
+				$(`#item-${id}`).remove();
+				isEmpty();
+			}
+		},
+		error: function(){
+			alert('Не удалось удалить товар из корзины.')
+		}
+	})
+});
+
+function isEmpty()
+{
+	let allProductsCount = $('.cart-product-item').length;
+	if (allProductsCount <= 0)
+	{
+		$('.content').empty().append('Корзина пуста');
+	}
+}
+
 $('.incr-count-button').on('click', function(e) {
 	let id = e.target.id;
 	let count = document.getElementById("product-count" + id).value;
@@ -45,8 +87,9 @@ $('.incr-count-button').on('click', function(e) {
 	price = Number(price.replace(/[a-zа-яё]/gi, ''));
 	$('#sum' + id).html(count*price + ' руб');
 	$.ajax({
-		url: '/cart/add/' + id +'/',
-		type: 'GET',
+		url: '/cart/add',
+		type: 'POST',
+		data: {id: id},
 		success: function(result){
 			if (!result) alert('Продукта с таким id не существует.')
 		},
@@ -63,31 +106,53 @@ $('.incr-count-button').on('click', function(e) {
 $('.decr-count-button').on('click', function(e) {
 	let id = e.target.id;
 	let count = document.getElementById('product-count' + id).value;
-	let price = document.getElementById('price' +id).textContent;
-	price = Number(price.replace(/[a-zа-яё]/gi, ''));
-	$('#sum' + id).html(count*price + ' руб');
-	if (count <=1 ){
-		$(`#item-${id}`).remove();
-	}
+	let price = document.getElementById('price' + id).textContent;
+	console.log(count);
 
-	let allProductsCount = $('.cart-product-item').length;
-	if (allProductsCount <= 0){
-		$('.content').empty().append('Корзина пуста');
-	}
-
-	$.ajax({
-		url: '/cart/reduce/' + id +'/',
-		type: 'GET',
-		success: function(result){
-			if (!result)
-			{
-			 alert('Продукта с таким id не существует.')
+	if (Number(count) === 1 )
+	{
+		$.ajax({
+			url: '/cart/delete',
+			type: 'POST',
+			data: {id: id},
+			success: function(result){
+				if (!result)
+				{
+					alert('Продукта с таким id не существует.')
+				}
+				else
+				{
+					$(`#item-${id}`).remove();
+					isEmpty();
+				}
+			},
+			error: function(){
+				alert('Не удалось удалить товар из корзины.')
 			}
-		},
-		error: function(){
-			alert('Не удалось уменьшить количество товара в корзине')
-		}
-	})
+		});
+	}
+	else
+	{
+		$.ajax({
+			url: '/cart/reduce',
+			type: 'POST',
+			data: {id: id},
+			success: function(result){
+				if (!result)
+				{
+					alert('Продукта с таким id не существует.')
+				}
+			},
+			error: function(){
+				alert('Не удалось уменьшить количество товара в корзине')
+			}
+		});
+	}
+
+	$('#product-count' + id).val($('#product-count' + id).val()-1);
+
+	price = Number(price.replace(/[a-zа-яё]/gi, ''));
+	$('#sum' + id).html((count-1)*price + ' руб');
 
 	let quantity = document.getElementById('quantity').textContent;
 	if (quantity >= 1) {
