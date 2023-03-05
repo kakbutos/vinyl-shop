@@ -352,7 +352,6 @@ body{
 	border-radius: 5px;
 	padding: 10px 20px;
 	font-size: 14px;
-	text-decoration: none;
 }
 .image-button:hover{
 	background: #fe9524;
@@ -461,3 +460,22 @@ body{
 .cell-input.toggle:checked + label:before {
 	left: 36px;
 }
+
+/* errorPage */
+.error-page {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.error-image {
+	margin-top: 100px;
+	height: 100px;
+	margin-bottom: 10px;
+}
+
+.error-page-info {
+	font-size: 32px;
+	margin-bottom: 20px;
+}
+

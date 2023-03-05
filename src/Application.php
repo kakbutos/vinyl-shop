@@ -6,6 +6,7 @@ use Eshop\Core\Config\Config;
 use Eshop\Core\DB\Migrator;
 use Eshop\core\Routing\Router;
 use Eshop\Core\Session;
+use Eshop\Core\Template\Template;
 
 class Application
 {
@@ -28,9 +29,11 @@ class Application
 		}
 		else
 		{
-			http_response_code(404);
-			echo 'Page not found';
-			exit;
+			$render = new Template('../src/Views');
+
+			echo $render->render('errorPage', [
+				'responseCode' => 404,
+			]);
 		}
 	}
 }
