@@ -15,6 +15,11 @@
 
 <body>
 <div class="admin-table-container">
+
+	<div class="image-header">
+		<div class="image-title">Изменить товары в заказе</div>
+
+	<?php if(!empty($orderList)): ?>
 	<table class="admin-table">
 		<tr class="table-tr table-header-td">
 			<td class="table-td table-header-td table-td-unable">
@@ -105,9 +110,15 @@
 		</form>
 		<?php endforeach; ?>
 	</table>
+
+	<?php else: ?>
+		<div class="empty-info">У заказа нет товаров</div>
+	<?php endif; ?>
+
 	<div class="add-button-container">
 		<a href = "/admin/order/add/<?= $orderId ?>/" class = "btn add-button">Добавить</a>
 	</div>
+
 	<div class="button-move">
 		<a href="/admin" class="image-button"> Вернуться на главную </a>
 	</div>

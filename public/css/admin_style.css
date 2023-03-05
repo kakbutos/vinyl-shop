@@ -344,6 +344,13 @@ body{
 	font-weight: bold;
 }
 
+.empty-info {
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-bottom: 40px;
+	font-size: 22px;
+}
+
 .image-button {
 	text-decoration: none;
 	margin-left: 5px;
@@ -479,3 +486,11 @@ body{
 	margin-bottom: 20px;
 }
 
+.add-button-container {
+	margin-top: 20px;
+}
+
+.image-title {
+	margin-bottom: 30px;
+	font-size: 32px;
+}

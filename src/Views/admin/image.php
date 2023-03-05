@@ -34,8 +34,9 @@ use Eshop\src\Service\PageService;
 				 </form>
 			</div>
 		</div>
+		<?php if (!empty($imageList)): ?>
 		<div class="image-list">
-			<?php foreach ($imageList as $image):?>
+			<?php foreach ($imageList as $image): ?>
 				<div class="image-card">
 					<div class="card-image-container">
 
@@ -58,6 +59,10 @@ use Eshop\src\Service\PageService;
 				</div>
 			<?php endforeach; ?>
 		</div>
+
+		<?php else: ?>
+		<div class="empty-info">У товара нет изображений</div>
+		<?php endif; ?>
 
 		<div class="button-move">
 			<a href="/admin" class="image-button"> Вернуться на главную </a>
