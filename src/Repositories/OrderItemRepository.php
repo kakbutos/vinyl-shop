@@ -76,7 +76,7 @@ class OrderItemRepository
 		return $orderId;
 	}
 
-	public function updateOrderItem(array $ProductOrder): bool
+	public function updateOrderItem(array $ProductOrder): string
 	{
 		$connection = Connection::getInstance()->getConnection();
 
@@ -94,8 +94,12 @@ class OrderItemRepository
 		    PRICE = {$orderPrice}
 		WHERE ID = {$id}
 		";
-		$test = mysqli_query($connection, $queryOrder);
+		$query = mysqli_query($connection, $queryOrder);
+		if (!$query)
+		{
+			return 'updateOrderError';
+		}
 
-		return $test;
+		return 'updateOrderOk';
 	}
 }
