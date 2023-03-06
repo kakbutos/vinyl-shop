@@ -15,8 +15,12 @@
 				<div class="submit-modal-body-text">
 					<?php if ($info === 'addOk'): ?>
 					Изображение успешно добавлено!
+					<?php elseif ($info === 'updateOrderOk'): ?>
+						Продукт успешно изменён в заказе!
 					<?php elseif ($info === 'deleteOk'): ?>
 					Изображение успешно удалено!
+					<?php elseif ($info === 'deleteOrderOk'): ?>
+						Продукт успешно удалён!
 					<?php elseif ($info === 'isMainOk'): ?>
 						Основное изображение изменено!
 					<?php elseif ($info === 'addError'): ?>
@@ -24,6 +28,12 @@
 						<script> var err = true; </script>
 					<?php elseif ($info === 'deleteError'): ?>
 						Ошибка при добавлении изображения!
+						<script> var err = true; </script>
+					<?php elseif ($info === 'updateOrderError'): ?>
+						Ошибка при изменении заказа!
+						<script> var err = true; </script>
+					<?php elseif ($info === 'deleteOrderError'): ?>
+						Ошибка при удалении продукта из заказа!
 						<script> var err = true; </script>
 					<?php elseif ($info === 'isMainError'): ?>
 						Ошибка при изменении основного изображения!

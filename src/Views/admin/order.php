@@ -1,6 +1,7 @@
 <?php
 /** @var array $orderList */
 /** @var int $orderId */
+/** @var string $info */
 ?>
 
 <!doctype html>
@@ -129,8 +130,7 @@
 		<a href="/admin" class="image-button"> Вернуться на главную </a>
 	</div>
 </div>
-
-
+<?= $info ?>
 	<script src="/js/image_script.js"></script>
 </body>
 

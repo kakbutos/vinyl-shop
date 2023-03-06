@@ -21,12 +21,20 @@ class OrderItemService
 		return (new OrderItemRepository())->addEmptyOrderItem($id);
 	}
 
-	public static function deleteOrderItemList(int $id): int
+	public static function deleteOrderItemList(int $id): array
 	{
-		return (new OrderItemRepository())->deleteEmptyOrderItem($id);
+		$info = ['productId' => 0, 'info' => 'deleteOrderError'];
+		$select = (new OrderItemRepository())->deleteEmptyOrderItem($id);
+		if (empty($select))
+		{
+			return $info;
+		}
+		$info['info'] = 'deleteOrderOk';
+		$info['productId'] = $select;
+		return $info;
 	}
 
-	public static function updateOrderItemList($order):bool
+	public static function updateOrderItemList($order):string
 	{
 		$orderArr = [
 			'ID' => (int)$order[0],
