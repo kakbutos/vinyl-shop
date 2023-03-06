@@ -131,7 +131,7 @@
 	</div>
 </div>
 <?= $info ?>
-	<script src="/js/image_script.js"></script>
+	<script src="/js/notification_script.js"></script>
 </body>
 
 </html>
