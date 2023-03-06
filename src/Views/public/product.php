@@ -40,14 +40,14 @@ use \Eshop\src\Service\PageService;
 	</div>
 		<div class="product-detail-info-side">
 			<div class="product-detail-name-container">
-				<?=$product->getName()?>
+				<?=PageService::safe($product->getName())?>
 			</div>
 			<div class="product-detail-line-property-container">
 				<div class="product-detail-line-property-name">
 					Исполнитель:
 				</div>
 				<div class="product-detail-line-property">
-					<?=$product->getArtist()?>
+					<?=PageService::safe($product->getArtist())?>
 				</div>
 			</div>
 			<div class="product-detail-line-property-container">
@@ -55,7 +55,7 @@ use \Eshop\src\Service\PageService;
 					Жанры:
 				</div>
 				<div class="product-detail-line-property">
-					<?=$productTags ?>
+					<?=PageService::safe($productTags)?>
 				</div>
 			</div>
 			<div class="product-detail-line-property-container">
@@ -74,7 +74,7 @@ use \Eshop\src\Service\PageService;
 				<div class="product-detail-line-property-vinyl"
 					 data-vinyl="<?=$product->getVinylStatusName()?> (<?=$product->getVinylStatus()?>): <?=$product->getVinylStatusDesk()?>">
 
-					<?=$product->getVinylStatus()?><p class="vinyl-info">(?)</p>
+					<?=PageService::safe($product->getVinylStatus())?><p class="vinyl-info">(?)</p>
 				</div>
 			</div>
 
@@ -83,7 +83,7 @@ use \Eshop\src\Service\PageService;
 					Качество конверта:
 				</div>
 				<div class="product-detail-line-property">
-					<?=$product->getCoverStatus()?>
+					<?=PageService::safe($product->getCoverStatus())?>
 				</div>
 			</div>
 
@@ -98,14 +98,14 @@ use \Eshop\src\Service\PageService;
 				<?php if (count($tracks) <= 1): ?>
 					<div class="product-detail-line-property-tracks-list">
 							<div class="product-detail-line-property-tracks">
-								<?=$tracks[0]?>
+								<?=PageService::safe($tracks[0])?>
 							</div>
 					</div>
 				<?php else: ?>
 				<div class="product-detail-line-property-tracks-list">
 					<?php foreach ($tracks[0] as $item): ?>
 						<div class="product-detail-line-property-tracks">
-							<?=$item?>
+							<?=PageService::safe($item)?>
 						</div>
 					<?php endforeach;?>
 				</div>
@@ -113,7 +113,7 @@ use \Eshop\src\Service\PageService;
 				<div class="product-detail-line-property-tracks-list">
 					<?php foreach ($tracks[1] as $item): ?>
 						<div class="product-detail-line-property-tracks">
-							<?=$item?>
+							<?=PageService::safe($item)?>
 						</div>
 					<?php endforeach;?>
 				</div>

@@ -2,6 +2,9 @@
 /**
  * @var array $products
  */
+
+use Eshop\src\Service\PageService;
+
 ?>
 
 <div class="cart">
@@ -21,8 +24,8 @@
 
 							<div class="cart-product-info">
 								<div class="cart-product-title">
-									<div class="cart-product-name"><?= $product['name'] ?></div>
-									<div class="cart-product-artist"><?= $product['artist'] ?></div>
+									<div class="cart-product-name"><?= PageService::safe($product['name']) ?></div>
+									<div class="cart-product-artist"><?= PageService::safe($product['artist']) ?></div>
 								</div>
 								<a href="/cart/delete" class="delete-product-button" data-id="<?= $id ?>"> Удалить </a>
 

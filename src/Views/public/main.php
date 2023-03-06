@@ -4,6 +4,9 @@
  * @var array $images
  * @var string $pagination
  */
+
+use Eshop\src\Service\PageService;
+
 $path = '';
 ?>
 
@@ -16,10 +19,10 @@ $path = '';
 		</div>
 		<div class="product-card-info">
 			<div class="product-card-name-container">
-				<?=$item->getName() ?>
+				<?=PageService::safe($item->getName())?>
 			</div>
 			<div class="product-card-artist-container">
-				<?=$item->getArtist() ?> (<?=$item->getReleaseDate() ?>)
+				<?=PageService::safe($item->getArtist())?> (<?=$item->getReleaseDate() ?>)
 			</div>
 			<div class="product-card-price-container">
 				<?=$item->getPrice() ?>
