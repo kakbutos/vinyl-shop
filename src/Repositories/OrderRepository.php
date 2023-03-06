@@ -49,6 +49,7 @@ class OrderRepository extends Repository
         '$status'
     );";
 
+		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 		mysqli_begin_transaction($connection);
 
 		try
