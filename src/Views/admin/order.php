@@ -14,7 +14,14 @@
 </head>
 
 <body>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
 <div class="admin-table-container">
+
+	<div class="image-header">
+		<div class="image-title">Изменить товары в заказе</div>
+
+	<?php if(!empty($orderList)): ?>
 	<table class="admin-table">
 		<tr class="table-tr table-header-td">
 			<td class="table-td table-header-td table-td-unable">
@@ -97,19 +104,34 @@
 			<td class="table-td">
 				<div class="cell-content-div">
 					<div class="cell-button-div">
-						<a href = "/admin/order/delete/<?= $order['ID'] ?>/" class="btn delete-button danger-button">Удалить</a>
+<!--						<a href = "/admin/order/delete/--><?//= $order['ID'] ?><!--/" class="btn delete-button danger-button">Удалить</a>-->
+						<button class="btn delete-button danger-button"
+								onclick="openSubmitModal('/admin/order/delete/<?= $order['ID'] ?>/')"> Удалить
+						</button>
 					</div>
+
 				</div>
 			</td>
 			</tr>
 		</form>
 		<?php endforeach; ?>
 	</table>
+
+	<?php else: ?>
+		<div class="empty-info">У заказа нет товаров</div>
+	<?php endif; ?>
+
 	<div class="add-button-container">
 		<a href = "/admin/order/add/<?= $orderId ?>/" class = "btn add-button">Добавить</a>
 	</div>
+
 	<div class="button-move">
 		<a href="/admin" class="image-button"> Вернуться на главную </a>
 	</div>
 </div>
+
+
+	<script src="/js/image_script.js"></script>
 </body>
+
+</html>

@@ -34,8 +34,9 @@ use Eshop\src\Service\PageService;
 				 </form>
 			</div>
 		</div>
+		<?php if (!empty($imageList)): ?>
 		<div class="image-list">
-			<?php foreach ($imageList as $image):?>
+			<?php foreach ($imageList as $image): ?>
 				<div class="image-card">
 					<div class="card-image-container">
 
@@ -52,12 +53,19 @@ use Eshop\src\Service\PageService;
 						</div>
 						<div class="image-action-container">
 							<a href="/admin/image/isMain/<?= $image->getId() ?>/" class="image-button"> Сделать основным </a>
-							<a href="/admin/image/delete/<?= $image->getId() ?>/" class="image-button"> Удалить </a>
+							<button class="image-button"
+									onclick="openSubmitModal('/admin/image/delete/<?= $image->getId() ?>/')"> Удалить
+							</button>
+
 						</div>
 					</div>
 				</div>
 			<?php endforeach; ?>
 		</div>
+
+		<?php else: ?>
+		<div class="empty-info">У товара нет изображений</div>
+		<?php endif; ?>
 
 		<div class="button-move">
 			<a href="/admin" class="image-button"> Вернуться на главную </a>

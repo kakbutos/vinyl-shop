@@ -3,8 +3,6 @@
 namespace Eshop\src\Repositories;
 
 use Eshop\Core\DB\Connection;
-use Eshop\src\Models\Image;
-use Eshop\src\Models\Product;
 use Eshop\src\Models\TableField;
 use Exception;
 
@@ -98,8 +96,11 @@ class AdminRepository
 				VALUES ('Новый тег');
 		";
 
+		mysqli_begin_transaction($connection);
 		$Query = mysqli_query($connection, $queryTag);
 		$id = mysqli_insert_id($connection);
+		mysqli_commit($connection);
+
 		return [$id, 'Новый тег'];
 	}
 
@@ -156,6 +157,7 @@ class AdminRepository
 			mysqli_query($connection, $queryArtist);
 			$artistId = mysqli_insert_id($connection);
 		}
+
 		$queryProduct = "UPDATE product
 			SET NAME = '$productName', 
 			    ARTIST_ID = {$artistId}, 
@@ -167,7 +169,14 @@ class AdminRepository
 			    IS_ACTIVE = $productIsActive
 			WHERE ID = {$productId}
 			;";
+
 		$test = mysqli_query($connection, $queryProduct);
+		if (!$test)
+		{
+			mysqli_rollback($connection);
+			return $test;
+		}
+
 		mysqli_commit($connection);
 		return $test;
 	}
@@ -179,10 +188,8 @@ class AdminRepository
 		$tagId = $tag->getId();
 		$tagName = $tag->getTitle();
 
-		mysqli_begin_transaction($connection);
 		$queryTag = "UPDATE tag SET NAME = '$tagName' WHERE ID = {$tagId}";
 		$test = mysqli_query($connection, $queryTag);
-		mysqli_commit($connection);
 
 		return $test;
 	}
@@ -199,8 +206,6 @@ class AdminRepository
 		$orderComment = mysqli_real_escape_string($connection, $order->getComment());
 		$orderStatus = mysqli_real_escape_string($connection, $order->getStatus());
 
-
-		mysqli_begin_transaction($connection);
 		$queryTag = "UPDATE `order` 
 			SET DATE = '$date', 
 			    CUSTOMER_NAME = '$orderCustomerName', 
@@ -209,8 +214,8 @@ class AdminRepository
 				COMMENT = '$orderComment', 
 				STATUS = '$orderStatus'
             WHERE ID = {$orderId};";
+
 		$test = mysqli_query($connection, $queryTag);
-		mysqli_commit($connection);
 
 		return $test;
 	}
@@ -282,6 +287,7 @@ class AdminRepository
 		DELETE FROM tag
 		WHERE ID = {$id};
 		");
+
 		return $deleteQuery;
 	}
 
@@ -328,6 +334,7 @@ class AdminRepository
 			mysqli_commit($connection);
 		}
 
+		mysqli_rollback($connection);
 		return $test;
 	}
 
@@ -436,7 +443,6 @@ class AdminRepository
 
 	public function setProductTag($id, $tags):array{
 		$connection = Connection::getInstance()->getConnection();
-
 		$deleteQuery = "DELETE FROM product_tag WHERE PRODUCT_ID = {$id};";
 
 		$setQuery = "";
@@ -453,10 +459,10 @@ class AdminRepository
 		}
 		if ($test)
 		{
-			$test = mysqli_commit($connection);
+			// $test = mysqli_commit($connection);
 			return [];
 		}
-		mysqli_rollback($connection);
+		// mysqli_rollback($connection);
 		return ['error'];
 	}
 }
