@@ -5,6 +5,9 @@
  * @var $totalSum
  * @var $errors
  */
+
+use Eshop\src\Service\PageService;
+
 ?>
 
 <div class="order-content">
@@ -34,8 +37,8 @@
 				<h3>Ваш заказ</h3>
 				<?php foreach ($products as $id => $product): ?>
 				<div class="product-title">
-					<?=$product['artist'] . ' -'?>
-					<?=$product['name']?>
+					<?=PageService::safe($product['artist']) . ' -'?>
+					<?=PageService::safe($product['name'])?>
 				</div>
 				<div class="count-price">
 					<div class="count"><?=$product['qty'] . ' шт.'?></div>

@@ -36,4 +36,9 @@ class PageService
 		}
 		return $text;
 	}
+
+	public static function safe(string $value): string
+	{
+		return htmlspecialchars($value, ENT_QUOTES);
+	}
 }
