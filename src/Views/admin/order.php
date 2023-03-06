@@ -14,6 +14,8 @@
 </head>
 
 <body>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
 <div class="admin-table-container">
 
 	<div class="image-header">
@@ -102,8 +104,12 @@
 			<td class="table-td">
 				<div class="cell-content-div">
 					<div class="cell-button-div">
-						<a href = "/admin/order/delete/<?= $order['ID'] ?>/" class="btn delete-button danger-button">Удалить</a>
+<!--						<a href = "/admin/order/delete/--><?//= $order['ID'] ?><!--/" class="btn delete-button danger-button">Удалить</a>-->
+						<button class="btn delete-button danger-button"
+								onclick="openSubmitModal('/admin/order/delete/<?= $order['ID'] ?>/')"> Удалить
+						</button>
 					</div>
+
 				</div>
 			</td>
 			</tr>
@@ -123,4 +129,9 @@
 		<a href="/admin" class="image-button"> Вернуться на главную </a>
 	</div>
 </div>
+
+
+	<script src="/js/image_script.js"></script>
 </body>
+
+</html>

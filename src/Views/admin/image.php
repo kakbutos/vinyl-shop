@@ -53,7 +53,10 @@ use Eshop\src\Service\PageService;
 						</div>
 						<div class="image-action-container">
 							<a href="/admin/image/isMain/<?= $image->getId() ?>/" class="image-button"> Сделать основным </a>
-							<a href="/admin/image/delete/<?= $image->getId() ?>/" class="image-button"> Удалить </a>
+							<button class="image-button"
+									onclick="openSubmitModal('/admin/image/delete/<?= $image->getId() ?>/')"> Удалить
+							</button>
+
 						</div>
 					</div>
 				</div>
