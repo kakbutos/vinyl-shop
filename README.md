@@ -1,4 +1,5 @@
-<img alt="img.png" height="100" src="C:\OSPanel\domains\eshop\public\assets\icon\vinil.png" width="100"/>
+Репозиторий для задач второго модуля Битрикс24
+
 <H1>Интернет-магазин виниловых пластинок</H1>
 
 <h2>Требования к ПО</h2>
